@@ -28,6 +28,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
+     Route::get('about-intro', 'AboutIntroController@index')->name('about-intro.index');
+    Route::post('about-intro', 'AboutIntroController@update')->name('about-intro.update');
+
+    Route::get('founder-message', 'FounderMessageController@index')->name('founder-message.index');
+    Route::post('founder-message', 'FounderMessageController@update')->name('founder-message.update');
+
+    Route::get('vision-mission', 'VisionMissionController@index')->name('vision-mission.index');
+    Route::post('vision-mission', 'VisionMissionController@update')->name('vision-mission.update');
+
+      Route::delete('attorneys/destroy', 'AttorneyController@massDestroy')->name('attorneys.massDestroy');
+    Route::resource('attorneys', 'AttorneyController');
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -39,4 +50,10 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
     }
 });
+
+// Frontend routes
+
+Route::get('/our-team', [App\Http\Controllers\Frontend\TeamController::class, 'index'])->name('frontend.team'); 
+Route::get('/about', [App\Http\Controllers\Frontend\AboutController::class, 'index'])->name('frontend.about'); 
+
 

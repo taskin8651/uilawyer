@@ -1,0 +1,1016 @@
+/* =========================================================
+   RAJPATI & ASSOCIATES - OUR TEAM PAGE CSS
+   Theme: Dark Navy + Gold + White Premium Legal UI
+   Requires: assets/css/style.css
+   ========================================================= */
+
+
+/* BREADCRUMB */
+.team-breadcrumb {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 76% 18%, rgba(209, 169, 61, 0.18), transparent 30%),
+    radial-gradient(circle at 8% 92%, rgba(209, 169, 61, 0.07), transparent 28%),
+    linear-gradient(120deg, #050914 0%, #080d1d 48%, #0b1024 100%);
+  isolation: isolate;
+}
+
+.team-breadcrumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 9, 20, 0.98),
+      rgba(8, 13, 29, 0.90),
+      rgba(10, 15, 34, 0.94)
+    );
+  z-index: -5;
+}
+
+.team-breadcrumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 9, 20, 0.10) 0%,
+      rgba(5, 9, 20, 0.36) 58%,
+      rgba(5, 9, 20, 0.92) 100%
+    );
+  z-index: -4;
+}
+
+.team-breadcrumb-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 70px 70px;
+  opacity: 0.48;
+  animation: teamGridMove 18s linear infinite;
+  z-index: -3;
+}
+
+@keyframes teamGridMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 70px 70px;
+  }
+}
+
+.team-breadcrumb-shine {
+  position: absolute;
+  width: 760px;
+  height: 760px;
+  left: 68%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle, rgba(209, 169, 61, 0.16), transparent 62%);
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: -2;
+  animation: teamShinePulse 5s ease-in-out infinite;
+}
+
+@keyframes teamShinePulse {
+  0%, 100% {
+    opacity: .55;
+    transform: translate(-50%, -50%) scale(.94);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+.team-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .75;
+}
+
+.team-orb-one {
+  width: 250px;
+  height: 250px;
+  right: 8%;
+  top: 18%;
+  border: 1px solid rgba(209, 169, 61, 0.22);
+  animation: teamOrbFloat 7s ease-in-out infinite;
+}
+
+.team-orb-two {
+  width: 160px;
+  height: 160px;
+  left: 8%;
+  bottom: 12%;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  animation: teamOrbRotate 15s linear infinite;
+}
+
+@keyframes teamOrbFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-22px) scale(1.04);
+  }
+}
+
+@keyframes teamOrbRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.team-breadcrumb-card {
+  position: relative;
+  z-index: 4;
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 44px 44px 34px;
+  border-radius: 42px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top right, rgba(209, 169, 61, 0.16), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.07), transparent 34%),
+    rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 42px 130px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(24px);
+  overflow: hidden;
+}
+
+.team-breadcrumb-card::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 32px;
+  border: 1px solid rgba(209, 169, 61, 0.18);
+  pointer-events: none;
+}
+
+.team-breadcrumb-card::after {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  right: -110px;
+  top: -110px;
+  border-radius: 50%;
+  background: rgba(209, 169, 61, 0.12);
+  pointer-events: none;
+}
+
+.team-breadcrumb-badge {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--gold-2);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(16px);
+  margin-bottom: 20px;
+}
+
+.team-breadcrumb h1 {
+  position: relative;
+  z-index: 2;
+  font-family: "Marcellus", serif;
+  font-size: 40px;
+  line-height: 1.04;
+  letter-spacing: -.045em;
+  margin-bottom: 18px;
+  color: #ffffff;
+  text-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+.team-breadcrumb h1 span {
+  color: var(--gold-2);
+  text-shadow: 0 0 28px rgba(209, 169, 61, 0.28);
+}
+
+.team-breadcrumb p {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+  line-height: 1.82;
+  margin: 0 auto 24px;
+}
+
+.team-crumb {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.team-crumb a {
+  color: var(--gold-2);
+}
+
+.team-breadcrumb-stats {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.team-breadcrumb-stats div {
+  padding: 16px 14px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  transition: var(--transition);
+}
+
+.team-breadcrumb-stats div:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.team-breadcrumb-stats strong {
+  display: block;
+  color: var(--gold-2);
+  font-family: "Marcellus", serif;
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.team-breadcrumb-stats span {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+
+/* TEAM INTRO */
+.team-intro-section {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(209,169,61,.12), transparent 32%),
+    linear-gradient(180deg, #f8f9ff, #ffffff);
+}
+
+.team-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr .9fr;
+  gap: 38px;
+  align-items: center;
+}
+
+.team-intro-card,
+.leadership-content-card {
+  position: relative;
+  padding: 36px;
+  border-radius: 36px;
+  background:
+    radial-gradient(circle at top right, rgba(209,169,61,.13), transparent 34%),
+    rgba(255,255,255,.92);
+  border: 1px solid rgba(7,19,63,.09);
+  box-shadow: 0 22px 70px rgba(7,19,63,.08);
+  overflow: hidden;
+}
+
+.team-intro-card::before,
+.leadership-content-card::before {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: -90px;
+  top: -90px;
+  border-radius: 50%;
+  background: rgba(209,169,61,.12);
+  pointer-events: none;
+}
+
+.team-intro-card > *,
+.leadership-content-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.team-intro-card .section-text + .section-text {
+  margin-top: 14px;
+}
+
+.team-intro-points {
+  display: grid;
+  gap: 14px;
+}
+
+.team-intro-point {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 15px;
+  align-items: center;
+  padding: 20px;
+  border-radius: 28px;
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(7,19,63,.09);
+  box-shadow: 0 16px 45px rgba(7,19,63,.055);
+  transition: var(--transition);
+}
+
+.team-intro-point:hover {
+  transform: translateX(8px);
+  box-shadow: var(--shadow);
+  border-color: rgba(209,169,61,.32);
+}
+
+.team-intro-point i {
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  background: var(--court-black);
+  color: var(--gold-2);
+  font-size: 24px;
+}
+
+.team-intro-point strong {
+  display: block;
+  color: var(--court-black);
+  margin-bottom: 5px;
+}
+
+.team-intro-point span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+
+/* LEADERSHIP */
+.leadership-section {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(209,169,61,.12), transparent 32%),
+    #ffffff;
+}
+
+.leadership-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 54px;
+  align-items: center;
+}
+
+.leadership-visual {
+  position: relative;
+  min-height: 560px;
+}
+
+.leadership-photo {
+  position: absolute;
+  inset: 0 36px 0 0;
+  border-radius: 42px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--court-black);
+}
+
+.leadership-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: var(--transition);
+}
+
+.leadership-visual:hover .leadership-photo img {
+  transform: scale(1.06);
+}
+
+.leadership-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7,19,63,.04), rgba(7,19,63,.46)),
+    radial-gradient(circle at 78% 18%, rgba(209,169,61,.28), transparent 34%);
+}
+
+.leadership-floating-card {
+  position: absolute;
+  left: -10px;
+  bottom: 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(320px, 86%);
+  padding: 20px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(209,169,61,.2), transparent 36%),
+    rgba(255,255,255,.92);
+  border: 1px solid rgba(7,19,63,.1);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(22px);
+  animation: teamFloatCard 4.5s ease-in-out infinite;
+}
+
+@keyframes teamFloatCard {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.leadership-floating-card i {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: var(--court-black);
+  color: var(--gold-2);
+  font-size: 22px;
+}
+
+.leadership-floating-card small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+  margin-bottom: 3px;
+}
+
+.leadership-floating-card strong {
+  display: block;
+  color: var(--court-black);
+  font-size: 14px;
+}
+
+.leadership-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 26px 0;
+}
+
+.leadership-meta-grid div {
+  padding: 18px;
+  border-radius: 22px;
+  background: #f8f9ff;
+  border: 1px solid rgba(7,19,63,.08);
+  transition: var(--transition);
+}
+
+.leadership-meta-grid div:hover {
+  transform: translateY(-5px);
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(7,19,63,.08);
+}
+
+.leadership-meta-grid i {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  background: rgba(209,169,61,.14);
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.leadership-meta-grid strong {
+  display: block;
+  color: var(--court-black);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.leadership-meta-grid span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.leadership-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+
+/* ATTORNEYS */
+.attorneys-section {
+  background:
+    radial-gradient(circle at 9% 10%, rgba(209,169,61,.12), transparent 30%),
+    #f8f9ff;
+}
+
+.attorney-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.attorney-card {
+  position: relative;
+  padding: 12px;
+  border-radius: 36px;
+  background:
+    radial-gradient(circle at top right, rgba(209,169,61,.13), transparent 34%),
+    rgba(255,255,255,.92);
+  border: 1px solid rgba(7,19,63,.09);
+  box-shadow: 0 18px 55px rgba(7,19,63,.06);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.attorney-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow);
+  border-color: rgba(209,169,61,.34);
+}
+
+.attorney-photo {
+  position: relative;
+  height: 310px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--court-black);
+}
+
+.attorney-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 42%, rgba(7,19,63,.64)),
+    radial-gradient(circle at 78% 18%, rgba(209,169,61,.18), transparent 34%);
+  opacity: .9;
+}
+
+.attorney-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: var(--transition);
+}
+
+.attorney-card:hover .attorney-photo img {
+  transform: scale(1.07);
+}
+
+.attorney-badge {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.9);
+  color: var(--court-black);
+  font-size: 11px;
+  font-weight: 900;
+  box-shadow: 0 14px 34px rgba(0,0,0,.18);
+}
+
+.attorney-body {
+  padding: 22px 12px 12px;
+}
+
+.attorney-body h3 {
+  font-family: "Marcellus", serif;
+  color: var(--court-black);
+  font-size: 27px;
+  line-height: 1.1;
+  margin-bottom: 5px;
+}
+
+.attorney-designation {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 15px;
+}
+
+.attorney-meta {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.attorney-meta span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4f5879;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.attorney-meta i {
+  color: var(--gold);
+  font-size: 14px;
+}
+
+.attorney-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.attorney-tags span {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(209,169,61,.14);
+  color: #203587;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.attorney-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.attorney-actions a {
+  min-height: 42px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 900;
+  transition: var(--transition);
+}
+
+.profile-btn {
+  background: rgba(209,169,61,.14);
+  color: var(--court-black);
+}
+
+.consult-btn {
+  background: var(--court-black);
+  color: var(--gold-2);
+}
+
+.attorney-actions a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(7,19,63,.12);
+}
+
+
+/* TEAM PRACTICE */
+.team-practice-section {
+  background: #ffffff;
+}
+
+.team-practice-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.team-practice-card {
+  position: relative;
+  min-height: 250px;
+  padding: 28px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top right, rgba(209,169,61,.12), transparent 34%),
+    #f8f9ff;
+  border: 1px solid rgba(7,19,63,.08);
+  box-shadow: 0 16px 45px rgba(7,19,63,.05);
+  transition: var(--transition);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.team-practice-card::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -80px;
+  bottom: -80px;
+  border-radius: 50%;
+  background: rgba(209,169,61,.14);
+  transition: var(--transition);
+  z-index: -1;
+}
+
+.team-practice-card:hover {
+  transform: translateY(-10px);
+  background: #ffffff;
+  box-shadow: var(--shadow);
+  border-color: rgba(209,169,61,.32);
+}
+
+.team-practice-card:hover::after {
+  transform: scale(1.55);
+}
+
+.team-practice-card i {
+  width: 60px;
+  height: 60px;
+  border-radius: 21px;
+  display: grid;
+  place-items: center;
+  background: var(--court-black);
+  color: var(--gold-2);
+  font-size: 25px;
+  margin-bottom: 22px;
+}
+
+.team-practice-card h3 {
+  font-family: "Marcellus", serif;
+  color: var(--court-black);
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.team-practice-card p {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+/* TEAM CTA */
+.team-cta-section {
+  background: #ffffff;
+}
+
+.team-cta-box {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 28px;
+  padding: 54px;
+  border-radius: 42px;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 82% 20%, rgba(209, 169, 61, 0.20), transparent 30%),
+    radial-gradient(circle at 10% 90%, rgba(29, 50, 125, 0.20), transparent 32%),
+    linear-gradient(135deg, #050914, #080d1d 55%, #0b1024);
+  box-shadow: var(--shadow);
+}
+
+.team-cta-box::before {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  right: -220px;
+  top: -220px;
+  border-radius: 50%;
+  border: 1px solid rgba(209, 169, 61, 0.20);
+  animation: teamCtaRotate 16s linear infinite;
+}
+
+@keyframes teamCtaRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.team-cta-box > div {
+  position: relative;
+  z-index: 2;
+}
+
+.team-cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.1);
+  color: var(--gold-2);
+  border: 1px solid rgba(255,255,255,.16);
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+.team-cta-box h2 {
+  max-width: 790px;
+  font-family: "Marcellus", serif;
+  font-size: 32px;
+  line-height: 1.06;
+  letter-spacing: -.04em;
+  margin-bottom: 12px;
+}
+
+.team-cta-box p {
+  max-width: 760px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.78;
+}
+
+.team-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 1120px) {
+  .team-intro-grid,
+  .leadership-grid,
+  .team-cta-box {
+    grid-template-columns: 1fr;
+  }
+
+  .leadership-visual {
+    min-height: 500px;
+  }
+
+  .attorney-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-practice-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-cta-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .team-breadcrumb {
+    min-height: auto;
+    padding: 54px 0 78px;
+  }
+
+  .team-breadcrumb-card {
+    padding: 32px 22px 26px;
+    border-radius: 32px;
+  }
+
+  .team-breadcrumb h1 {
+    font-size: 32px;
+    line-height: 1.08;
+  }
+
+  .team-breadcrumb p {
+    font-size: 14px;
+  }
+
+  .team-breadcrumb-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .team-intro-card,
+  .leadership-content-card {
+    padding: 26px;
+    border-radius: 30px;
+  }
+
+  .team-intro-point {
+    grid-template-columns: 52px 1fr;
+    padding: 18px;
+  }
+
+  .team-intro-point i {
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    font-size: 22px;
+  }
+
+  .leadership-visual {
+    min-height: 420px;
+  }
+
+  .leadership-photo {
+    inset: 0;
+    border-radius: 32px;
+  }
+
+  .leadership-floating-card {
+    left: 14px;
+    bottom: 18px;
+    width: calc(100% - 28px);
+    padding: 18px;
+  }
+
+  .leadership-meta-grid,
+  .attorney-grid,
+  .team-practice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .attorney-photo {
+    height: 330px;
+  }
+
+  .attorney-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .team-cta-box {
+    padding: 28px;
+    border-radius: 32px;
+  }
+
+  .team-cta-box h2 {
+    font-size: 30px;
+  }
+
+  .team-cta-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .team-breadcrumb h1 {
+    font-size: 28px;
+  }
+
+  .team-breadcrumb-card {
+    padding: 28px 18px 22px;
+    border-radius: 28px;
+  }
+
+  .team-intro-card,
+  .leadership-content-card {
+    padding: 22px;
+  }
+
+  .leadership-visual {
+    min-height: 360px;
+  }
+
+  .leadership-floating-card {
+    display: none;
+  }
+
+  .attorney-photo {
+    height: 300px;
+  }
+
+  .attorney-body h3 {
+    font-size: 24px;
+  }
+
+  .team-practice-card {
+    padding: 22px;
+    border-radius: 26px;
+  }
+
+  .team-cta-box h2 {
+    font-size: 27px;
+  }
+}

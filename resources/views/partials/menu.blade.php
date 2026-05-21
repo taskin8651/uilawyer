@@ -108,6 +108,112 @@
             </div>
         @endcan
 
+
+        {{-- ABOUT PAGE MANAGEMENT GROUP --}}
+@can('about_page_management_access')
+    @php
+        $aboutPageActive = request()->is('admin/about-intro*')
+            || request()->is('admin/founder-message*')
+            || request()->is('admin/vision-mission*');
+    @endphp
+
+    <div x-data="{ open: {{ $aboutPageActive ? 'true' : 'false' }} }">
+
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="About Page"
+                class="nav-link nav-group-btn {{ $aboutPageActive ? 'active' : '' }}">
+
+            <div class="nav-group-left">
+                <i class="fas fa-building nav-icon"></i>
+                <span class="nav-label">About Page</span>
+            </div>
+
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            @can('about_intro_access')
+                <a href="{{ route('admin.about-intro.index') }}"
+                   class="sub-link {{ request()->is('admin/about-intro*') ? 'active' : '' }}">
+                    <i class="fas fa-info-circle"></i>
+                    About Intro
+                </a>
+            @endcan
+
+            @can('founder_message_access')
+                <a href="{{ route('admin.founder-message.index') }}"
+                   class="sub-link {{ request()->is('admin/founder-message*') ? 'active' : '' }}">
+                    <i class="fas fa-user-tie"></i>
+                    Founder Message
+                </a>
+            @endcan
+
+            @can('vision_mission_access')
+                <a href="{{ route('admin.vision-mission.index') }}"
+                   class="sub-link {{ request()->is('admin/vision-mission*') ? 'active' : '' }}">
+                    <i class="fas fa-bullseye"></i>
+                    Vision Mission
+                </a>
+            @endcan
+
+            
+
+        </div>
+    </div>
+@endcan
+
+{{-- TEAM MANAGEMENT GROUP --}}
+@can('team_management_access')
+    @php
+        $teamActive = request()->is('admin/attorneys*');
+    @endphp
+
+    <div x-data="{ open: {{ $teamActive ? 'true' : 'false' }} }">
+
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="Team"
+                class="nav-link nav-group-btn {{ $teamActive ? 'active' : '' }}">
+
+            <div class="nav-group-left">
+                <i class="fas fa-users nav-icon"></i>
+                <span class="nav-label">Team Management</span>
+            </div>
+
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            @can('attorney_access')
+                <a href="{{ route('admin.attorneys.index') }}"
+                   class="sub-link {{ request()->is('admin/attorneys*') ? 'active' : '' }}">
+                    <i class="fas fa-user-tie"></i>
+                    Attorneys
+                </a>
+            @endcan
+
+        </div>
+    </div>
+@endcan
         <div class="nav-divider"></div>
 
         <p class="sidebar-section-title compact nav-label">Account</p>
