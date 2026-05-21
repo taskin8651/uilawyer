@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/about.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/articles.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/book-consilation.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/book-consultation.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/contact.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/service-detail.css') }}">

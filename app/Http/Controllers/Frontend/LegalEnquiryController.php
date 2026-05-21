@@ -8,6 +8,10 @@ use App\Models\LegalEnquiry;
 
 class LegalEnquiryController extends Controller
 {
+    public function index()
+    {
+        return view('frontend.book-consultation');
+    }
     public function store(StoreLegalEnquiryRequest $request)
     {
         $data = $request->validated();

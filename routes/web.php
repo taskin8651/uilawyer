@@ -67,4 +67,8 @@ Route::get('/our-team', [App\Http\Controllers\Frontend\TeamController::class, 'i
 Route::get('/our-team/{attorney}', [App\Http\Controllers\Frontend\TeamController::class, 'show'])->name('frontend.attorneys.show');
 Route::get('/about', [App\Http\Controllers\Frontend\AboutController::class, 'index'])->name('frontend.about'); 
 
-Route::get('articles', [App\Http\Controllers\Frontend\ArticlePageController::class, 'index'])->name('frontend.articles.index');
+Route::get('/articles', [App\Http\Controllers\Frontend\ArticlePageController::class, 'index'])->name('frontend.articles.index');
+
+Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('frontend.contact.index');
+Route::get('/book-consultation', [App\Http\Controllers\Frontend\LegalEnquiryController::class, 'index'])->name('frontend.legal-enquiry.index');
+Route::post('/legal-enquiry', [App\Http\Controllers\Frontend\LegalEnquiryController::class, 'store'])->name('frontend.legal-enquiry.store');
