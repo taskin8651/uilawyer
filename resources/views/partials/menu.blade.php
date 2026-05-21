@@ -214,6 +214,71 @@
         </div>
     </div>
 @endcan
+
+{{-- ARTICLE MANAGEMENT GROUP --}}
+@can('article_management_access')
+    @php
+        $articleActive = request()->is('admin/article-categories*')
+            || request()->is('admin/articles*');
+    @endphp
+
+    <div x-data="{ open: {{ $articleActive ? 'true' : 'false' }} }">
+
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="Articles"
+                class="nav-link nav-group-btn {{ $articleActive ? 'active' : '' }}">
+
+            <div class="nav-group-left">
+                <i class="fas fa-newspaper nav-icon"></i>
+                <span class="nav-label">Article Management</span>
+            </div>
+
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            @can('article_category_access')
+                <a href="{{ route('admin.article-categories.index') }}"
+                   class="sub-link {{ request()->is('admin/article-categories*') ? 'active' : '' }}">
+                    <i class="fas fa-folder"></i>
+                    Article Categories
+                </a>
+            @endcan
+
+            @can('article_access')
+                <a href="{{ route('admin.articles.index') }}"
+                   class="sub-link {{ request()->is('admin/articles*') ? 'active' : '' }}">
+                    <i class="fas fa-file-alt"></i>
+                    Articles
+                </a>
+            @endcan
+
+        </div>
+    </div>
+@endcan
+
+{{-- LEGAL ENQUIRY MANAGEMENT --}}
+@can('legal_enquiry_access')
+    <a href="{{ route('admin.legal-enquiries.index') }}"
+       data-tooltip="Legal Enquiries"
+       class="nav-link {{ request()->is('admin/legal-enquiries*') ? 'active' : '' }}">
+
+        <div class="nav-group-left">
+            <i class="fas fa-envelope-open-text nav-icon"></i>
+            <span class="nav-label">Legal Enquiries</span>
+        </div>
+    </a>
+@endcan
         <div class="nav-divider"></div>
 
         <p class="sidebar-section-title compact nav-label">Account</p>

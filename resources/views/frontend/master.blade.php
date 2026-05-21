@@ -17,7 +17,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/about.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/article.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/articles.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/book-consilation.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/contact.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">

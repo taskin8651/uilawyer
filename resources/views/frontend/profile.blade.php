@@ -2,6 +2,17 @@
 
 @extends('frontend.master')
 @section('content')
+@php
+    $profileImage = $attorney->image ?: asset('assets/img/logo2.png');
+    $metaItems = collect($attorney->meta_items ?? [])->filter(fn ($meta) => !empty($meta['text']))->values();
+    $tags = collect($attorney->tags ?? [])->filter()->values();
+    $locationMeta = $metaItems->first(fn ($meta) => str_contains($meta['icon'] ?? '', 'geo'));
+    $experienceMeta = $metaItems->first(fn ($meta) => str_contains($meta['icon'] ?? '', 'award') || str_contains($meta['icon'] ?? '', 'calendar'));
+    $practiceMeta = $metaItems->first(fn ($meta) => str_contains($meta['icon'] ?? '', 'bank'));
+    $location = $locationMeta['text'] ?? 'Patna, Bihar';
+    $experience = $experienceMeta['text'] ?? 'Trusted Since 1999';
+    $practiceFocus = $tags->isNotEmpty() ? $tags->implode(' & ') : ($practiceMeta['text'] ?? 'Litigation & Consultation');
+@endphp
 
   <!-- BREADCRUMB START -->
   <section class="profile-breadcrumb">
@@ -19,36 +30,36 @@
         </span>
 
         <h1>
-          Pramod Rajpati
+          {{ $attorney->name }}
           <span>Profile</span>
         </h1>
 
         <p>
-          Founder of Rajpati & Associates, focused on ethical consultation,
-          practical legal guidance, litigation support and client-first legal assistance.
+          {{ $attorney->designation ?: 'Legal Professional' }} at Rajpati & Associates, focused on ethical consultation,
+          practical legal guidance and client-first legal assistance.
         </p>
 
         <nav class="profile-crumb" aria-label="breadcrumb">
           <a href="index.html">Home</a>
           <i class="bi bi-chevron-right"></i>
-          <a href="our-team.html">Our Team</a>
+          <a href="{{ route('frontend.team') }}">Our Team</a>
           <i class="bi bi-chevron-right"></i>
-          <span>Pramod Rajpati</span>
+          <span>{{ $attorney->name }}</span>
         </nav>
 
         <div class="profile-breadcrumb-stats">
           <div>
-            <strong>Founder</strong>
+            <strong>{{ $attorney->badge ?: 'Profile' }}</strong>
             <span>Leadership Profile</span>
           </div>
 
           <div>
-            <strong>Patna</strong>
+            <strong>{{ $location }}</strong>
             <span>Legal Support Base</span>
           </div>
 
           <div>
-            <strong>Since 1999</strong>
+            <strong>{{ $experience }}</strong>
             <span>Trusted Guidance</span>
           </div>
         </div>
@@ -66,17 +77,21 @@
       <div class="profile-photo-card reveal">
 
         <div class="profile-photo">
-          <img src="https://www.rajpatiandassociates.com/frontend/assets/images/team/pramod-rajpati.jpg" alt="Pramod Rajpati founder profile image">
+          <img src="{{ $profileImage }}" alt="{{ $attorney->name }} attorney profile image">
         </div>
 
         <div class="profile-card-body">
-          <h2>Pramod Rajpati</h2>
-          <p>CEO & Founder</p>
+          <h2>{{ $attorney->name }}</h2>
+          <p>{{ $attorney->designation ?: 'Legal Professional' }}</p>
 
           <div class="profile-mini-meta">
-            <span><i class="bi bi-geo-alt-fill"></i> Patna, Bihar</span>
-            <span><i class="bi bi-bank2"></i> Litigation & Consultation</span>
-            <span><i class="bi bi-award-fill"></i> Best Law Firm Since 1999</span>
+            @forelse($metaItems->take(3) as $meta)
+              <span><i class="{{ $meta['icon'] ?? 'bi bi-check-circle-fill' }}"></i> {{ $meta['text'] }}</span>
+            @empty
+              <span><i class="bi bi-geo-alt-fill"></i> {{ $location }}</span>
+              <span><i class="bi bi-bank2"></i> {{ $practiceFocus }}</span>
+              <span><i class="bi bi-award-fill"></i> {{ $experience }}</span>
+            @endforelse
           </div>
 
           <div class="profile-card-actions">
@@ -98,7 +113,7 @@
 
         <span class="kicker">
           <i class="bi bi-person-check-fill"></i>
-          Founder & Legal Professional
+          {{ $attorney->badge ?: 'Legal Professional' }}
         </span>
 
         <h2 class="section-title">
@@ -106,14 +121,14 @@
         </h2>
 
         <p class="section-text">
-          Pramod Rajpati is associated with the leadership of Rajpati & Associates,
+          {{ $attorney->name }} is associated with Rajpati & Associates,
           a Patna-based legal services firm known for All India Legal Services and legal
           guidance since 1999.
         </p>
 
         <p class="section-text">
-          The profile focuses on practical consultation, ethical communication,
-          court-related support, case understanding, document guidance and clear legal direction.
+          The profile focuses on {{ strtolower($practiceFocus) }}, practical consultation,
+          ethical communication, case understanding, document guidance and clear legal direction.
         </p>
 
         <div class="profile-info-grid">
@@ -121,19 +136,19 @@
           <div>
             <i class="bi bi-person-fill"></i>
             <strong>Designation</strong>
-            <span>CEO & Founder</span>
+            <span>{{ $attorney->designation ?: 'Legal Professional' }}</span>
           </div>
 
           <div>
             <i class="bi bi-geo-alt-fill"></i>
             <strong>Location</strong>
-            <span>Patna, Bihar</span>
+            <span>{{ $location }}</span>
           </div>
 
           <div>
             <i class="bi bi-calendar-check-fill"></i>
             <strong>Experience</strong>
-            <span>Trusted Since 1999</span>
+            <span>{{ $experience }}</span>
           </div>
 
           <div>
@@ -145,12 +160,12 @@
         </div>
 
         <div class="profile-actions">
-          <a href="book-consultation.html" class="btn btn-primary magnetic">
+          <a href="tel:+919431021093" class="btn btn-primary magnetic">
             Book Consultation
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="our-team.html" class="btn btn-dark magnetic">
+          <a href="{{ route('frontend.team') }}" class="btn btn-dark magnetic">
             Back To Team
           </a>
         </div>
@@ -396,29 +411,23 @@
 
       <div class="related-profile-grid">
 
-        <a href="profile-nirbhay-jain.html" class="related-profile-card reveal">
-          <img src="https://rajpatiandassociates.com/storage/63/IMG-20231231-WA0301.jpg" alt="Nirbhay Jain advocate profile">
-          <div>
-            <h3>Nirbhay Jain</h3>
-            <span>Advocate</span>
-          </div>
-        </a>
-
-        <a href="profile-deepshika-paul.html" class="related-profile-card reveal">
-          <img src="https://rajpatiandassociates.com/storage/33/IMG_20220324_100123.jpg" alt="Deepshika Paul advocate profile">
-          <div>
-            <h3>Deepshika Paul</h3>
-            <span>Advocate</span>
-          </div>
-        </a>
-
-        <a href="profile-raj-bardhan.html" class="related-profile-card reveal">
-          <img src="https://rajpatiandassociates.com/storage/26/1712071896654.png" alt="Raj Bardhan advocate profile">
-          <div>
-            <h3>Raj Bardhan</h3>
-            <span>Advocate</span>
-          </div>
-        </a>
+        @forelse($relatedAttorneys as $relatedAttorney)
+          <a href="{{ route('frontend.attorneys.show', $relatedAttorney) }}" class="related-profile-card reveal">
+            <img src="{{ $relatedAttorney->image ?: asset('assets/img/logo2.png') }}" alt="{{ $relatedAttorney->name }} advocate profile">
+            <div>
+              <h3>{{ $relatedAttorney->name }}</h3>
+              <span>{{ $relatedAttorney->designation ?: 'Legal Professional' }}</span>
+            </div>
+          </a>
+        @empty
+          <a href="{{ route('frontend.team') }}" class="related-profile-card reveal">
+            <img src="{{ asset('assets/img/logo2.png') }}" alt="Attorney profiles">
+            <div>
+              <h3>Our Legal Team</h3>
+              <span>View all profiles</span>
+            </div>
+          </a>
+        @endforelse
 
       </div>
 

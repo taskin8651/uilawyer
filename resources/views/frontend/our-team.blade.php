@@ -180,12 +180,12 @@
         </div>
 
         <div class="leadership-actions">
-          <a href="profile.html" class="btn btn-primary magnetic">
+          <a href="{{ $attorneys->first() ? route('frontend.attorneys.show', $attorneys->first()) : route('frontend.team') }}" class="btn btn-primary magnetic">
             View Founder Profile
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="index.html#consultation" class="btn btn-dark magnetic">
+          <a href="/#consultation" class="btn btn-dark magnetic">
             Consult Now
           </a>
         </div>
@@ -221,7 +221,7 @@
     @forelse($attorneys as $attorney)
         <article class="attorney-card reveal">
             <div class="attorney-photo">
-                <img src="{{ $attorney->image ?: asset('frontend/assets/images/default-attorney.jpg') }}"
+                <img src="{{ $attorney->image ?: asset('assets/img/logo2.png') }}"
                      alt="{{ $attorney->name }} attorney profile">
 
                 @if($attorney->badge)
@@ -261,7 +261,7 @@
 
                 <div class="attorney-actions">
                     @if($attorney->profile_button_text)
-                        <a href="{{ $attorney->profile_button_url ?: '#' }}" class="profile-btn">
+                        <a href="{{ route('frontend.attorneys.show', $attorney) }}" class="profile-btn">
                             {{ $attorney->profile_button_text }}
                             <i class="bi bi-arrow-right"></i>
                         </a>
