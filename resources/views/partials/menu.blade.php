@@ -296,9 +296,9 @@
         @endif
 
         {{-- Settings --}}
-        <a href="#"
+        <a href="{{ route('admin.site-settings.index') }}"
            data-tooltip="Settings"
-           class="nav-link">
+           class="nav-link {{ request()->is('admin/site-settings*') ? 'active' : '' }}">
             <i class="fas fa-cog nav-icon"></i>
             <span class="nav-label">Settings</span>
         </a>

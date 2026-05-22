@@ -1,5 +1,8 @@
 @extends('frontend.master')
 @section('content')
+@php
+    $siteSetting = $siteSetting ?? \App\Models\SiteSetting::current();
+@endphp
 
 
     <!-- BREADCRUMB START -->
@@ -62,17 +65,17 @@
 
             <div class="contact-quick-grid">
 
-                <a href="tel:+919431021093" class="contact-quick-card reveal">
+                <a href="{{ $siteSetting->phone_link }}" class="contact-quick-card reveal">
                     <div class="contact-quick-icon">
                         <i class="bi bi-telephone-fill"></i>
                     </div>
                     <div>
                         <strong>Call Now</strong>
-                        <span>+91 94310 21093</span>
+                        <span>{{ $siteSetting->phone }}</span>
                     </div>
                 </a>
 
-                <a href="https://wa.me/919117577770" target="_blank" class="contact-quick-card reveal">
+                <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="contact-quick-card reveal">
                     <div class="contact-quick-icon">
                         <i class="bi bi-whatsapp"></i>
                     </div>
@@ -82,13 +85,13 @@
                     </div>
                 </a>
 
-                <a href="mailto:info@rajpatiandassociates.com" class="contact-quick-card reveal">
+                <a href="mailto:{{ $siteSetting->email }}" class="contact-quick-card reveal">
                     <div class="contact-quick-icon">
                         <i class="bi bi-envelope-fill"></i>
                     </div>
                     <div>
                         <strong>Email Us</strong>
-                        <span>info@rajpatiandassociates.com</span>
+                        <span>{{ $siteSetting->email }}</span>
                     </div>
                 </a>
 
@@ -137,7 +140,7 @@
                             <i class="bi bi-geo-alt-fill"></i>
                             <div>
                                 <strong>Office Address</strong>
-                                <span>Tilak Nagar Road, Navneet Nagar, Rukanpura, Baily Road, Patna, Bihar 800014</span>
+                                <span>{{ $siteSetting->address_full }}</span>
                             </div>
                         </div>
 
@@ -145,7 +148,7 @@
                             <i class="bi bi-telephone-fill"></i>
                             <div>
                                 <strong>Phone Number</strong>
-                                <a href="tel:+919431021093">+91 94310 21093</a>
+                                <a href="{{ $siteSetting->phone_link }}">{{ $siteSetting->phone }}</a>
                             </div>
                         </div>
 
@@ -153,7 +156,7 @@
                             <i class="bi bi-whatsapp"></i>
                             <div>
                                 <strong>WhatsApp Consultation</strong>
-                                <a href="https://wa.me/919117577770" target="_blank">+91 91175 77770</a>
+                                <a href="{{ $siteSetting->whatsapp_link }}" target="_blank">{{ $siteSetting->whatsapp }}</a>
                             </div>
                         </div>
 
@@ -161,7 +164,7 @@
                             <i class="bi bi-envelope-fill"></i>
                             <div>
                                 <strong>Email Address</strong>
-                                <a href="mailto:info@rajpatiandassociates.com">info@rajpatiandassociates.com</a>
+                                <a href="mailto:{{ $siteSetting->email }}">{{ $siteSetting->email }}</a>
                             </div>
                         </div>
 
@@ -169,19 +172,19 @@
                             <i class="bi bi-clock-fill"></i>
                             <div>
                                 <strong>Office Hours</strong>
-                                <span>Monday - Saturday, Consultation by appointment</span>
+                                <span>{{ $siteSetting->office_hours }}</span>
                             </div>
                         </div>
 
                     </div>
 
                     <div class="contact-action-row">
-                        <a href="tel:+919431021093" class="btn btn-primary magnetic">
+                        <a href="{{ $siteSetting->phone_link }}" class="btn btn-primary magnetic">
                             <i class="bi bi-telephone-fill"></i>
                             Call Now
                         </a>
 
-                        <a href="https://wa.me/919117577770" target="_blank" class="btn btn-dark magnetic">
+                        <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="btn btn-dark magnetic">
                             <i class="bi bi-whatsapp"></i>
                             WhatsApp Us
                         </a>
@@ -334,7 +337,7 @@
                 </h2>
 
                 <p class="section-text">
-                    Visit Rajpati & Associates at Tilak Nagar Road, Navneet Nagar, Rukanpura, Baily Road, Patna.
+                    Visit {{ $siteSetting->site_name }} at {{ $siteSetting->address_full }}.
                 </p>
             </div>
 
@@ -342,18 +345,18 @@
 
                 <div class="map-glass-card">
                     <i class="bi bi-geo-alt-fill"></i>
-                    <h3>Rajpati & Associates</h3>
-                    <p>Tilak Nagar Road, Navneet Nagar, Rukanpura, Baily Road, Patna, Bihar 800014</p>
+                    <h3>{{ $siteSetting->map_title }}</h3>
+                    <p>{{ $siteSetting->address_full }}</p>
 
-                    <a href="https://www.google.com/maps/search/?api=1&query=Tilak+Nagar+Road+Navneet+Nagar+Rukanpura+Baily+Road+Patna+Bihar+800014"
+                    <a href="{{ $siteSetting->map_direction_url }}"
                         target="_blank">
                         Open Direction
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
 
-                <iframe title="Rajpati & Associates Office Location Map"
-                    src="https://www.google.com/maps?q=Tilak%20Nagar%20Road%20Navneet%20Nagar%20Rukanpura%20Baily%20Road%20Patna%20Bihar%20800014&output=embed"
+                <iframe title="{{ $siteSetting->site_name }} Office Location Map"
+                    src="{{ $siteSetting->map_embed_url }}"
                     loading="lazy">
                 </iframe>
 
@@ -409,12 +412,12 @@
                 </p>
 
                 <div class="appointment-actions">
-                    <a href="tel:+919431021093" class="btn btn-glass magnetic">
+                    <a href="{{ $siteSetting->phone_link }}" class="btn btn-glass magnetic">
                         <i class="bi bi-telephone-fill"></i>
                         Call Now
                     </a>
 
-                    <a href="https://wa.me/919117577770" target="_blank" class="btn btn-primary magnetic">
+                    <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
                         WhatsApp
                     </a>
@@ -441,7 +444,7 @@
                 </h2>
 
                 <p class="section-text">
-                    Quick answers about contacting Rajpati & Associates and submitting your legal enquiry.
+                    Quick answers about contacting {{ $siteSetting->site_name }} and submitting your legal enquiry.
                 </p>
             </div>
 
@@ -487,7 +490,7 @@
                     </span>
 
                     <h2>
-                        Speak With Rajpati & Associates For Confidential Legal Guidance.
+                        Speak With {{ $siteSetting->site_name }} For Confidential Legal Guidance.
                     </h2>
 
                     <p>
@@ -497,12 +500,12 @@
                 </div>
 
                 <div class="contact-cta-actions">
-                    <a href="tel:+919431021093" class="btn btn-glass magnetic">
+                    <a href="{{ $siteSetting->phone_link }}" class="btn btn-glass magnetic">
                         <i class="bi bi-telephone-fill"></i>
                         Call Now
                     </a>
 
-                    <a href="https://wa.me/919117577770" target="_blank" class="btn btn-primary magnetic">
+                    <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
                         WhatsApp Us
                     </a>

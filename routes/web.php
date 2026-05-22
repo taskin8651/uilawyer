@@ -37,6 +37,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('vision-mission', 'VisionMissionController@index')->name('vision-mission.index');
     Route::post('vision-mission', 'VisionMissionController@update')->name('vision-mission.update');
 
+    Route::get('site-settings', 'SiteSettingController@index')->name('site-settings.index');
+    Route::post('site-settings', 'SiteSettingController@update')->name('site-settings.update');
+
       Route::delete('attorneys/destroy', 'AttorneyController@massDestroy')->name('attorneys.massDestroy');
     Route::resource('attorneys', 'AttorneyController');
 
