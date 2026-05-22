@@ -66,7 +66,7 @@
       <div class="topbar-right">
         <a href="{{ $siteSetting->phone_link }}"><i class="bi bi-telephone-fill"></i> {{ $siteSetting->phone }}</a>
         <a href="{{ $siteSetting->whatsapp_link }}" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp</a>
-        <a href="#"><i class="bi bi-briefcase-fill"></i> Career</a>
+        <a href="{{ route('frontend.career-application.index') }}"><i class="bi bi-briefcase-fill"></i> Career</a>
       </div>
     </div>
   </div>
@@ -81,32 +81,107 @@
       <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
       <div class="navbar-shell" id="navbarShell">
-        <nav class="navbar">
-          <a href="{{ url('/') }}" class="active">Home</a>
-          <div class="nav-drop" id="navDrop">
-            <button type="button" class="nav-drop-btn">Practice Areas <i class="bi bi-chevron-down"></i></button>
-            <div class="mega-menu">
-              @foreach($practiceAreaCategories as $practiceArea)
+       @php
+    $isHomeActive = request()->routeIs('frontend.index');
+
+    $isPracticeActive = request()->routeIs(
+        'frontend.practice-area.index',
+        'frontend.practice-areas.show',
+        'frontend.practice-services.show'
+    );
+
+    $isAboutActive = request()->routeIs('frontend.about');
+
+    $isTeamActive = request()->routeIs(
+        'frontend.team',
+        'frontend.attorneys.show'
+    );
+
+    $isArticleActive = request()->routeIs(
+        'frontend.articles.index',
+        'frontend.articles.show'
+    );
+
+    $isCareerActive = request()->routeIs(
+        'frontend.career-application.index'
+    );
+
+    $isContactActive = request()->routeIs(
+        'frontend.contact.index',
+        'frontend.legal-enquiry.index'
+    );
+@endphp
+
+<nav class="navbar">
+
+    <a href="{{ route('frontend.index') }}" class="{{ $isHomeActive ? 'active' : '' }}">
+        Home
+    </a>
+
+    <div class="nav-drop {{ $isPracticeActive ? 'active' : '' }}" id="navDrop">
+        <button type="button" class="nav-drop-btn {{ $isPracticeActive ? 'active' : '' }}">
+            Practice Areas
+            <i class="bi bi-chevron-down"></i>
+        </button>
+
+        <div class="mega-menu">
+            @forelse($practiceAreaCategories as $practiceArea)
                 @php
-                  $practiceMeta = $practiceAreaMeta[$practiceArea->slug] ?? [
-                    'icon' => $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill',
-                    'text' => 'Legal consultation and case support for ' . strtolower($practiceArea->title) . ' matters.',
-                    'anchor' => $practiceArea->slug,
-                  ];
+                    $practiceMeta = $practiceAreaMeta[$practiceArea->slug] ?? [
+                        'icon' => $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill',
+                        'text' => 'Legal consultation and case support for ' . strtolower($practiceArea->title) . ' matters.',
+                        'anchor' => $practiceArea->slug,
+                    ];
+
+                    $isCurrentPractice =
+                        request()->get('category') === $practiceArea->slug
+                        || request()->is('practice-areas/' . $practiceArea->slug);
                 @endphp
-                <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}" class="mega-card">
-                  <i class="{{ $practiceArea->icon_class ?: $practiceMeta['icon'] }}"></i>
-                  <strong>{{ $practiceArea->title }}</strong>
-                  <span>{{ $practiceArea->short_description ?: $practiceMeta['text'] }}</span>
+
+                <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}"
+                   class="mega-card {{ $isCurrentPractice ? 'active' : '' }}">
+
+                    <i class="{{ $practiceArea->icon_class ?: $practiceMeta['icon'] }}"></i>
+
+                    <strong>
+                        {{ $practiceArea->title }}
+                    </strong>
+
+                    <span>
+                        {{ $practiceArea->short_description ?: $practiceMeta['text'] }}
+                    </span>
                 </a>
-              @endforeach
-            </div>
-          </div>
-          <a href="{{ route('frontend.about') }}">About</a>
-          <a href="{{ route('frontend.team') }}">Our Team</a>
-          <a href="{{ route('frontend.articles.index') }}">Articles</a>
-          <a href="{{ route('frontend.contact.index') }}">Contact</a>
-        </nav>
+            @empty
+                <a href="{{ route('frontend.practice-area.index') }}" class="mega-card">
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+                    <strong>Practice Areas</strong>
+                    <span>Explore legal services and consultation categories.</span>
+                </a>
+            @endforelse
+        </div>
+    </div>
+
+    <a href="{{ route('frontend.about') }}" class="{{ $isAboutActive ? 'active' : '' }}">
+        About
+    </a>
+
+    <a href="{{ route('frontend.team') }}" class="{{ $isTeamActive ? 'active' : '' }}">
+        Our Team
+    </a>
+
+    <a href="{{ route('frontend.articles.index') }}" class="{{ $isArticleActive ? 'active' : '' }}">
+        Articles
+    </a>
+
+    <a href="{{ route('frontend.career-application.index') }}" class="{{ $isCareerActive ? 'active' : '' }}">
+        Career
+    </a>
+
+    <a href="{{ route('frontend.contact.index') }}" class="{{ $isContactActive ? 'active' : '' }}">
+        Contact
+    </a>
+
+</nav>
       </div>
 
       <div class="header-actions">
