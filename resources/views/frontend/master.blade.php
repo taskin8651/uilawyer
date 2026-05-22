@@ -4,6 +4,19 @@
   @php
     $siteSetting = \App\Models\SiteSetting::current();
     $siteLogo = $siteSetting->logo ?: asset('assets/img/logo2.png');
+    $practiceAreaMeta = [
+      'family-law' => ['icon' => 'bi bi-heartbreak', 'text' => 'Divorce, custody, maintenance and domestic violence matters.', 'anchor' => 'family-law'],
+      'criminal-law' => ['icon' => 'bi bi-shield-lock', 'text' => 'Bail, FIR, trial cases, NDPS and economic offences.', 'anchor' => 'criminal-law'],
+      'civil-law' => ['icon' => 'bi bi-bank', 'text' => 'Civil disputes, recovery, probate and court process support.', 'anchor' => 'civil-law'],
+      'property-law' => ['icon' => 'bi bi-house-lock-fill', 'text' => 'Property disputes, title documents, inheritance and possession matters.', 'anchor' => 'civil-law'],
+      'muslim-law' => ['icon' => 'bi bi-people-fill', 'text' => 'Khula, Mubaraat and personal law guidance.', 'anchor' => 'muslim-law'],
+      'service-matters' => ['icon' => 'bi bi-person-vcard', 'text' => 'Employment disputes and departmental proceedings.', 'anchor' => 'service-matters'],
+      'cyber-law' => ['icon' => 'bi bi-globe2', 'text' => 'Cyber crime, cyber fraud and digital evidence support.', 'anchor' => 'cyber-law'],
+      'legal-notice' => ['icon' => 'bi bi-file-earmark-text', 'text' => 'Legal notice drafting, replies and cheque bounce support.', 'anchor' => 'legal-notice'],
+    ];
+    $practiceAreaCategories = \App\Models\PracticeArea::where('status', 1)
+      ->orderBy('sort_order')
+      ->get();
   @endphp
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,6 +47,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/book-consultation.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/contact.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/practice-area.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/service-detail.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/our-team.css') }}">
 
@@ -71,23 +85,20 @@
           <div class="nav-drop" id="navDrop">
             <button type="button" class="nav-drop-btn">Practice Areas <i class="bi bi-chevron-down"></i></button>
             <div class="mega-menu">
-              <a href="service-divorce-lawyer.html" class="mega-card"><i class="bi bi-heartbreak"></i><strong>Family
-                  Law</strong><span>Divorce,
-                  custody, maintenance and domestic violence matters.</span></a>
-              <a href="service-divorce-lawyer.html" class="mega-card"><i class="bi bi-shield-lock"></i><strong>Criminal
-                  Law</strong><span>Bail,
-                  FIR, trial cases, NDPS and economic offences.</span></a>
-              <a href="service-divorce-lawyer.html" class="mega-card"><i class="bi bi-bank"></i><strong>Civil
-                  Law</strong><span>Property,
-                  succession, probate, inheritance and recovery.</span></a>
-              <a href="service-divorce-lawyer.html" class="mega-card"><i class="bi bi-people-fill"></i><strong>Muslim
-                  Law</strong><span>Khula,
-                  Mubara’at and personal law guidance.</span></a>
-              <a href="service-divorce-lawyer.html" class="mega-card"><i class="bi bi-person-vcard"></i><strong>Service
-                  Matters</strong><span>Employment disputes and departmental proceedings.</span></a>
-              <a href="service-divorce-lawyer.html" class="mega-card"><i class="bi bi-globe2"></i><strong>Cyber
-                  Law</strong><span>Cyber crime,
-                  cyber fraud and digital evidence support.</span></a>
+              @foreach($practiceAreaCategories as $practiceArea)
+                @php
+                  $practiceMeta = $practiceAreaMeta[$practiceArea->slug] ?? [
+                    'icon' => $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill',
+                    'text' => 'Legal consultation and case support for ' . strtolower($practiceArea->title) . ' matters.',
+                    'anchor' => $practiceArea->slug,
+                  ];
+                @endphp
+                <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}" class="mega-card">
+                  <i class="{{ $practiceArea->icon_class ?: $practiceMeta['icon'] }}"></i>
+                  <strong>{{ $practiceArea->title }}</strong>
+                  <span>{{ $practiceArea->short_description ?: $practiceMeta['text'] }}</span>
+                </a>
+              @endforeach
             </div>
           </div>
           <a href="{{ route('frontend.about') }}">About</a>
@@ -128,11 +139,14 @@
         <div>
           <h4>Practice Areas</h4>
           <div class="footer-links">
-            <a href="#">Divorce Lawyer</a>
-            <a href="#">Criminal Lawyer</a>
-            <a href="#">Civil Lawyer</a>
-            <a href="#">Muslim Lawyer</a>
-            <a href="#">Cyber Crime Lawyer</a>
+            @foreach($practiceAreaCategories as $practiceArea)
+              @php
+                $practiceMeta = $practiceAreaMeta[$practiceArea->slug] ?? ['anchor' => $practiceArea->slug];
+              @endphp
+              <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}">
+                {{ $practiceArea->title }}
+              </a>
+            @endforeach
           </div>
         </div>
 

@@ -267,6 +267,19 @@
     </div>
 @endcan
 
+{{-- PRACTICE AREA MANAGEMENT --}}
+@can('practice_area_access')
+    <a href="{{ route('admin.practice-areas.index') }}"
+       data-tooltip="Practice Areas"
+       class="nav-link {{ request()->is('admin/practice-areas*') ? 'active' : '' }}">
+
+        <div class="nav-group-left">
+            <i class="fas fa-scale-balanced nav-icon"></i>
+            <span class="nav-label">Practice Areas</span>
+        </div>
+    </a>
+@endcan
+
 {{-- LEGAL ENQUIRY MANAGEMENT --}}
 @can('legal_enquiry_access')
     <a href="{{ route('admin.legal-enquiries.index') }}"

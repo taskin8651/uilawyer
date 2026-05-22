@@ -1,0 +1,808 @@
+/* =========================================================
+   RAJPATI & ASSOCIATES - PRACTICE AREAS PAGE CSS
+   Theme: Dark Navy + Gold + White Premium Legal UI
+   Requires: assets/css/style.css
+   ========================================================= */
+
+
+/* BREADCRUMB */
+.practice-breadcrumb {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 76% 18%, rgba(209, 169, 61, 0.18), transparent 30%),
+    radial-gradient(circle at 8% 92%, rgba(209, 169, 61, 0.07), transparent 28%),
+    linear-gradient(120deg, #050914 0%, #080d1d 48%, #0b1024 100%);
+  isolation: isolate;
+}
+
+.practice-breadcrumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 9, 20, 0.98),
+      rgba(8, 13, 29, 0.90),
+      rgba(10, 15, 34, 0.94)
+    );
+  z-index: -5;
+}
+
+.practice-breadcrumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 9, 20, 0.10) 0%,
+      rgba(5, 9, 20, 0.36) 58%,
+      rgba(5, 9, 20, 0.92) 100%
+    );
+  z-index: -4;
+}
+
+.practice-breadcrumb-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 70px 70px;
+  opacity: 0.48;
+  animation: practiceGridMove 18s linear infinite;
+  z-index: -3;
+}
+
+@keyframes practiceGridMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 70px 70px;
+  }
+}
+
+.practice-breadcrumb-shine {
+  position: absolute;
+  width: 760px;
+  height: 760px;
+  left: 68%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle, rgba(209, 169, 61, 0.16), transparent 62%);
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: -2;
+  animation: practiceShinePulse 5s ease-in-out infinite;
+}
+
+@keyframes practiceShinePulse {
+  0%, 100% {
+    opacity: .55;
+    transform: translate(-50%, -50%) scale(.94);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+.practice-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .75;
+}
+
+.practice-orb-one {
+  width: 250px;
+  height: 250px;
+  right: 8%;
+  top: 18%;
+  border: 1px solid rgba(209, 169, 61, 0.22);
+  animation: practiceOrbFloat 7s ease-in-out infinite;
+}
+
+.practice-orb-two {
+  width: 160px;
+  height: 160px;
+  left: 8%;
+  bottom: 12%;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  animation: practiceOrbRotate 15s linear infinite;
+}
+
+@keyframes practiceOrbFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-22px) scale(1.04);
+  }
+}
+
+@keyframes practiceOrbRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.practice-breadcrumb-card {
+  position: relative;
+  z-index: 4;
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 44px 44px 34px;
+  border-radius: 42px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top right, rgba(209, 169, 61, 0.16), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.07), transparent 34%),
+    rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 42px 130px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(24px);
+  overflow: hidden;
+}
+
+.practice-breadcrumb-card::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 32px;
+  border: 1px solid rgba(209, 169, 61, 0.18);
+  pointer-events: none;
+}
+
+.practice-breadcrumb-card::after {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  right: -110px;
+  top: -110px;
+  border-radius: 50%;
+  background: rgba(209, 169, 61, 0.12);
+  pointer-events: none;
+}
+
+.practice-breadcrumb-badge {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--gold-2);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(16px);
+  margin-bottom: 20px;
+}
+
+.practice-breadcrumb h1 {
+  position: relative;
+  z-index: 2;
+  font-family: "Marcellus", serif;
+  font-size: 40px;
+  line-height: 1.04;
+  letter-spacing: -.045em;
+  margin-bottom: 18px;
+  color: #ffffff;
+  text-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+.practice-breadcrumb h1 span {
+  color: var(--gold-2);
+  text-shadow: 0 0 28px rgba(209, 169, 61, 0.28);
+}
+
+.practice-breadcrumb p {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+  line-height: 1.82;
+  margin: 0 auto 24px;
+}
+
+.practice-crumb {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.practice-crumb a {
+  color: var(--gold-2);
+}
+
+.practice-breadcrumb-stats {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.practice-breadcrumb-stats div {
+  padding: 16px 14px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  transition: var(--transition);
+}
+
+.practice-breadcrumb-stats div:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.practice-breadcrumb-stats strong {
+  display: block;
+  color: var(--gold-2);
+  font-family: "Marcellus", serif;
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.practice-breadcrumb-stats span {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+
+/* INTRO */
+.practice-intro-section {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(209,169,61,.12), transparent 32%),
+    linear-gradient(180deg, #f8f9ff, #ffffff);
+}
+
+.practice-intro-grid {
+  display: grid;
+  grid-template-columns: 1.08fr .92fr;
+  gap: 34px;
+  align-items: center;
+}
+
+.practice-intro-card,
+.practice-side-card {
+  position: relative;
+  padding: 36px;
+  border-radius: 36px;
+  background:
+    radial-gradient(circle at top right, rgba(209,169,61,.13), transparent 34%),
+    rgba(255,255,255,.94);
+  border: 1px solid rgba(7,19,63,.09);
+  box-shadow: 0 22px 70px rgba(7,19,63,.08);
+  overflow: hidden;
+}
+
+.practice-intro-card::before,
+.practice-side-card::before {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: -90px;
+  top: -90px;
+  border-radius: 50%;
+  background: rgba(209,169,61,.12);
+  pointer-events: none;
+}
+
+.practice-intro-card > *,
+.practice-side-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.practice-intro-card .section-text + .section-text {
+  margin-top: 14px;
+}
+
+.practice-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.practice-side-card {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 82% 20%, rgba(209,169,61,.20), transparent 30%),
+    radial-gradient(circle at 10% 90%, rgba(29,50,125,.20), transparent 32%),
+    linear-gradient(135deg, #050914, #080d1d 55%, #0b1024);
+}
+
+.practice-side-card > i {
+  width: 72px;
+  height: 72px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  background: rgba(209,169,61,.16);
+  color: var(--gold-2);
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+.practice-side-card h3 {
+  font-family: "Marcellus", serif;
+  font-size: 34px;
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+
+.practice-side-card p {
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+
+.practice-side-list {
+  display: grid;
+  gap: 12px;
+}
+
+.practice-side-list span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,.84);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.practice-side-list i {
+  color: var(--gold-2);
+}
+
+
+/* FILTER */
+.practice-filter-section {
+  padding: 24px 0;
+  background: #ffffff;
+}
+
+.practice-filter-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 18px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at top right, rgba(209,169,61,.11), transparent 34%),
+    #f8f9ff;
+  border: 1px solid rgba(7,19,63,.08);
+  box-shadow: 0 16px 45px rgba(7,19,63,.05);
+}
+
+.practice-filter-wrap a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 15px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.86);
+  color: var(--court-black);
+  border: 1px solid rgba(7,19,63,.08);
+  font-size: 12px;
+  font-weight: 900;
+  transition: var(--transition);
+}
+
+.practice-filter-wrap a.active,
+.practice-filter-wrap a:hover {
+  background: linear-gradient(135deg, var(--gold), var(--gold-2));
+  color: #07133f;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(209,169,61,.22);
+}
+
+
+/* CATEGORY SECTIONS */
+.practice-category-section {
+  background: #ffffff;
+}
+
+.practice-category-section.alt-bg,
+.other-services-section,
+.practice-process-section {
+  background:
+    radial-gradient(circle at 9% 10%, rgba(209,169,61,.12), transparent 30%),
+    #f8f9ff;
+}
+
+.practice-category-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 36px;
+}
+
+.category-head-btn {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 17px;
+  border-radius: 999px;
+  background: var(--court-black);
+  color: var(--gold-2);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.category-head-btn:hover {
+  background: linear-gradient(135deg, var(--gold), var(--gold-2));
+  color: #07133f;
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(209,169,61,.22);
+}
+
+.practice-service-grid,
+.other-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.practice-service-grid.small-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.practice-service-card,
+.other-service-card,
+.practice-process-card {
+  position: relative;
+  min-height: 260px;
+  padding: 28px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top right, rgba(209,169,61,.12), transparent 34%),
+    rgba(255,255,255,.94);
+  border: 1px solid rgba(7,19,63,.08);
+  box-shadow: 0 16px 45px rgba(7,19,63,.05);
+  transition: var(--transition);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.practice-service-card::after,
+.other-service-card::after,
+.practice-process-card::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -80px;
+  bottom: -80px;
+  border-radius: 50%;
+  background: rgba(209,169,61,.14);
+  transition: var(--transition);
+  z-index: -1;
+}
+
+.practice-service-card:hover,
+.other-service-card:hover,
+.practice-process-card:hover {
+  transform: translateY(-10px);
+  background: #ffffff;
+  box-shadow: var(--shadow);
+  border-color: rgba(209,169,61,.32);
+}
+
+.practice-service-card:hover::after,
+.other-service-card:hover::after,
+.practice-process-card:hover::after {
+  transform: scale(1.55);
+}
+
+.practice-service-card > i,
+.other-service-card > i,
+.practice-process-card > i {
+  width: 60px;
+  height: 60px;
+  border-radius: 21px;
+  display: grid;
+  place-items: center;
+  background: var(--court-black);
+  color: var(--gold-2);
+  font-size: 25px;
+  margin-bottom: 22px;
+  transition: var(--transition);
+}
+
+.practice-service-card:hover > i,
+.other-service-card:hover > i,
+.practice-process-card:hover > i {
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.practice-service-card h3,
+.other-service-card h3,
+.practice-process-card h3 {
+  font-family: "Marcellus", serif;
+  color: var(--court-black);
+  font-size: 25px;
+  line-height: 1.14;
+  margin-bottom: 10px;
+}
+
+.practice-service-card p,
+.other-service-card p,
+.practice-process-card p {
+  color: var(--muted);
+  line-height: 1.72;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.practice-service-card span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--court-black);
+  font-size: 12px;
+  font-weight: 900;
+  transition: var(--transition);
+}
+
+.practice-service-card:hover span {
+  color: var(--gold);
+}
+
+
+/* PROCESS */
+.practice-process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.practice-process-card > span {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  color: rgba(7,19,63,.09);
+  font-size: 46px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+
+/* FINAL CTA */
+.practice-final-cta-section {
+  background: #ffffff;
+}
+
+.practice-final-cta-box {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 28px;
+  padding: 54px;
+  border-radius: 42px;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 82% 20%, rgba(209, 169, 61, 0.20), transparent 30%),
+    radial-gradient(circle at 10% 90%, rgba(29, 50, 125, 0.20), transparent 32%),
+    linear-gradient(135deg, #050914, #080d1d 55%, #0b1024);
+  box-shadow: var(--shadow);
+}
+
+.practice-final-cta-box::before {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  right: -220px;
+  top: -220px;
+  border-radius: 50%;
+  border: 1px solid rgba(209, 169, 61, 0.20);
+  animation: practiceCtaRotate 16s linear infinite;
+}
+
+@keyframes practiceCtaRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.practice-final-cta-box > div {
+  position: relative;
+  z-index: 2;
+}
+
+.practice-final-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.1);
+  color: var(--gold-2);
+  border: 1px solid rgba(255,255,255,.16);
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+.practice-final-cta-box h2 {
+  max-width: 790px;
+  font-family: "Marcellus", serif;
+  font-size: 38px;
+  line-height: 1.06;
+  letter-spacing: -.04em;
+  margin-bottom: 12px;
+}
+
+.practice-final-cta-box p {
+  max-width: 760px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.78;
+}
+
+.practice-final-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 1120px) {
+  .practice-intro-grid,
+  .practice-final-cta-box {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-service-grid,
+  .practice-service-grid.small-grid,
+  .other-service-grid,
+  .practice-process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .practice-final-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .practice-breadcrumb {
+    min-height: auto;
+    padding: 54px 0 78px;
+  }
+
+  .practice-breadcrumb-card {
+    padding: 32px 22px 26px;
+    border-radius: 32px;
+  }
+
+  .practice-breadcrumb h1 {
+    font-size: 32px;
+    line-height: 1.08;
+  }
+
+  .practice-breadcrumb p {
+    font-size: 14px;
+  }
+
+  .practice-breadcrumb-stats,
+  .practice-service-grid,
+  .practice-service-grid.small-grid,
+  .other-service-grid,
+  .practice-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-intro-card,
+  .practice-side-card,
+  .practice-service-card,
+  .other-service-card,
+  .practice-process-card {
+    padding: 26px;
+    border-radius: 30px;
+  }
+
+  .practice-side-card h3 {
+    font-size: 28px;
+  }
+
+  .practice-category-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .category-head-btn {
+    width: 100%;
+  }
+
+  .practice-final-cta-box {
+    padding: 28px;
+    border-radius: 32px;
+  }
+
+  .practice-final-cta-box h2 {
+    font-size: 30px;
+  }
+
+  .practice-final-actions .btn,
+  .practice-intro-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .practice-breadcrumb h1 {
+    font-size: 28px;
+  }
+
+  .practice-breadcrumb-card {
+    padding: 28px 18px 22px;
+    border-radius: 28px;
+  }
+
+  .practice-intro-card,
+  .practice-side-card,
+  .practice-service-card,
+  .other-service-card,
+  .practice-process-card {
+    padding: 22px;
+  }
+
+  .practice-service-card h3,
+  .other-service-card h3,
+  .practice-process-card h3 {
+    font-size: 22px;
+  }
+
+  .practice-final-cta-box h2 {
+    font-size: 27px;
+  }
+}

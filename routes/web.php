@@ -49,6 +49,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('articles/destroy', 'ArticleController@massDestroy')->name('articles.massDestroy');
     Route::resource('articles', 'ArticleController');
 
+    Route::delete('practice-areas/destroy', 'PracticeAreaController@massDestroy')->name('practice-areas.massDestroy');
+    Route::resource('practice-areas', 'PracticeAreaController');
+
     Route::delete('legal-enquiries/destroy', 'LegalEnquiryController@massDestroy')->name('legal-enquiries.massDestroy');
     Route::post('legal-enquiries/{legalEnquiry}/status', 'LegalEnquiryController@updateStatus')->name('legal-enquiries.updateStatus');
     Route::resource('legal-enquiries', 'LegalEnquiryController')->only(['index', 'show', 'destroy']);
@@ -69,6 +72,8 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 Route::get('/our-team', [App\Http\Controllers\Frontend\TeamController::class, 'index'])->name('frontend.team'); 
 Route::get('/our-team/{attorney}', [App\Http\Controllers\Frontend\TeamController::class, 'show'])->name('frontend.attorneys.show');
 Route::get('/about', [App\Http\Controllers\Frontend\AboutController::class, 'index'])->name('frontend.about'); 
+Route::get('/practice-area', [App\Http\Controllers\Frontend\PracticeAreaPageController::class, 'index'])->name('frontend.practice-area.index');
+Route::get('/practice-areas/{practiceArea:slug}', [App\Http\Controllers\Frontend\PracticeAreaPageController::class, 'show'])->name('frontend.practice-areas.show');
 
 Route::get('/articles', [App\Http\Controllers\Frontend\ArticlePageController::class, 'index'])->name('frontend.articles.index');
 Route::get('/articles/{article:slug}', [App\Http\Controllers\Frontend\ArticlePageController::class, 'show'])->name('frontend.articles.show');
