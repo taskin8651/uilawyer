@@ -601,3 +601,14 @@
     color: #BE123C;
 }
 
+.ck-editor {
+    width: 100%;
+}
+
+.ck-editor__editable {
+    min-height: 320px;
+    color: #0F172A;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+}

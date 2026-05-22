@@ -309,7 +309,7 @@
                 <textarea name="description"
                           id="description"
                           rows="8"
-                          class="field-input {{ $errors->has('description') ? 'error' : '' }}">{{ old('description', $article->description) }}</textarea>
+                          class="field-input js-ckeditor {{ $errors->has('description') ? 'error' : '' }}">{{ old('description', $article->description) }}</textarea>
             </div>
         </div>
     </div>

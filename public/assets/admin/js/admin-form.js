@@ -109,7 +109,47 @@ function initAdminCheckboxes() {
     });
 }
 
+function initCkEditors() {
+    if (typeof ClassicEditor === 'undefined') return;
+
+    document.querySelectorAll('.js-ckeditor').forEach(textarea => {
+        if (textarea.dataset.ckeditorInitialized === 'true') return;
+
+        textarea.dataset.ckeditorInitialized = 'true';
+
+        ClassicEditor
+            .create(textarea, {
+                toolbar: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    'blockQuote',
+                    '|',
+                    'undo',
+                    'redo'
+                ]
+            })
+            .then(editor => {
+                const form = textarea.closest('form');
+
+                if (form) {
+                    form.addEventListener('submit', function () {
+                        textarea.value = editor.getData();
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('CKEditor initialization failed:', error);
+            });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     initPasswordStrength();
     initAdminCheckboxes();
+    initCkEditors();
 });

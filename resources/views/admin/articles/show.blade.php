@@ -199,7 +199,15 @@
 
                 <p class="meta-small-label">Full Description</p>
                 <div class="detail-value" style="display:block; line-height:1.8;">
-                    {!! nl2br(e($article->description ?? '-')) !!}
+                    @if($article->description)
+                        @if($article->description !== strip_tags($article->description))
+                            {!! $article->description !!}
+                        @else
+                            {!! nl2br(e($article->description)) !!}
+                        @endif
+                    @else
+                        -
+                    @endif
                 </div>
             </div>
         </div>

@@ -293,7 +293,7 @@
                           id="description"
                           rows="8"
                           placeholder="Enter full article detail content"
-                          class="field-input {{ $errors->has('description') ? 'error' : '' }}">{{ old('description') }}</textarea>
+                          class="field-input js-ckeditor {{ $errors->has('description') ? 'error' : '' }}">{{ old('description') }}</textarea>
 
                 @if($errors->has('description'))
                     <p class="field-error">

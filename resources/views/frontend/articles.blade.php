@@ -30,7 +30,7 @@
                 </p>
 
                 <nav class="articles-crumb" aria-label="breadcrumb">
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                     <i class="bi bi-chevron-right"></i>
                     <span>Articles</span>
                 </nav>
@@ -90,20 +90,26 @@
                 </span>
 
                 <form class="article-search-form">
-                    <input type="search" placeholder="Search divorce, bail, property, cyber crime..."
+                    <input type="search"
+                        name="search"
+                        value="{{ $search }}"
+                        placeholder="Search divorce, bail, property, cyber crime..."
                         aria-label="Search legal articles">
-                    <button type="button">
+                    @if($activeCategory)
+                        <input type="hidden" name="category" value="{{ $activeCategory }}">
+                    @endif
+                    <button type="submit">
                         Search
                         <i class="bi bi-arrow-right"></i>
                     </button>
                 </form>
 
                 <div class="popular-tags">
-                    <a href="#">Divorce Law</a>
-                    <a href="#">Bail</a>
-                    <a href="#">Legal Notice</a>
-                    <a href="#">Property</a>
-                    <a href="#">Cyber Crime</a>
+                    <a href="{{ route('frontend.articles.index', ['search' => 'Divorce Law']) }}">Divorce Law</a>
+                    <a href="{{ route('frontend.articles.index', ['search' => 'Bail']) }}">Bail</a>
+                    <a href="{{ route('frontend.articles.index', ['search' => 'Legal Notice']) }}">Legal Notice</a>
+                    <a href="{{ route('frontend.articles.index', ['search' => 'Property']) }}">Property</a>
+                    <a href="{{ route('frontend.articles.index', ['search' => 'Cyber Crime']) }}">Cyber Crime</a>
                 </div>
             </div>
 
@@ -123,7 +129,7 @@
             </a>
 
             @foreach($articleCategories as $category)
-                <a href="{{ route('frontend.articles.index', ['category' => $category->slug]) }}"
+                <a href="{{ route('frontend.articles.index', array_filter(['category' => $category->slug, 'search' => $search])) }}"
                    class="{{ $activeCategory == $category->slug ? 'active' : '' }}">
                     {{ $category->name }}
                 </a>
@@ -190,7 +196,7 @@
                             </p>
 
                             <div class="article-bottom">
-                                <a href="{{ $article->read_more_url ?: '#' }}">
+                                <a href="{{ route('frontend.articles.show', ['article' => $article->slug]) }}">
                                     {{ $article->read_more_text ?: 'Read More' }}
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
@@ -204,7 +210,7 @@
                 @empty
                     <div class="article-card reveal" style="padding:30px;">
                         <h3>No Articles Found</h3>
-                        <p>No articles are available in this category right now.</p>
+                        <p>No articles match your current category or search filter right now.</p>
                     </div>
                 @endforelse
 
@@ -231,7 +237,7 @@
 
                     <div class="latest-list">
                         @foreach($latestArticles as $latest)
-                            <a href="{{ $latest->read_more_url ?: '#' }}">
+                            <a href="{{ route('frontend.articles.show', ['article' => $latest->slug]) }}">
                                 <span>{{ optional($latest->category)->name ?: 'Article' }}</span>
                                 <strong>{{ $latest->title }}</strong>
                             </a>
@@ -246,7 +252,7 @@
                         Share your legal matter and connect with Rajpati & Associates for confidential guidance.
                     </p>
 
-                    <a href="{{ url('index.html#consultation') }}" class="sidebar-cta">
+                    <a href="{{ route('frontend.legal-enquiry.index') }}" class="sidebar-cta">
                         Book Consultation
                         <i class="bi bi-arrow-right"></i>
                     </a>

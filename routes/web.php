@@ -71,6 +71,7 @@ Route::get('/our-team/{attorney}', [App\Http\Controllers\Frontend\TeamController
 Route::get('/about', [App\Http\Controllers\Frontend\AboutController::class, 'index'])->name('frontend.about'); 
 
 Route::get('/articles', [App\Http\Controllers\Frontend\ArticlePageController::class, 'index'])->name('frontend.articles.index');
+Route::get('/articles/{article:slug}', [App\Http\Controllers\Frontend\ArticlePageController::class, 'show'])->name('frontend.articles.show');
 
 Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('frontend.contact.index');
 Route::get('/book-consultation', [App\Http\Controllers\Frontend\LegalEnquiryController::class, 'index'])->name('frontend.legal-enquiry.index');

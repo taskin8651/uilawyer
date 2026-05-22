@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/about.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/articles.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/article-detail.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/book-consultation.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/contact.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
@@ -58,7 +59,7 @@
   <!-- HEADER START -->
   <header class="site-header" id="siteHeader">
     <div class="container header-wrap">
-      <a href="index.html" class="brand has-logo" aria-label="{{ $siteSetting->site_name }}">
+      <a href="{{ url('/') }}" class="brand has-logo" aria-label="{{ $siteSetting->site_name }}">
         <img class="brand-logo-img" src="{{ $siteLogo }}" alt="{{ $siteSetting->site_name }} logo">
       </a>
 
@@ -66,7 +67,7 @@
 
       <div class="navbar-shell" id="navbarShell">
         <nav class="navbar">
-          <a href="index.html" class="active">Home</a>
+          <a href="{{ url('/') }}" class="active">Home</a>
           <div class="nav-drop" id="navDrop">
             <button type="button" class="nav-drop-btn">Practice Areas <i class="bi bi-chevron-down"></i></button>
             <div class="mega-menu">
@@ -89,15 +90,15 @@
                   cyber fraud and digital evidence support.</span></a>
             </div>
           </div>
-          <a href="about.html">About</a>
-          <a href="our-team.html">Our Team</a>
-          <a href="articles.html">Articles</a>
-          <a href="contact.html">Contact</a>
+          <a href="{{ route('frontend.about') }}">About</a>
+          <a href="{{ route('frontend.team') }}">Our Team</a>
+          <a href="{{ route('frontend.articles.index') }}">Articles</a>
+          <a href="{{ route('frontend.contact.index') }}">Contact</a>
         </nav>
       </div>
 
       <div class="header-actions">
-        <a href="book-consultation.html" class="btn btn-dark magnetic"><i class="bi bi-calendar2-check"></i> Book
+        <a href="{{ route('frontend.legal-enquiry.index') }}" class="btn btn-dark magnetic"><i class="bi bi-calendar2-check"></i> Book
           Consultation</a>
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu"><i class="bi bi-list"></i></button>
       </div>

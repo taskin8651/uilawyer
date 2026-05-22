@@ -41,15 +41,22 @@ class ArticleController extends Controller
     {
         $data = $request->validated();
 
-        $data['slug'] = $data['slug'] ?: Str::slug($data['title']);
+        $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title']);
         $data['is_latest'] = $request->has('is_latest') ? 1 : 0;
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
         $data['read_more_text'] = $data['read_more_text'] ?? 'Read More';
+        $data['read_more_url'] = $this->cleanReadMoreUrl($data['read_more_url'] ?? null);
 
         unset($data['article_image']);
 
         $article = Article::create($data);
+
+        if (blank($article->read_more_url)) {
+            $article->update([
+                'read_more_url' => route('frontend.articles.show', ['article' => $article->slug], false),
+            ]);
+        }
 
         if ($request->hasFile('article_image')) {
             $article
@@ -85,11 +92,13 @@ class ArticleController extends Controller
     {
         $data = $request->validated();
 
-        $data['slug'] = $data['slug'] ?: Str::slug($data['title']);
+        $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title'], $article->id);
         $data['is_latest'] = $request->has('is_latest') ? 1 : 0;
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
         $data['read_more_text'] = $data['read_more_text'] ?? 'Read More';
+        $data['read_more_url'] = $this->cleanReadMoreUrl($data['read_more_url'] ?? null)
+            ?: route('frontend.articles.show', ['article' => $data['slug']], false);
 
         unset($data['article_image']);
 
@@ -121,5 +130,28 @@ class ArticleController extends Controller
         Article::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    private function cleanReadMoreUrl(?string $url): ?string
+    {
+        $url = trim((string) $url);
+
+        return $url === '' || $url === '#' ? null : $url;
+    }
+
+    private function uniqueSlug(string $value, ?int $ignoreId = null): string
+    {
+        $baseSlug = Str::slug($value) ?: 'article';
+        $slug = $baseSlug;
+        $counter = 2;
+
+        while (Article::where('slug', $slug)
+            ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
+            ->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 }
