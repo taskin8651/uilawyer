@@ -65,7 +65,7 @@
 
             <div class="contact-quick-grid">
 
-                <a href="{{ $siteSetting->phone_link }}" class="contact-quick-card reveal">
+                <a href="{{ $siteSetting->phone }}" class="contact-quick-card reveal">
                     <div class="contact-quick-icon">
                         <i class="bi bi-telephone-fill"></i>
                     </div>
@@ -75,7 +75,7 @@
                     </div>
                 </a>
 
-                <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="contact-quick-card reveal">
+                <a href="{{ $siteSetting->whatsapp }}" target="_blank" class="contact-quick-card reveal">
                     <div class="contact-quick-icon">
                         <i class="bi bi-whatsapp"></i>
                     </div>
@@ -95,7 +95,7 @@
                     </div>
                 </a>
 
-                <a href="#map" class="contact-quick-card reveal">
+                <a href="{{ $siteSetting->map_direction_url }}" target="_blank" class="contact-quick-card reveal">
                     <div class="contact-quick-icon">
                         <i class="bi bi-map-fill"></i>
                     </div>
@@ -148,7 +148,7 @@
                             <i class="bi bi-telephone-fill"></i>
                             <div>
                                 <strong>Phone Number</strong>
-                                <a href="{{ $siteSetting->phone_link }}">{{ $siteSetting->phone }}</a>
+                                <a href="tel:{{ $siteSetting->phone }}">{{ $siteSetting->phone }}</a>
                             </div>
                         </div>
 
@@ -156,7 +156,7 @@
                             <i class="bi bi-whatsapp"></i>
                             <div>
                                 <strong>WhatsApp Consultation</strong>
-                                <a href="{{ $siteSetting->whatsapp_link }}" target="_blank">{{ $siteSetting->whatsapp }}</a>
+                                <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank">{{ $siteSetting->whatsapp }}</a>
                             </div>
                         </div>
 
@@ -179,12 +179,12 @@
                     </div>
 
                     <div class="contact-action-row">
-                        <a href="{{ $siteSetting->phone_link }}" class="btn btn-primary magnetic">
+                        <a href="{{ $siteSetting->phone }}" class="btn btn-primary magnetic">
                             <i class="bi bi-telephone-fill"></i>
                             Call Now
                         </a>
 
-                        <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="btn btn-dark magnetic">
+                        <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-dark magnetic">
                             <i class="bi bi-whatsapp"></i>
                             WhatsApp Us
                         </a>
@@ -412,12 +412,12 @@
                 </p>
 
                 <div class="appointment-actions">
-                    <a href="{{ $siteSetting->phone_link }}" class="btn btn-glass magnetic">
+                    <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
                         <i class="bi bi-telephone-fill"></i>
                         Call Now
                     </a>
 
-                    <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="btn btn-primary magnetic">
+                    <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
                         WhatsApp
                     </a>
@@ -500,12 +500,12 @@
                 </div>
 
                 <div class="contact-cta-actions">
-                    <a href="{{ $siteSetting->phone_link }}" class="btn btn-glass magnetic">
+                    <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
                         <i class="bi bi-telephone-fill"></i>
                         Call Now
                     </a>
 
-                    <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="btn btn-primary magnetic">
+                    <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
                         WhatsApp Us
                     </a>

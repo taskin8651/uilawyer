@@ -12,6 +12,8 @@
     $location = $locationMeta['text'] ?? 'Patna, Bihar';
     $experience = $experienceMeta['text'] ?? 'Trusted Since 1999';
     $practiceFocus = $tags->isNotEmpty() ? $tags->implode(' & ') : ($practiceMeta['text'] ?? 'Litigation & Consultation');
+
+    $siteSetting = \App\Models\SiteSetting::first();
 @endphp
 
   <!-- BREADCRUMB START -->
@@ -95,12 +97,12 @@
           </div>
 
           <div class="profile-card-actions">
-            <a href="tel:+919431021093">
+            <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
               <i class="bi bi-telephone-fill"></i>
               Call Now
             </a>
 
-            <a href="https://wa.me/919117577770" target="_blank">
+            <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank">
               <i class="bi bi-whatsapp"></i>
               WhatsApp
             </a>
@@ -160,7 +162,7 @@
         </div>
 
         <div class="profile-actions">
-          <a href="tel:+919431021093" class="btn btn-primary magnetic">
+          <a href="{{ route('frontend.legal-enquiry.index') }}" class="btn btn-primary magnetic">
             Book Consultation
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -572,12 +574,12 @@
         </div>
 
         <div class="profile-final-actions">
-          <a href="tel:+919431021093" class="btn btn-glass magnetic">
+          <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>
 
-          <a href="https://wa.me/919117577770" target="_blank" class="btn btn-primary magnetic">
+          <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
             <i class="bi bi-whatsapp"></i>
             WhatsApp Us
           </a>

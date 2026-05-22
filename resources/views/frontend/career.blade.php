@@ -1,7 +1,9 @@
 @extends('frontend.master')
 @section('content')
 
-
+@php 
+    $siteSetting = \App\Models\SiteSetting::first();
+@endphp
   <!-- BREADCRUMB START -->
   <section class="career-breadcrumb">
     <div class="career-breadcrumb-grid-bg"></div>
@@ -608,7 +610,7 @@
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="https://wa.me/919117577770" target="_blank" class="btn btn-glass magnetic">
+          <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-glass magnetic">
             <i class="bi bi-whatsapp"></i>
             WhatsApp
           </a>

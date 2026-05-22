@@ -2,6 +2,9 @@
 @extends('frontend.master')
 @section('content')
 
+@php 
+$siteSetting    = \App\Models\SiteSetting::first();
+@endphp
 
     <!-- BREADCRUMB START -->
     <section class="articles-breadcrumb">
@@ -325,7 +328,7 @@
 
 
     <!-- VERDICT PREVIEW START -->
-    <section class="section verdict-preview-section">
+    <!-- <section class="section verdict-preview-section">
         <div class="container">
 
             <div class="section-head center reveal">
@@ -376,7 +379,7 @@
             </div>
 
         </div>
-    </section>
+    </section> -->
     <!-- VERDICT PREVIEW END -->
 
 
@@ -463,12 +466,12 @@
                 </div>
 
                 <div class="articles-cta-actions">
-                    <a href="tel:+919431021093" class="btn btn-glass magnetic">
+                    <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
                         <i class="bi bi-telephone-fill"></i>
                         Call Now
                     </a>
 
-                    <a href="https://wa.me/919117577770" target="_blank" class="btn btn-primary magnetic">
+                    <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
                         WhatsApp Us
                     </a>

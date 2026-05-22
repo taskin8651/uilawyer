@@ -21,7 +21,6 @@
 
         <div class="user-meta">
             <p class="user-name">{{ auth()->user()->name }}</p>
-            <p class="user-role">Administrator</p>
         </div>
     </div>
 
@@ -37,77 +36,6 @@
             <i class="fas fa-chart-pie nav-icon"></i>
             <span class="nav-label">{{ trans('global.dashboard') }}</span>
         </a>
-
-        {{-- USER MANAGEMENT GROUP --}}
-        @can('user_management_access')
-            @php
-                $umActive = request()->is('admin/permissions*')
-                    || request()->is('admin/roles*')
-                    || request()->is('admin/users*')
-                    || request()->is('admin/audit-logs*');
-            @endphp
-
-            <div x-data="{ open: {{ $umActive ? 'true' : 'false' }} }">
-
-                <button type="button"
-                        @click="open = !open"
-                        data-tooltip="Users"
-                        class="nav-link nav-group-btn {{ $umActive ? 'active' : '' }}">
-
-                    <div class="nav-group-left">
-                        <i class="fas fa-users nav-icon"></i>
-                        <span class="nav-label">{{ trans('cruds.userManagement.title') }}</span>
-                    </div>
-
-                    <i class="fas fa-chevron-right chevron"
-                       :style="open ? 'transform:rotate(90deg)' : ''"></i>
-                </button>
-
-                <div class="submenu"
-                     x-show="open"
-                     x-transition:enter="transition ease-out duration-150"
-                     x-transition:enter-start="opacity-0 -translate-y-1"
-                     x-transition:enter-end="opacity-100 translate-y-0"
-                     x-transition:leave="transition ease-in duration-100"
-                     x-transition:leave-start="opacity-100 translate-y-0"
-                     x-transition:leave-end="opacity-0 -translate-y-1">
-
-                    @can('permission_access')
-                        <a href="{{ route('admin.permissions.index') }}"
-                           class="sub-link {{ request()->is('admin/permissions*') ? 'active' : '' }}">
-                            <i class="fas fa-key"></i>
-                            {{ trans('cruds.permission.title') }}
-                        </a>
-                    @endcan
-
-                    @can('role_access')
-                        <a href="{{ route('admin.roles.index') }}"
-                           class="sub-link {{ request()->is('admin/roles*') ? 'active' : '' }}">
-                            <i class="fas fa-shield-alt"></i>
-                            {{ trans('cruds.role.title') }}
-                        </a>
-                    @endcan
-
-                    @can('user_access')
-                        <a href="{{ route('admin.users.index') }}"
-                           class="sub-link {{ request()->is('admin/users*') ? 'active' : '' }}">
-                            <i class="fas fa-user-circle"></i>
-                            {{ trans('cruds.user.title') }}
-                        </a>
-                    @endcan
-
-                    @can('audit_log_access')
-                        <a href="{{ route('admin.audit-logs.index') }}"
-                           class="sub-link {{ request()->is('admin/audit-logs*') ? 'active' : '' }}">
-                            <i class="fas fa-history"></i>
-                            {{ trans('cruds.auditLog.title') }}
-                        </a>
-                    @endcan
-
-                </div>
-            </div>
-        @endcan
-
 
         {{-- ABOUT PAGE MANAGEMENT GROUP --}}
 @can('about_page_management_access')

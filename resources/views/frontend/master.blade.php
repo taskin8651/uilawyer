@@ -64,8 +64,8 @@
         <span><i class="bi bi-award-fill"></i> {{ $siteSetting->tagline }}</span>
       </div>
       <div class="topbar-right">
-        <a href="{{ $siteSetting->phone_link }}"><i class="bi bi-telephone-fill"></i> {{ $siteSetting->phone }}</a>
-        <a href="{{ $siteSetting->whatsapp_link }}" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+        <a href="tel:{{ $siteSetting->phone }}"><i class="bi bi-telephone-fill"></i> {{ $siteSetting->phone }}</a>
+        <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp</a>
         <a href="{{ route('frontend.career-application.index') }}"><i class="bi bi-briefcase-fill"></i> Career</a>
       </div>
     </div>
@@ -242,8 +242,8 @@
           <h4>Contact Us</h4>
           <div class="footer-contact">
             <span><i class="bi bi-geo-alt-fill"></i> {{ $siteSetting->address_full }}</span>
-            <a href="{{ $siteSetting->phone_link }}"><i class="bi bi-telephone-fill"></i> {{ $siteSetting->phone }}</a>
-            <a href="{{ $siteSetting->whatsapp_link }}" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp
+            <a href="tel:{{ $siteSetting->phone }}"><i class="bi bi-telephone-fill"></i> {{ $siteSetting->phone }}</a>
+            <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp
               Consultation</a>
           </div>
         </div>
@@ -256,13 +256,13 @@
     </div>
   </footer>
 
-  <a href="{{ $siteSetting->whatsapp_link }}" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+  <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
     <i class="bi bi-whatsapp"></i>
   </a>
 
   <div class="mobile-bottom-bar">
-    <a href="{{ $siteSetting->phone_link }}" class="active"><i class="bi bi-telephone-fill"></i>Call</a>
-    <a href="{{ $siteSetting->whatsapp_link }}" target="_blank"><i class="bi bi-whatsapp"></i>WhatsApp</a>
+    <a href="tel:{{ $siteSetting->phone }}" class="active"><i class="bi bi-telephone-fill"></i>Call</a>
+    <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i>WhatsApp</a>
     <a href="#consultation"><i class="bi bi-calendar2-check-fill"></i>Book</a>
     <a href="{{ $siteSetting->map_direction_url ?: '#' }}" target="_blank"><i class="bi bi-geo-alt-fill"></i>Direction</a>
   </div>

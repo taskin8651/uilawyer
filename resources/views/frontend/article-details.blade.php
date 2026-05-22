@@ -12,6 +12,7 @@
   $readMinutes = max(1, (int) ceil($wordCount / 200));
   $shareUrl = urlencode(request()->fullUrl());
   $shareText = urlencode($article->title);
+  $siteSetting = \App\Models\SiteSetting::first();
 @endphp
 
   <!-- BREADCRUMB START -->
@@ -242,7 +243,7 @@
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="tel:+919431021093" class="btn btn-glass magnetic">
+          <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>

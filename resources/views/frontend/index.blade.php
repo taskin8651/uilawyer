@@ -1,6 +1,9 @@
 
 @extends('frontend.master')
 @section('content')
+@php 
+    $siteSetting = \App\Models\SiteSetting::first();
+@endphp
   <section class="hero">
     <div class="hero-grid-bg"></div>
     <div class="hero-noise"></div>
@@ -16,8 +19,8 @@
         <div class="hero-actions">
           <a href="#consultation" class="btn btn-primary magnetic"><i class="bi bi-chat-square-text-fill"></i> Get Legal
             Advice</a>
-          <a href="tel:+919431021093" class="btn btn-glass magnetic"><i class="bi bi-telephone-fill"></i> Call Now</a>
-          <a href="#practice" class="btn btn-glass magnetic"><i class="bi bi-grid-1x2-fill"></i> Explore Services</a>
+          <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic"><i class="bi bi-telephone-fill"></i> Call Now</a>
+          <a href="{{ route('frontend.practice-area.index') }}" class="btn btn-glass magnetic"><i class="bi bi-grid-1x2-fill"></i> Explore Services</a>
         </div>
         <div class="hero-trust">
           <div class="trust-pill"><i class="bi bi-check2-circle"></i> All India Services</div>
@@ -61,11 +64,11 @@
   <section class="quick-section">
     <div class="container">
       <div class="quick-grid reveal">
-        <a href="tel:+919431021093" class="quick-card">
+        <a href="tel:{{ $siteSetting->phone }}" class="quick-card">
           <div class="quick-icon"><i class="bi bi-telephone-fill"></i></div>
           <div><strong>Call Lawyer</strong><span>Instant phone support</span></div>
         </a>
-        <a href="https://wa.me/919117577770" target="_blank" class="quick-card">
+        <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="quick-card">
           <div class="quick-icon"><i class="bi bi-whatsapp"></i></div>
           <div><strong>WhatsApp Us</strong><span>Quick case enquiry</span></div>
         </a>
@@ -73,7 +76,7 @@
           <div class="quick-icon"><i class="bi bi-calendar2-check-fill"></i></div>
           <div><strong>Appointment</strong><span>Book consultation</span></div>
         </a>
-        <a href="#" class="quick-card">
+        <a href="{{ $siteSetting->map_direction_url }}" target="_blank" class="quick-card">
           <div class="quick-icon"><i class="bi bi-geo-alt-fill"></i></div>
           <div><strong>Direction</strong><span>Visit office</span></div>
         </a>
@@ -451,7 +454,7 @@
           <p class="section-text">Attorney cards can include image, name, designation, location, experience, practice
             area and individual profile page.</p>
         </div>
-        <a href="#" class="btn btn-dark reveal">View All Team <i class="bi bi-arrow-right"></i></a>
+        <a href="{{ route('frontend.team') }}" class="btn btn-dark reveal">View All Team <i class="bi bi-arrow-right"></i></a>
       </div>
 
     <div class="team-grid">
@@ -733,8 +736,8 @@
             matters.</p>
         </div>
         <div class="cta-actions">
-          <a href="tel:+919431021093" class="btn btn-glass magnetic"><i class="bi bi-telephone-fill"></i> Call Now</a>
-          <a href="https://wa.me/919117577770" target="_blank" class="btn btn-primary magnetic"><i
+          <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic"><i class="bi bi-telephone-fill"></i> Call Now</a>
+          <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic"><i
               class="bi bi-whatsapp"></i> WhatsApp Us</a>
         </div>
       </div>

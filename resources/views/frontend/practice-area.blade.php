@@ -1,6 +1,8 @@
 @extends('frontend.master') 
 @section('content')
-
+@php
+    $siteSetting = \App\Models\SiteSetting::first();  
+    @endphp
 
 
   <!-- BREADCRUMB START -->
@@ -84,12 +86,12 @@
         </p>
 
         <div class="practice-intro-actions">
-          <a href="book-consultation.html" class="btn btn-primary magnetic">
+          <a href="{{ route('frontend.legal-enquiry.index') }}" class="btn btn-primary magnetic">
             Get Legal Advice
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="tel:+919431021093" class="btn btn-dark magnetic">
+          <a href="tel:{{ $siteSetting->phone }}" class="btn btn-dark magnetic">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>
@@ -206,7 +208,7 @@
           </p>
         </div>
 
-        <a href="book-consultation.html" class="category-head-btn">
+        <a href="{{ route('frontend.legal-enquiry.index') }}" class="category-head-btn">
           Consult Family Lawyer
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -291,7 +293,7 @@
           </p>
         </div>
 
-        <a href="book-consultation.html" class="category-head-btn">
+        <a href="{{ route('frontend.legal-enquiry.index') }}" class="category-head-btn">
           Consult Criminal Lawyer
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -376,7 +378,7 @@
           </p>
         </div>
 
-        <a href="book-consultation.html" class="category-head-btn">
+        <a href="{{ route('frontend.legal-enquiry.index') }}" class="category-head-btn">
           Consult Civil Lawyer
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -454,7 +456,7 @@
           </p>
         </div>
 
-        <a href="book-consultation.html" class="category-head-btn">
+        <a href="{{ route('frontend.legal-enquiry.index') }}" class="category-head-btn">
           Consult Muslim Lawyer
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -511,7 +513,7 @@
           </p>
         </div>
 
-        <a href="book-consultation.html" class="category-head-btn">
+        <a href="{{ route('frontend.legal-enquiry.index') }}" class="category-head-btn">
           Consult Service Matter Lawyer
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -575,7 +577,7 @@
           </p>
         </div>
 
-        <a href="book-consultation.html" class="category-head-btn">
+        <a href="{{ route('frontend.legal-enquiry.index') }}" class="category-head-btn">
           Consult Cyber Lawyer
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -632,7 +634,7 @@
           </p>
         </div>
 
-        <a href="book-consultation.html" class="category-head-btn">
+        <a href="{{ route('frontend.legal-enquiry.index') }}" class="category-head-btn">
           Consult Legal Notice Lawyer
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -807,12 +809,12 @@
         </div>
 
         <div class="practice-final-actions">
-          <a href="tel:+919431021093" class="btn btn-glass magnetic">
+          <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>
 
-          <a href="https://wa.me/919117577770" target="_blank" class="btn btn-primary magnetic">
+          <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
             <i class="bi bi-whatsapp"></i>
             WhatsApp Us
           </a>

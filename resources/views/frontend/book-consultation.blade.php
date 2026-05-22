@@ -1,7 +1,9 @@
 @extends('frontend.master')
 @section('content')
 
-
+@php 
+$siteSetting    = \App\Models\SiteSetting::first();
+@endphp
     <!-- BREADCRUMB START -->
     <section class="consult-breadcrumb">
         <div class="consult-breadcrumb-grid-bg"></div>
@@ -147,12 +149,12 @@
                 </div>
 
                 <div class="consult-contact-mini">
-                    <a href="tel:+919431021093">
+                    <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
                         <i class="bi bi-telephone-fill"></i>
                         +91 94310 21093
                     </a>
 
-                    <a href="https://wa.me/919117577770" target="_blank">
+                    <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank">
                         <i class="bi bi-whatsapp"></i>
                         WhatsApp Consultation
                     </a>
@@ -581,12 +583,12 @@
                 </div>
 
                 <div class="consult-final-actions">
-                    <a href="tel:+919431021093" class="btn btn-glass magnetic">
+                    <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
                         <i class="bi bi-telephone-fill"></i>
                         Call Now
                     </a>
 
-                    <a href="https://wa.me/919117577770" target="_blank" class="btn btn-primary magnetic">
+                    <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
                         WhatsApp Us
                     </a>

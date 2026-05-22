@@ -5,6 +5,7 @@
   $parent = $practiceAreaService->practiceArea;
   $fallbackImage = 'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=1200&q=80';
   $serviceImage = optional($parent)->image ?: $fallbackImage;
+  @$siteSetting = \App\Models\SiteSetting::first();
 @endphp
 
 <section class="article-breadcrumb">
@@ -104,7 +105,7 @@
           Book Consultation
           <i class="bi bi-arrow-right"></i>
         </a>
-        <a href="tel:+919431021093" class="btn btn-glass magnetic">
+        <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
           <i class="bi bi-telephone-fill"></i>
           Call Now
         </a>
