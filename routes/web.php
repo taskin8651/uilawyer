@@ -58,6 +58,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('legal-enquiries/destroy', 'LegalEnquiryController@massDestroy')->name('legal-enquiries.massDestroy');
     Route::post('legal-enquiries/{legalEnquiry}/status', 'LegalEnquiryController@updateStatus')->name('legal-enquiries.updateStatus');
     Route::resource('legal-enquiries', 'LegalEnquiryController')->only(['index', 'show', 'destroy']);
+
+     Route::delete('career-applications/destroy', 'CareerApplicationController@massDestroy')->name('career-applications.massDestroy');
+    Route::post('career-applications/{careerApplication}/status', 'CareerApplicationController@updateStatus')->name('career-applications.updateStatus');
+    Route::resource('career-applications', 'CareerApplicationController')->only(['index', 'show', 'destroy']);
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {

@@ -329,6 +329,17 @@
         </div>
     </a>
 @endcan
+@can('career_application_access')
+    <a href="{{ route('admin.career-applications.index') }}"
+       data-tooltip="Career Applications"
+       class="nav-link {{ request()->is('admin/career-applications*') ? 'active' : '' }}">
+
+        <div class="nav-group-left">
+            <i class="fas fa-user-graduate nav-icon"></i>
+            <span class="nav-label">Career Applications</span>
+        </div>
+    </a>
+@endcan
         <div class="nav-divider"></div>
 
         <p class="sidebar-section-title compact nav-label">Account</p>
