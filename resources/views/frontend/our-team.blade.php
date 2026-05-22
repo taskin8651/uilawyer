@@ -31,7 +31,7 @@
         </p>
 
         <nav class="team-crumb" aria-label="breadcrumb">
-          <a href="index.html">Home</a>
+          <a href="/">Home</a>
           <i class="bi bi-chevron-right"></i>
           <span>Our Team</span>
         </nav>
@@ -305,33 +305,58 @@
         </p>
       </div>
 
-      <div class="team-practice-grid">
+    <div class="team-practice-grid">
 
-        <a href="service-divorce-lawyer.html" class="team-practice-card reveal">
-          <i class="bi bi-heartbreak"></i>
-          <h3>Family & Divorce Law</h3>
-          <p>Divorce, maintenance, child custody and domestic violence guidance.</p>
+    @forelse($teamPractices as $practiceArea)
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}"
+           class="team-practice-card reveal">
+
+            <i class="{{ $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
+
+            <h3>
+                {{ $practiceArea->title }}
+            </h3>
+
+            <p>
+                {{ $practiceArea->short_description ?: 'Legal consultation and case support for ' . strtolower($practiceArea->title) . ' matters.' }}
+            </p>
+
         </a>
 
-        <a href="service-criminal-lawyer.html" class="team-practice-card reveal">
-          <i class="bi bi-shield-lock"></i>
-          <h3>Criminal Law</h3>
-          <p>Bail, FIR, trial cases, NDPS and criminal defence support.</p>
+    @empty
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'family-law']) }}"
+           class="team-practice-card reveal">
+            <i class="bi bi-heartbreak"></i>
+            <h3>Family & Divorce Law</h3>
+            <p>Divorce, maintenance, child custody and domestic violence guidance.</p>
         </a>
 
-        <a href="service-civil-lawyer.html" class="team-practice-card reveal">
-          <i class="bi bi-bank"></i>
-          <h3>Civil & Property</h3>
-          <p>Property disputes, recovery, succession and civil litigation.</p>
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'criminal-law']) }}"
+           class="team-practice-card reveal">
+            <i class="bi bi-shield-lock"></i>
+            <h3>Criminal Law</h3>
+            <p>Bail, FIR, trial cases, NDPS and criminal defence support.</p>
         </a>
 
-        <a href="service-cyber-crime-lawyer.html" class="team-practice-card reveal">
-          <i class="bi bi-globe2"></i>
-          <h3>Cyber Law</h3>
-          <p>Cyber fraud, cyber crime, online complaint and evidence support.</p>
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'civil-law']) }}"
+           class="team-practice-card reveal">
+            <i class="bi bi-bank"></i>
+            <h3>Civil & Property</h3>
+            <p>Property disputes, recovery, succession and civil litigation.</p>
         </a>
 
-      </div>
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'cyber-law']) }}"
+           class="team-practice-card reveal">
+            <i class="bi bi-globe2"></i>
+            <h3>Cyber Law</h3>
+            <p>Cyber fraud, cyber crime, online complaint and evidence support.</p>
+        </a>
+
+    @endforelse
+
+</div>
 
     </div>
   </section>

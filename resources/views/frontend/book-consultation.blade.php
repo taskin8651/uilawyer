@@ -28,7 +28,7 @@
                 </p>
 
                 <nav class="consult-crumb" aria-label="breadcrumb">
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                     <i class="bi bi-chevron-right"></i>
                     <span>Book Consultation</span>
                 </nav>
@@ -343,43 +343,56 @@
 
             <div class="consult-category-grid">
 
-                <a href="service-divorce-lawyer.html" class="consult-category-card reveal">
-                    <i class="bi bi-heartbreak"></i>
-                    <h3>Divorce & Family Law</h3>
-                    <p>Divorce, child custody, maintenance and domestic violence consultation.</p>
-                </a>
+    @forelse($practiceAreaCategories as $practiceArea)
 
-                <a href="service-criminal-lawyer.html" class="consult-category-card reveal">
-                    <i class="bi bi-shield-lock"></i>
-                    <h3>Criminal Law & Bail</h3>
-                    <p>Bail application, FIR, trial cases, complaints and criminal litigation.</p>
-                </a>
+        <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}"
+           class="consult-category-card reveal">
 
-                <a href="service-civil-lawyer.html" class="consult-category-card reveal">
-                    <i class="bi bi-bank"></i>
-                    <h3>Civil & Property Matters</h3>
-                    <p>Property disputes, recovery, succession, inheritance and civil cases.</p>
-                </a>
+            <i class="{{ $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
 
-                <a href="service-cyber-crime-lawyer.html" class="consult-category-card reveal">
-                    <i class="bi bi-globe2"></i>
-                    <h3>Cyber Crime</h3>
-                    <p>Cyber fraud, online complaint, digital evidence and cyber litigation.</p>
-                </a>
+            <h3>
+                {{ $practiceArea->title }}
+            </h3>
 
-                <a href="service-matter-lawyer.html" class="consult-category-card reveal">
-                    <i class="bi bi-person-vcard"></i>
-                    <h3>Service Matters</h3>
-                    <p>Employment disputes, government service cases and departmental proceedings.</p>
-                </a>
+            <p>
+                {{ $practiceArea->short_description ?: 'Legal consultation and case support for ' . strtolower($practiceArea->title) . ' matters.' }}
+            </p>
 
-                <a href="service-legal-notice-lawyer.html" class="consult-category-card reveal">
-                    <i class="bi bi-file-earmark-text-fill"></i>
-                    <h3>Legal Notice</h3>
-                    <p>Legal notice drafting, cheque bounce notice and reply to legal notice.</p>
-                </a>
+        </a>
 
-            </div>
+    @empty
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'family-law']) }}"
+           class="consult-category-card reveal">
+            <i class="bi bi-heartbreak"></i>
+            <h3>Divorce & Family Law</h3>
+            <p>Divorce, child custody, maintenance and domestic violence consultation.</p>
+        </a>
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'criminal-law']) }}"
+           class="consult-category-card reveal">
+            <i class="bi bi-shield-lock"></i>
+            <h3>Criminal Law & Bail</h3>
+            <p>Bail application, FIR, trial cases, complaints and criminal litigation.</p>
+        </a>
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'civil-law']) }}"
+           class="consult-category-card reveal">
+            <i class="bi bi-bank"></i>
+            <h3>Civil & Property Matters</h3>
+            <p>Property disputes, recovery, succession, inheritance and civil cases.</p>
+        </a>
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'cyber-law']) }}"
+           class="consult-category-card reveal">
+            <i class="bi bi-globe2"></i>
+            <h3>Cyber Crime</h3>
+            <p>Cyber fraud, online complaint, digital evidence and cyber litigation.</p>
+        </a>
+
+    @endforelse
+
+</div>
 
         </div>
     </section>

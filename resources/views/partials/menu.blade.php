@@ -340,6 +340,18 @@
         </div>
     </a>
 @endcan
+
+@can('testimonial_access')
+    <a href="{{ route('admin.testimonials.index') }}"
+       data-tooltip="Testimonials"
+       class="nav-link {{ request()->is('admin/testimonials*') ? 'active' : '' }}">
+
+        <div class="nav-group-left">
+            <i class="fas fa-star nav-icon"></i>
+            <span class="nav-label">Testimonials</span>
+        </div>
+    </a>
+@endcan
         <div class="nav-divider"></div>
 
         <p class="sidebar-section-title compact nav-label">Account</p>

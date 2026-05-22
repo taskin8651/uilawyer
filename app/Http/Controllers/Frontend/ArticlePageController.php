@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\ArticleCategory;
+use App\Models\PracticeArea;
 use Illuminate\Http\Request;
 
 class ArticlePageController extends Controller
@@ -52,12 +53,20 @@ class ArticlePageController extends Controller
             ->take(3)
             ->get();
 
+              $relatedPractices = PracticeArea::where('status', 1)
+            ->orderBy('sort_order', 'asc')
+            ->latest()
+            ->take(4)
+            ->get();
+
         return view('frontend.articles', compact(
             'articleCategories',
             'articles',
             'latestArticles',
             'activeCategory',
-            'search'
+            'search',
+            'relatedPractices'
+
         ));
     }
 

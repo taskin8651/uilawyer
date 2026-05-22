@@ -154,12 +154,12 @@
         <div>
           <h4>Important Links</h4>
           <div class="footer-links">
-            <a href="#">About Us</a>
-            <a href="#">Our Team</a>
-            <a href="#">Articles</a>
-            <a href="#">Verdict & Judgement</a>
-            <a href="#">Career</a>
-            <a href="#">Contact Us</a>
+            <a href="/about">About Us</a>
+            <a href="/our-team">Our Team</a>
+            <a href="/articles">Articles</a>
+            <a href="/career-application">Career</a>
+            <a href="/contact">Contact Us</a>
+            <a href="{{ route('frontend.legal-enquiry.index') }}">Book Consultation</a>
           </div>
         </div>
 

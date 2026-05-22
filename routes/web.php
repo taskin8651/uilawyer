@@ -63,6 +63,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('career-applications/{careerApplication}/status', 'CareerApplicationController@updateStatus')->name('career-applications.updateStatus');
     Route::resource('career-applications', 'CareerApplicationController')->only(['index', 'show', 'destroy']);
     
+    Route::delete('testimonials/destroy', 'TestimonialController@massDestroy')->name('testimonials.massDestroy');
+    Route::resource('testimonials', 'TestimonialController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -75,7 +77,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 });
 
 // Frontend routes
-
+Route::get('/', [App\Http\Controllers\Frontend\IndexController::class, 'index'])->name('frontend.index');
 Route::get('/our-team', [App\Http\Controllers\Frontend\TeamController::class, 'index'])->name('frontend.team'); 
 Route::get('/our-team/{attorney}', [App\Http\Controllers\Frontend\TeamController::class, 'show'])->name('frontend.attorneys.show');
 Route::get('/about', [App\Http\Controllers\Frontend\AboutController::class, 'index'])->name('frontend.about'); 

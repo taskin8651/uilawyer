@@ -401,26 +401,39 @@
                 </div>
 
                 <div class="related-topic-grid">
-                    <a href="service-divorce-lawyer.html">
-                        <i class="bi bi-heartbreak"></i>
-                        Divorce Lawyer
-                    </a>
 
-                    <a href="service-criminal-lawyer.html">
-                        <i class="bi bi-shield-lock"></i>
-                        Criminal Lawyer
-                    </a>
+    @forelse($relatedPractices as $practiceArea)
 
-                    <a href="service-property-lawyer.html">
-                        <i class="bi bi-house-lock-fill"></i>
-                        Property Lawyer
-                    </a>
+        <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}">
+            <i class="{{ $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
+            {{ $practiceArea->title }}
+        </a>
 
-                    <a href="service-cyber-crime-lawyer.html">
-                        <i class="bi bi-globe2"></i>
-                        Cyber Crime Lawyer
-                    </a>
-                </div>
+    @empty
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'family-law']) }}">
+            <i class="bi bi-heartbreak"></i>
+            Divorce Lawyer
+        </a>
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'criminal-law']) }}">
+            <i class="bi bi-shield-lock"></i>
+            Criminal Lawyer
+        </a>
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'civil-law']) }}">
+            <i class="bi bi-house-lock-fill"></i>
+            Property Lawyer
+        </a>
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'cyber-law']) }}">
+            <i class="bi bi-globe2"></i>
+            Cyber Crime Lawyer
+        </a>
+
+    @endforelse
+
+</div>
             </div>
 
         </div>

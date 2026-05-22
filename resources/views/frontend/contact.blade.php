@@ -31,7 +31,7 @@
                 </p>
 
                 <nav class="contact-crumb" aria-label="breadcrumb">
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                     <i class="bi bi-chevron-right"></i>
                     <span>Contact Us</span>
                 </nav>

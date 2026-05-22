@@ -29,7 +29,7 @@
         </p>
 
         <nav class="career-crumb" aria-label="breadcrumb">
-          <a href="index.html">Home</a>
+          <a href="/">Home</a>
           <i class="bi bi-chevron-right"></i>
           <span>Career</span>
         </nav>

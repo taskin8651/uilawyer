@@ -28,7 +28,7 @@
                 </p>
 
                 <nav class="about-crumb" aria-label="breadcrumb">
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                     <i class="bi bi-chevron-right"></i>
                     <span>About Us</span>
                 </nav>
@@ -279,48 +279,69 @@
                     where clients need clarity, proper documentation and timely legal action.
                 </p>
 
-                <a href="services.html" class="btn btn-primary magnetic">
+                <a href="/practice-area" class="btn btn-primary magnetic">
                     Explore Legal Services
                     <i class="bi bi-arrow-right"></i>
                 </a>
 
             </div>
 
-            <div class="expertise-list">
+           <div class="expertise-list">
 
-                <a href="service-divorce-lawyer.html" class="expertise-item reveal">
-                    <i class="bi bi-heartbreak"></i>
-                    <div>
-                        <h3>Family & Divorce Law</h3>
-                        <p>Divorce, child custody, maintenance and domestic violence guidance.</p>
-                    </div>
-                </a>
+    @forelse($homeExpertisePractices as $practiceArea)
 
-                <a href="service-criminal-lawyer.html" class="expertise-item reveal">
-                    <i class="bi bi-shield-lock"></i>
-                    <div>
-                        <h3>Criminal Law</h3>
-                        <p>Bail application, FIR, criminal defence and court-related support.</p>
-                    </div>
-                </a>
+        <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}"
+           class="expertise-item reveal">
 
-                <a href="service-civil-lawyer.html" class="expertise-item reveal">
-                    <i class="bi bi-bank"></i>
-                    <div>
-                        <h3>Civil & Property Matters</h3>
-                        <p>Property disputes, recovery, inheritance, succession and civil litigation.</p>
-                    </div>
-                </a>
+            <i class="{{ $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
 
-                <a href="service-cyber-crime-lawyer.html" class="expertise-item reveal">
-                    <i class="bi bi-globe2"></i>
-                    <div>
-                        <h3>Cyber Law</h3>
-                        <p>Cyber fraud, online complaint, digital evidence and cyber litigation.</p>
-                    </div>
-                </a>
+            <div>
+                <h3>{{ $practiceArea->title }}</h3>
 
+                <p>
+                    {{ $practiceArea->short_description ?: 'Legal consultation and case support for ' . strtolower($practiceArea->title) . ' matters.' }}
+                </p>
             </div>
+
+        </a>
+
+    @empty
+
+        <a href="#" class="expertise-item reveal">
+            <i class="bi bi-heartbreak"></i>
+            <div>
+                <h3>Family & Divorce Law</h3>
+                <p>Divorce, child custody, maintenance and domestic violence guidance.</p>
+            </div>
+        </a>
+
+        <a href="#" class="expertise-item reveal">
+            <i class="bi bi-shield-lock"></i>
+            <div>
+                <h3>Criminal Law</h3>
+                <p>Bail application, FIR, criminal defence and court-related support.</p>
+            </div>
+        </a>
+
+        <a href="#" class="expertise-item reveal">
+            <i class="bi bi-bank"></i>
+            <div>
+                <h3>Civil & Property Matters</h3>
+                <p>Property disputes, recovery, inheritance, succession and civil litigation.</p>
+            </div>
+        </a>
+
+        <a href="#" class="expertise-item reveal">
+            <i class="bi bi-globe2"></i>
+            <div>
+                <h3>Cyber Law</h3>
+                <p>Cyber fraud, online complaint, digital evidence and cyber litigation.</p>
+            </div>
+        </a>
+
+    @endforelse
+
+</div>
 
         </div>
     </section>

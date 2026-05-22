@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attorney;
+use App\Models\PracticeArea;
 
 class TeamController extends Controller
 {
@@ -13,7 +14,16 @@ class TeamController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('frontend.our-team', compact('attorneys'));
+        $teamPractices = PracticeArea::where('status', 1)
+            ->orderBy('sort_order', 'asc')
+            ->latest()
+            ->take(4)
+            ->get();
+
+        return view('frontend.our-team', compact(
+            'attorneys',
+            'teamPractices'
+        ));
     }
 
     public function show(Attorney $attorney)
@@ -26,6 +36,17 @@ class TeamController extends Controller
             ->limit(3)
             ->get();
 
-        return view('frontend.profile', compact('attorney', 'relatedAttorneys'));
+            $teamPractices = PracticeArea::where('status', 1)
+    ->orderBy('sort_order', 'asc')
+    ->latest()
+    ->take(4)
+    ->get();
+
+      $practiceAreaCategories = PracticeArea::where('status', 1)
+            ->orderBy('sort_order', 'asc')
+            ->latest()
+            ->get();
+
+        return view('frontend.profile', compact('attorney', 'relatedAttorneys', 'teamPractices', 'practiceAreaCategories'));
     }
 }

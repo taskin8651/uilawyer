@@ -196,33 +196,58 @@
         </p>
       </div>
 
-      <div class="profile-practice-grid">
+     <div class="profile-practice-grid">
 
-        <a href="service-divorce-lawyer.html" class="profile-practice-card reveal">
-          <i class="bi bi-heartbreak"></i>
-          <h3>Family Law</h3>
-          <p>Divorce, maintenance, domestic violence and child custody matters.</p>
+    @forelse($teamPractices as $practiceArea)
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}"
+           class="profile-practice-card reveal">
+
+            <i class="{{ $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
+
+            <h3>
+                {{ $practiceArea->title }}
+            </h3>
+
+            <p>
+                {{ $practiceArea->short_description ?: 'Legal consultation and case support for ' . strtolower($practiceArea->title) . ' matters.' }}
+            </p>
+
         </a>
 
-        <a href="service-criminal-lawyer.html" class="profile-practice-card reveal">
-          <i class="bi bi-shield-lock"></i>
-          <h3>Criminal Law</h3>
-          <p>Bail, FIR, criminal complaints, trial support and legal consultation.</p>
+    @empty
+
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'family-law']) }}"
+           class="profile-practice-card reveal">
+            <i class="bi bi-heartbreak"></i>
+            <h3>Family Law</h3>
+            <p>Divorce, maintenance, domestic violence and child custody matters.</p>
         </a>
 
-        <a href="service-civil-lawyer.html" class="profile-practice-card reveal">
-          <i class="bi bi-bank"></i>
-          <h3>Civil Law</h3>
-          <p>Property disputes, recovery, succession, inheritance and civil cases.</p>
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'criminal-law']) }}"
+           class="profile-practice-card reveal">
+            <i class="bi bi-shield-lock"></i>
+            <h3>Criminal Law</h3>
+            <p>Bail, FIR, criminal complaints, trial support and legal consultation.</p>
         </a>
 
-        <a href="service-cyber-crime-lawyer.html" class="profile-practice-card reveal">
-          <i class="bi bi-globe2"></i>
-          <h3>Cyber Law</h3>
-          <p>Cyber crime, cyber fraud, cyber litigation and digital evidence support.</p>
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'civil-law']) }}"
+           class="profile-practice-card reveal">
+            <i class="bi bi-bank"></i>
+            <h3>Civil Law</h3>
+            <p>Property disputes, recovery, succession, inheritance and civil cases.</p>
         </a>
 
-      </div>
+        <a href="{{ route('frontend.practice-area.index', ['category' => 'cyber-law']) }}"
+           class="profile-practice-card reveal">
+            <i class="bi bi-globe2"></i>
+            <h3>Cyber Law</h3>
+            <p>Cyber crime, cyber fraud, cyber litigation and digital evidence support.</p>
+        </a>
+
+    @endforelse
+
+</div>
 
     </div>
   </section>
@@ -315,73 +340,162 @@
 
         <h3>Get Legal Advice</h3>
 
-        <form class="profile-form">
+        @if(session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
 
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="name">Full Name *</label>
-              <input type="text" id="name" placeholder="Enter your full name">
-            </div>
+@if($errors->any())
+    <div class="alert alert-danger">
+        Please check the required fields and try again.
+    </div>
+@endif
 
-            <div class="form-group">
-              <label for="phone">Mobile Number *</label>
-              <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
-            </div>
-          </div>
+<form class="profile-form"
+      method="POST"
+      action="{{ route('frontend.legal-enquiry.store') }}"
+      enctype="multipart/form-data">
+    @csrf
 
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" placeholder="Enter email address">
-            </div>
+    <input type="hidden" name="form_type" value="attorney_profile">
 
-            <div class="form-group">
-              <label for="category">Case Category *</label>
-              <select id="category">
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="profile_name">Full Name *</label>
+
+            <input type="text"
+                   id="profile_name"
+                   name="full_name"
+                   value="{{ old('full_name') }}"
+                   placeholder="Enter your full name"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="profile_phone">Mobile Number *</label>
+
+            <input type="tel"
+                   id="profile_phone"
+                   name="mobile"
+                   value="{{ old('mobile') }}"
+                   placeholder="+91 XXXXX XXXXX"
+                   required>
+        </div>
+    </div>
+
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="profile_email">Email Address</label>
+
+            <input type="email"
+                   id="profile_email"
+                   name="email"
+                   value="{{ old('email') }}"
+                   placeholder="Enter email address">
+        </div>
+
+        <div class="form-group">
+            <label for="profile_category">Case Category *</label>
+
+            <select id="profile_category"
+                    name="case_category"
+                    required>
                 <option value="">Select case category</option>
-                <option>Divorce / Family Law</option>
-                <option>Criminal Law / Bail</option>
-                <option>Civil Law</option>
-                <option>Property Dispute</option>
-                <option>Cyber Crime</option>
-                <option>Legal Notice</option>
-                <option>Service Matter</option>
-              </select>
-            </div>
-          </div>
 
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="city">City / State</label>
-              <input type="text" id="city" placeholder="Patna, Bihar">
-            </div>
+                @forelse($practiceAreaCategories as $practiceArea)
+                    <option value="{{ $practiceArea->title }}"
+                        {{ old('case_category') == $practiceArea->title ? 'selected' : '' }}>
+                        {{ $practiceArea->title }}
+                    </option>
+                @empty
+                    <option value="Divorce / Family Law" {{ old('case_category') == 'Divorce / Family Law' ? 'selected' : '' }}>
+                        Divorce / Family Law
+                    </option>
 
-            <div class="form-group">
-              <label for="uploadFile">Upload Case Document / ID Proof</label>
-              <label for="uploadFile" class="file-upload">
+                    <option value="Criminal Law / Bail" {{ old('case_category') == 'Criminal Law / Bail' ? 'selected' : '' }}>
+                        Criminal Law / Bail
+                    </option>
+
+                    <option value="Civil Law" {{ old('case_category') == 'Civil Law' ? 'selected' : '' }}>
+                        Civil Law
+                    </option>
+
+                    <option value="Property Dispute" {{ old('case_category') == 'Property Dispute' ? 'selected' : '' }}>
+                        Property Dispute
+                    </option>
+
+                    <option value="Cyber Crime" {{ old('case_category') == 'Cyber Crime' ? 'selected' : '' }}>
+                        Cyber Crime
+                    </option>
+
+                    <option value="Legal Notice" {{ old('case_category') == 'Legal Notice' ? 'selected' : '' }}>
+                        Legal Notice
+                    </option>
+
+                    <option value="Service Matter" {{ old('case_category') == 'Service Matter' ? 'selected' : '' }}>
+                        Service Matter
+                    </option>
+                @endforelse
+            </select>
+        </div>
+    </div>
+
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="profile_city">City / State</label>
+
+            <input type="text"
+                   id="profile_city"
+                   name="city_state"
+                   value="{{ old('city_state') }}"
+                   placeholder="Patna, Bihar">
+        </div>
+
+        <div class="form-group">
+            <label for="uploadFile">Upload Case Document / ID Proof</label>
+
+            <label for="uploadFile" class="file-upload">
                 <i class="bi bi-cloud-arrow-up-fill"></i>
                 <span>PDF, JPG, PNG supported</span>
-              </label>
-              <input type="file" id="uploadFile" accept=".pdf,.jpg,.jpeg,.png" hidden>
-            </div>
-          </div>
+            </label>
 
-          <div class="form-group">
-            <label for="message">Case Message *</label>
-            <textarea id="message" rows="5" placeholder="Briefly describe your legal matter..."></textarea>
-          </div>
+            <input type="file"
+                   id="uploadFile"
+                   name="case_document"
+                   accept=".pdf,.jpg,.jpeg,.png"
+                   hidden>
+        </div>
+    </div>
 
-          <label class="consent-check">
-            <input type="checkbox">
-            <span>I agree to be contacted by Rajpati & Associates regarding my legal enquiry.</span>
-          </label>
+    <div class="form-group">
+        <label for="profile_message">Case Message *</label>
 
-          <button type="button" class="submit-btn">
-            Get Legal Advice
-            <i class="bi bi-arrow-right"></i>
-          </button>
+        <textarea id="profile_message"
+                  name="case_message"
+                  rows="5"
+                  required
+                  placeholder="Briefly describe your legal matter...">{{ old('case_message') }}</textarea>
+    </div>
 
-        </form>
+    <label class="consent-check">
+        <input type="checkbox"
+               name="consent"
+               value="1"
+               required
+               {{ old('consent') ? 'checked' : '' }}>
+
+        <span>
+            I agree to be contacted by Rajpati & Associates regarding my legal enquiry.
+        </span>
+    </label>
+
+    <button type="submit" class="submit-btn">
+        Get Legal Advice
+        <i class="bi bi-arrow-right"></i>
+    </button>
+
+</form>
 
       </div>
 
