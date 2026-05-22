@@ -50,6 +50,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/practice-area.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/service-detail.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/our-team.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/career.css') }}">
 
 </head>
 <body>

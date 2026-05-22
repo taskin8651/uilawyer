@@ -89,3 +89,6 @@ Route::get('/articles/{article:slug}', [App\Http\Controllers\Frontend\ArticlePag
 Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('frontend.contact.index');
 Route::get('/book-consultation', [App\Http\Controllers\Frontend\LegalEnquiryController::class, 'index'])->name('frontend.legal-enquiry.index');
 Route::post('/legal-enquiry', [App\Http\Controllers\Frontend\LegalEnquiryController::class, 'store'])->name('frontend.legal-enquiry.store');
+
+Route::get('/career-application', [App\Http\Controllers\Frontend\CareerApplicationController::class, 'index'])->name('frontend.career-application.index');  
+Route::post('/career-application', [App\Http\Controllers\Frontend\CareerApplicationController::class, 'store'])->name('frontend.career-application.store');

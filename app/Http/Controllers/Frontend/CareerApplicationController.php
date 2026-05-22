@@ -8,6 +8,12 @@ use App\Models\CareerApplication;
 
 class CareerApplicationController extends Controller
 {
+    public function index()
+    {
+        $careerApplications = CareerApplication::latest()->get();
+
+        return view('frontend.career', compact('careerApplications'));
+    }
     public function store(StoreCareerApplicationRequest $request)
     {
         $data = $request->validated();
