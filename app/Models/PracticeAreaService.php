@@ -5,22 +5,22 @@ namespace App\Models;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class PracticeArea extends Model implements HasMedia
+class PracticeAreaService extends Model
 {
-    use SoftDeletes, InteractsWithMedia;
+    use SoftDeletes;
 
-    public $table = 'practice_areas';
+    public $table = 'practice_area_services';
 
     protected $fillable = [
+        'practice_area_id',
         'title',
         'slug',
         'icon_class',
-        'button_text',
         'short_description',
         'description',
+        'button_text',
+        'url',
         'status',
         'sort_order',
         'meta_title',
@@ -32,19 +32,9 @@ class PracticeArea extends Model implements HasMedia
         'status' => 'boolean',
     ];
 
-    public function registerMediaCollections(): void
+    public function practiceArea()
     {
-        $this->addMediaCollection('practice_area_image')->singleFile();
-    }
-
-    public function services()
-    {
-        return $this->hasMany(PracticeAreaService::class, 'practice_area_id');
-    }
-
-    public function getImageAttribute()
-    {
-        return $this->getFirstMediaUrl('practice_area_image');
+        return $this->belongsTo(PracticeArea::class, 'practice_area_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

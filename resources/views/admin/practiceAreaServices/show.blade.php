@@ -1,34 +1,34 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Practice Area Details')
+@section('page-title', 'Practice Area Service Details')
 
 @section('content')
 
 <div class="admin-page-head">
     <div>
-        <a href="{{ route('admin.practice-areas.index') }}" class="admin-back-link">
+        <a href="{{ route('admin.practice-area-services.index') }}" class="admin-back-link">
             ← {{ trans('global.back_to_list') }}
         </a>
 
         <h2 class="admin-page-title">
-            Practice Area Details
+            Practice Area Service Details
         </h2>
 
         <p class="admin-page-subtitle">
-            Frontend detail page, service card and menu content for this practice area.
+            Card content, detail page content and SEO settings for this service.
         </p>
     </div>
 
     <div class="show-actions">
-        @can('practice_area_edit')
-            <a href="{{ route('admin.practice-areas.edit', $practiceArea->id) }}" class="btn-primary">
+        @can('practice_area_service_edit')
+            <a href="{{ route('admin.practice-area-services.edit', $practiceAreaService->id) }}" class="btn-primary">
                 <i class="fas fa-pencil-alt"></i>
-                Edit Practice Area
+                Edit Service
             </a>
         @endcan
 
-        @can('practice_area_delete')
-            <form action="{{ route('admin.practice-areas.destroy', $practiceArea->id) }}"
+        @can('practice_area_service_delete')
+            <form action="{{ route('admin.practice-area-services.destroy', $practiceAreaService->id) }}"
                   method="POST"
                   onsubmit="return confirm('{{ trans('global.areYouSure') }}')">
                 @method('DELETE')
@@ -54,26 +54,19 @@
     <div>
         <div class="detail-card mb-3">
             <div class="profile-hero">
-                @if($practiceArea->image)
-                    <img src="{{ $practiceArea->image }}"
-                         alt="{{ $practiceArea->title }}"
-                         class="profile-avatar-lg"
-                         style="object-fit:cover;">
-                @else
-                    <div class="profile-avatar-lg">
-                        {{ strtoupper(substr($practiceArea->title ?? 'P', 0, 1)) }}
-                    </div>
-                @endif
+                <div class="profile-avatar-lg">
+                    {{ strtoupper(substr($practiceAreaService->title ?? 'S', 0, 1)) }}
+                </div>
 
                 <p class="profile-title">
-                    {{ $practiceArea->title }}
+                    {{ $practiceAreaService->title }}
                 </p>
 
                 <p class="profile-subtitle">
-                    {{ $practiceArea->slug ?? 'practice-area' }}
+                    {{ optional($practiceAreaService->practiceArea)->title ?: 'No Practice Area' }}
                 </p>
 
-                @if($practiceArea->status)
+                @if($practiceAreaService->status)
                     <span class="status-pill success">
                         <i class="fas fa-check-circle"></i>
                         Active
@@ -89,19 +82,19 @@
             <div class="detail-section-pad-sm">
                 <div class="d-grid gap-2" style="grid-template-columns: 1fr 1fr;">
                     <div class="stat-mini">
-                        <p class="stat-mini-label">Practice ID</p>
-                        <p class="stat-mini-value">#{{ $practiceArea->id }}</p>
+                        <p class="stat-mini-label">Service ID</p>
+                        <p class="stat-mini-value">#{{ $practiceAreaService->id }}</p>
                     </div>
 
                     <div class="stat-mini">
                         <p class="stat-mini-label">Sort Order</p>
-                        <p class="stat-mini-value">{{ $practiceArea->sort_order ?? 0 }}</p>
+                        <p class="stat-mini-value">{{ $practiceAreaService->sort_order ?? 0 }}</p>
                     </div>
 
                     <div class="stat-mini" style="grid-column: span 2;">
                         <p class="stat-mini-label">Created On</p>
                         <p class="stat-mini-value-sm">
-                            {{ optional($practiceArea->created_at)->format('d M Y') ?? '-' }}
+                            {{ optional($practiceAreaService->created_at)->format('d M Y') ?? '-' }}
                         </p>
                     </div>
                 </div>
@@ -112,24 +105,31 @@
             <p class="quick-title">Quick Actions</p>
 
             <div class="quick-list">
-                @can('practice_area_edit')
-                    <a href="{{ route('admin.practice-areas.edit', $practiceArea->id) }}" class="quick-link primary">
+                @can('practice_area_service_edit')
+                    <a href="{{ route('admin.practice-area-services.edit', $practiceAreaService->id) }}" class="quick-link primary">
                         <i class="fas fa-pencil-alt"></i>
-                        Edit Practice Area
+                        Edit Service
                     </a>
                 @endcan
 
-                <a href="{{ route('admin.practice-areas.index') }}" class="quick-link">
+                <a href="{{ route('admin.practice-area-services.index') }}" class="quick-link">
                     <i class="fas fa-list"></i>
-                    All Practice Areas
+                    All Services
                 </a>
 
-                @can('practice_area_create')
-                    <a href="{{ route('admin.practice-areas.create') }}" class="quick-link">
+                @can('practice_area_service_create')
+                    <a href="{{ route('admin.practice-area-services.create') }}" class="quick-link">
                         <i class="fas fa-plus"></i>
-                        Add New Practice Area
+                        Add New Service
                     </a>
                 @endcan
+
+                @if($practiceAreaService->url)
+                    <a href="{{ $practiceAreaService->url }}" target="_blank" class="quick-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open Detail URL
+                    </a>
+                @endif
             </div>
         </div>
     </div>
@@ -138,35 +138,47 @@
         <div class="detail-card mb-3">
             <div class="detail-section-head">
                 <div class="detail-section-icon">
-                    <i class="fas fa-scale-balanced"></i>
+                    <i class="fas fa-briefcase"></i>
                 </div>
 
-                <p class="detail-section-title">Practice Area Information</p>
+                <p class="detail-section-title">Service Information</p>
             </div>
 
             <div class="detail-section-body">
                 <div class="detail-row">
                     <span class="detail-label">ID</span>
-                    <span class="detail-value code-pill">#{{ $practiceArea->id }}</span>
+                    <span class="detail-value code-pill">#{{ $practiceAreaService->id }}</span>
                 </div>
 
                 <div class="detail-row">
-                    <span class="detail-label">Title</span>
-                    <span class="detail-value">{{ $practiceArea->title ?? '-' }}</span>
+                    <span class="detail-label">Service</span>
+                    <span class="detail-value">{{ $practiceAreaService->title ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Practice Area</span>
+
+                    @if($practiceAreaService->practiceArea)
+                        <span class="role-tag">
+                            {{ $practiceAreaService->practiceArea->title }}
+                        </span>
+                    @else
+                        <span class="detail-value">-</span>
+                    @endif
                 </div>
 
                 <div class="detail-row">
                     <span class="detail-label">Slug</span>
-                    <span class="detail-value code-pill">{{ $practiceArea->slug ?? '-' }}</span>
+                    <span class="detail-value code-pill">{{ $practiceAreaService->slug ?? '-' }}</span>
                 </div>
 
                 <div class="detail-row">
                     <span class="detail-label">Icon Class</span>
 
-                    @if($practiceArea->icon_class)
+                    @if($practiceAreaService->icon_class)
                         <span class="role-tag">
-                            <i class="{{ $practiceArea->icon_class }}"></i>
-                            {{ $practiceArea->icon_class }}
+                            <i class="{{ $practiceAreaService->icon_class }}"></i>
+                            {{ $practiceAreaService->icon_class }}
                         </span>
                     @else
                         <span class="detail-value">-</span>
@@ -175,18 +187,33 @@
 
                 <div class="detail-row">
                     <span class="detail-label">Button Text</span>
-                    <span class="detail-value">{{ $practiceArea->button_text ?? '-' }}</span>
+                    <span class="detail-value">{{ $practiceAreaService->button_text ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Detail URL</span>
+
+                    @if($practiceAreaService->url)
+                        <a href="{{ $practiceAreaService->url }}"
+                           target="_blank"
+                           class="detail-value"
+                           style="color:#2563eb;">
+                            {{ $practiceAreaService->url }}
+                        </a>
+                    @else
+                        <span class="detail-value">-</span>
+                    @endif
                 </div>
 
                 <div class="detail-row">
                     <span class="detail-label">Sort Order</span>
-                    <span class="detail-value">{{ $practiceArea->sort_order ?? 0 }}</span>
+                    <span class="detail-value">{{ $practiceAreaService->sort_order ?? 0 }}</span>
                 </div>
 
                 <div class="detail-row">
                     <span class="detail-label">Status</span>
 
-                    @if($practiceArea->status)
+                    @if($practiceAreaService->status)
                         <span class="status-pill success">
                             <i class="fas fa-check-circle"></i>
                             Active
@@ -202,14 +229,14 @@
                 <div class="detail-row">
                     <span class="detail-label">Created At</span>
                     <span class="detail-value">
-                        {{ optional($practiceArea->created_at)->format('d M Y, H:i') ?? '-' }}
+                        {{ optional($practiceAreaService->created_at)->format('d M Y, H:i') ?? '-' }}
                     </span>
                 </div>
 
                 <div class="detail-row">
                     <span class="detail-label">Updated At</span>
                     <span class="detail-value">
-                        {{ optional($practiceArea->updated_at)->format('d M Y, H:i') ?? '-' }}
+                        {{ optional($practiceAreaService->updated_at)->format('d M Y, H:i') ?? '-' }}
                     </span>
                 </div>
             </div>
@@ -221,21 +248,21 @@
                     <i class="fas fa-align-left"></i>
                 </div>
 
-                <p class="detail-section-title">Frontend Content</p>
+                <p class="detail-section-title">Service Content</p>
             </div>
 
             <div class="detail-section-pad-sm">
                 <p class="meta-small-label">Short Description</p>
 
                 <p class="detail-value" style="display:block; margin-bottom:18px; line-height:1.8;">
-                    {{ $practiceArea->short_description ?: '-' }}
+                    {{ $practiceAreaService->short_description ?: '-' }}
                 </p>
 
                 <p class="meta-small-label">Full Description</p>
 
                 <div class="detail-value" style="display:block; line-height:1.8;">
-                    @if($practiceArea->description)
-                        {!! $practiceArea->description !!}
+                    @if($practiceAreaService->description)
+                        {!! $practiceAreaService->description !!}
                     @else
                         -
                     @endif
@@ -255,18 +282,18 @@
             <div class="detail-section-body">
                 <div class="detail-row">
                     <span class="detail-label">Meta Title</span>
-                    <span class="detail-value">{{ $practiceArea->meta_title ?? '-' }}</span>
+                    <span class="detail-value">{{ $practiceAreaService->meta_title ?? '-' }}</span>
                 </div>
 
                 <div class="detail-row">
                     <span class="detail-label">Meta Keywords</span>
-                    <span class="detail-value">{{ $practiceArea->meta_keywords ?? '-' }}</span>
+                    <span class="detail-value">{{ $practiceAreaService->meta_keywords ?? '-' }}</span>
                 </div>
 
                 <div class="detail-row">
                     <span class="detail-label">Meta Description</span>
                     <span class="detail-value">
-                        {{ $practiceArea->meta_description ?? '-' }}
+                        {{ $practiceAreaService->meta_description ?? '-' }}
                     </span>
                 </div>
             </div>

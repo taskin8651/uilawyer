@@ -93,7 +93,7 @@
                     'anchor' => $practiceArea->slug,
                   ];
                 @endphp
-                <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}" class="mega-card">
+                <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}" class="mega-card">
                   <i class="{{ $practiceArea->icon_class ?: $practiceMeta['icon'] }}"></i>
                   <strong>{{ $practiceArea->title }}</strong>
                   <span>{{ $practiceArea->short_description ?: $practiceMeta['text'] }}</span>
@@ -143,7 +143,7 @@
               @php
                 $practiceMeta = $practiceAreaMeta[$practiceArea->slug] ?? ['anchor' => $practiceArea->slug];
               @endphp
-              <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}">
+              <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}">
                 {{ $practiceArea->title }}
               </a>
             @endforeach

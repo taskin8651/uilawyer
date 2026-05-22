@@ -120,18 +120,69 @@
   <section class="practice-filter-section">
     <div class="container">
       <div class="practice-filter-wrap reveal">
-        <a href="#family-law" class="active">Family Law</a>
-        <a href="#criminal-law">Criminal Law</a>
-        <a href="#civil-law">Civil Law</a>
-        <a href="#muslim-law">Muslim Law</a>
-        <a href="#service-matters">Service Matters</a>
-        <a href="#cyber-law">Cyber Law</a>
-        <a href="#legal-notice">Legal Notice</a>
-        <a href="#other-services">Other Services</a>
+        @foreach($practiceAreaFilters as $practiceArea)
+          <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}#{{ $practiceArea->slug }}"
+             class="{{ $activeCategory === $practiceArea->slug || (empty($activeCategory) && $loop->first) ? 'active' : '' }}">
+            {{ $practiceArea->title }}
+          </a>
+        @endforeach
       </div>
     </div>
   </section>
   <!-- CATEGORY QUICK FILTER END -->
+
+
+  <!-- DYNAMIC PRACTICE AREAS START -->
+  @foreach($practiceAreas as $practiceArea)
+    <section class="section practice-category-section {{ $loop->even ? 'alt-bg' : '' }}" id="{{ $practiceArea->slug }}">
+      <div class="container">
+
+        <div class="practice-category-head reveal">
+          <div>
+            <span class="kicker">
+              <i class="{{ $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
+              {{ $practiceArea->title }}
+            </span>
+
+            <h2 class="section-title">
+              {{ $practiceArea->meta_title ?: $practiceArea->title }}
+            </h2>
+
+            <p class="section-text">
+              {{ $practiceArea->short_description }}
+            </p>
+          </div>
+
+          <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}" class="category-head-btn">
+            {{ $practiceArea->button_text ?: 'View Details' }}
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="practice-service-grid {{ $practiceArea->services->count() <= 4 ? 'small-grid' : '' }}">
+          @forelse($practiceArea->services as $service)
+            <a href="{{ route('frontend.practice-services.show', ['practiceAreaService' => $service->slug]) }}" class="practice-service-card reveal">
+              <i class="{{ $service->icon_class ?: $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
+              <h3>{{ $service->title }}</h3>
+              <p>{{ $service->short_description }}</p>
+              <span>{{ $service->button_text ?: 'View Details' }} <i class="bi bi-arrow-right"></i></span>
+            </a>
+          @empty
+            <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}" class="practice-service-card reveal">
+              <i class="{{ $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
+              <h3>{{ $practiceArea->title }}</h3>
+              <p>{{ $practiceArea->short_description }}</p>
+              <span>View Details <i class="bi bi-arrow-right"></i></span>
+            </a>
+          @endforelse
+        </div>
+
+      </div>
+    </section>
+  @endforeach
+  <!-- DYNAMIC PRACTICE AREAS END -->
+
+  @if(false)
 
 
   <!-- FAMILY LAW START -->
@@ -674,6 +725,8 @@
     </div>
   </section>
   <!-- OTHER SERVICES END -->
+
+  @endif
 
 
   <!-- PROCESS START -->

@@ -1,26 +1,26 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Add Practice Area')
+@section('page-title', 'Add Practice Area Service')
 
 @section('content')
 
 <div class="admin-page-head">
     <div>
-        <a href="{{ route('admin.practice-areas.index') }}" class="admin-back-link">
+        <a href="{{ route('admin.practice-area-services.index') }}" class="admin-back-link">
             ← {{ trans('global.back_to_list') }}
         </a>
 
         <h2 class="admin-page-title">
-            Add Practice Area
+            Add Practice Area Service
         </h2>
 
         <p class="admin-page-subtitle">
-            Create a dynamic practice area, frontend service card and detail page.
+            Create a dynamic service card and frontend detail page.
         </p>
     </div>
 </div>
 
-<form method="POST" action="{{ route('admin.practice-areas.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.practice-area-services.store') }}">
     @csrf
 
     <div class="admin-form-grid">
@@ -28,16 +28,46 @@
         <div class="form-card">
             <div class="form-card-header">
                 <div class="form-card-icon">
-                    <i class="fas fa-scale-balanced"></i>
+                    <i class="fas fa-briefcase"></i>
                 </div>
 
                 <div>
-                    <p class="form-card-title">Practice Area Information</p>
-                    <p class="form-card-subtitle">Title, slug, icon and image</p>
+                    <p class="form-card-title">Service Information</p>
+                    <p class="form-card-subtitle">Parent practice area, title, slug and icon</p>
                 </div>
             </div>
 
             <div class="form-card-body">
+
+                <div class="field-group">
+                    <label class="field-label" for="practice_area_id">
+                        Practice Area <span class="req">*</span>
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-scale-balanced icon"></i>
+
+                        <select name="practice_area_id"
+                                id="practice_area_id"
+                                required
+                                class="field-input {{ $errors->has('practice_area_id') ? 'error' : '' }}">
+                            <option value="">Select Practice Area</option>
+
+                            @foreach($practiceAreas as $id => $title)
+                                <option value="{{ $id }}" {{ old('practice_area_id') == $id ? 'selected' : '' }}>
+                                    {{ $title }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    @if($errors->has('practice_area_id'))
+                        <p class="field-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ $errors->first('practice_area_id') }}
+                        </p>
+                    @endif
+                </div>
 
                 <div class="field-group">
                     <label class="field-label" for="title">
@@ -52,7 +82,7 @@
                                id="title"
                                value="{{ old('title') }}"
                                required
-                               placeholder="Family Law"
+                               placeholder="Divorce Lawyer"
                                class="field-input {{ $errors->has('title') ? 'error' : '' }}">
                     </div>
 
@@ -76,7 +106,7 @@
                                name="slug"
                                id="slug"
                                value="{{ old('slug') }}"
-                               placeholder="family-law"
+                               placeholder="divorce-lawyer"
                                class="field-input {{ $errors->has('slug') ? 'error' : '' }}">
                     </div>
 
@@ -120,28 +150,6 @@
                     @endif
                 </div>
 
-                <div class="field-group">
-                    <label class="field-label" for="practice_area_image">
-                        Practice Area Image
-                    </label>
-
-                    <input type="file"
-                           name="practice_area_image"
-                           id="practice_area_image"
-                           class="field-input {{ $errors->has('practice_area_image') ? 'error' : '' }}">
-
-                    @if($errors->has('practice_area_image'))
-                        <p class="field-error">
-                            <i class="fas fa-exclamation-circle"></i>
-                            {{ $errors->first('practice_area_image') }}
-                        </p>
-                    @else
-                        <p class="field-hint">
-                            Upload JPG, PNG or WEBP image.
-                        </p>
-                    @endif
-                </div>
-
             </div>
         </div>
 
@@ -153,7 +161,7 @@
 
                 <div>
                     <p class="form-card-title">Publish Settings</p>
-                    <p class="form-card-subtitle">Button text, order and frontend visibility</p>
+                    <p class="form-card-subtitle">Button, URL, sort order and status</p>
                 </div>
             </div>
 
@@ -179,6 +187,34 @@
                         <p class="field-error">
                             <i class="fas fa-exclamation-circle"></i>
                             {{ $errors->first('button_text') }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="url">
+                        Detail URL
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-external-link-alt icon"></i>
+
+                        <input type="text"
+                               name="url"
+                               id="url"
+                               value="{{ old('url') }}"
+                               placeholder="Blank rakhne par dynamic detail URL auto set hoga"
+                               class="field-input {{ $errors->has('url') ? 'error' : '' }}">
+                    </div>
+
+                    @if($errors->has('url'))
+                        <p class="field-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ $errors->first('url') }}
+                        </p>
+                    @else
+                        <p class="field-hint">
+                            External ya custom URL dena ho to yaha add karo.
                         </p>
                     @endif
                 </div>
@@ -228,7 +264,7 @@
                 <div class="form-info-box">
                     <p>
                         <i class="fas fa-info-circle"></i>
-                        Active practice areas will appear on frontend sections and detail pages.
+                        Active services will appear inside selected practice area on frontend.
                     </p>
                 </div>
 
@@ -244,8 +280,8 @@
             </div>
 
             <div>
-                <p class="form-card-title">Frontend Content</p>
-                <p class="form-card-subtitle">Short card text and full detail page content</p>
+                <p class="form-card-title">Service Content</p>
+                <p class="form-card-subtitle">Card description and full detail page content</p>
             </div>
         </div>
 
@@ -259,7 +295,7 @@
                 <textarea name="short_description"
                           id="short_description"
                           rows="4"
-                          placeholder="Enter short description for frontend card"
+                          placeholder="Enter short service card description"
                           class="field-input {{ $errors->has('short_description') ? 'error' : '' }}">{{ old('short_description') }}</textarea>
 
                 @if($errors->has('short_description'))
@@ -278,7 +314,7 @@
                 <textarea name="description"
                           id="description"
                           rows="8"
-                          placeholder="Enter full detail page content"
+                          placeholder="Enter full service detail page content"
                           class="field-input js-ckeditor {{ $errors->has('description') ? 'error' : '' }}">{{ old('description') }}</textarea>
 
                 @if($errors->has('description'))
@@ -300,7 +336,7 @@
 
             <div>
                 <p class="form-card-title">SEO Meta</p>
-                <p class="form-card-subtitle">Optional SEO fields for practice detail page</p>
+                <p class="form-card-subtitle">Optional meta fields for service detail page</p>
             </div>
         </div>
 
@@ -361,7 +397,7 @@
                            name="meta_keywords"
                            id="meta_keywords"
                            value="{{ old('meta_keywords') }}"
-                           placeholder="family law, divorce lawyer, legal consultation"
+                           placeholder="divorce lawyer, family law, legal consultation"
                            class="field-input {{ $errors->has('meta_keywords') ? 'error' : '' }}">
                 </div>
 
@@ -379,10 +415,10 @@
     <div class="form-actions">
         <button type="submit" class="btn-primary">
             <i class="fas fa-save"></i>
-            Save Practice Area
+            Save Service
         </button>
 
-        <a href="{{ route('admin.practice-areas.index') }}" class="btn-ghost">
+        <a href="{{ route('admin.practice-area-services.index') }}" class="btn-ghost">
             {{ trans('global.cancel') }}
         </a>
     </div>

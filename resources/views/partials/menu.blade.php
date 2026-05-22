@@ -268,17 +268,54 @@
 @endcan
 
 {{-- PRACTICE AREA MANAGEMENT --}}
-@can('practice_area_access')
-    <a href="{{ route('admin.practice-areas.index') }}"
-       data-tooltip="Practice Areas"
-       class="nav-link {{ request()->is('admin/practice-areas*') ? 'active' : '' }}">
+@if(Gate::allows('practice_area_access') || Gate::allows('practice_area_service_access'))
+    @php
+        $practiceActive = request()->is('admin/practice-areas*')
+            || request()->is('admin/practice-area-services*');
+    @endphp
 
-        <div class="nav-group-left">
-            <i class="fas fa-scale-balanced nav-icon"></i>
-            <span class="nav-label">Practice Areas</span>
+    <div x-data="{ open: {{ $practiceActive ? 'true' : 'false' }} }">
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="Practice Areas"
+                class="nav-link nav-group-btn {{ $practiceActive ? 'active' : '' }}">
+
+            <div class="nav-group-left">
+                <i class="fas fa-scale-balanced nav-icon"></i>
+                <span class="nav-label">Practice Areas</span>
+            </div>
+
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            @can('practice_area_access')
+                <a href="{{ route('admin.practice-areas.index') }}"
+                   class="sub-link {{ request()->is('admin/practice-areas*') ? 'active' : '' }}">
+                    <i class="fas fa-layer-group"></i>
+                    Practice Categories
+                </a>
+            @endcan
+
+            @can('practice_area_service_access')
+                <a href="{{ route('admin.practice-area-services.index') }}"
+                   class="sub-link {{ request()->is('admin/practice-area-services*') ? 'active' : '' }}">
+                    <i class="fas fa-briefcase"></i>
+                    Practice Services
+                </a>
+            @endcan
         </div>
-    </a>
-@endcan
+    </div>
+@endif
 
 {{-- LEGAL ENQUIRY MANAGEMENT --}}
 @can('legal_enquiry_access')

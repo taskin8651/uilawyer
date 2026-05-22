@@ -1,22 +1,24 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Practice Areas')
+@section('page-title', 'Practice Area Services')
 
 @section('content')
 
 <div class="admin-page-head">
     <div>
-        <h2 class="admin-page-title">Practice Areas</h2>
+        <h2 class="admin-page-title">
+            Practice Area Services
+        </h2>
 
         <p class="admin-page-subtitle">
-            Manage dynamic frontend practice areas, service cards and detail pages.
+            Manage service cards shown inside each practice area category and frontend detail sections.
         </p>
     </div>
 
-    @can('practice_area_create')
-        <a href="{{ route('admin.practice-areas.create') }}" class="btn-primary">
+    @can('practice_area_service_create')
+        <a href="{{ route('admin.practice-area-services.create') }}" class="btn-primary">
             <i class="fas fa-plus"></i>
-            Add Practice Area
+            Add Service
         </a>
     @endcan
 </div>
@@ -29,47 +31,47 @@
 
 <div class="stats-grid">
     <div class="stat-card">
-        <p class="stat-label">Total Practice Areas</p>
-        <p class="stat-value">{{ $practiceAreas->count() }}</p>
+        <p class="stat-label">Total Services</p>
+        <p class="stat-value">{{ $practiceAreaServices->count() }}</p>
     </div>
 
     <div class="stat-card">
         <p class="stat-label">Active</p>
-        <p class="stat-value">{{ $practiceAreas->where('status', 1)->count() }}</p>
+        <p class="stat-value">{{ $practiceAreaServices->where('status', 1)->count() }}</p>
     </div>
 
     <div class="stat-card">
         <p class="stat-label">Inactive</p>
-        <p class="stat-value">{{ $practiceAreas->where('status', 0)->count() }}</p>
+        <p class="stat-value">{{ $practiceAreaServices->where('status', 0)->count() }}</p>
     </div>
 
     <div class="stat-card">
         <p class="stat-label">Added Today</p>
         <p class="stat-value">
-            {{ $practiceAreas->where('created_at', '>=', now()->startOfDay())->count() }}
+            {{ $practiceAreaServices->where('created_at', '>=', now()->startOfDay())->count() }}
         </p>
     </div>
 </div>
 
 <div class="page-card">
     <div class="page-card-header">
-        <p class="page-card-title">All Practice Areas</p>
+        <p class="page-card-title">All Practice Area Services</p>
 
         <span class="page-card-note">
             <i class="fas fa-info-circle"></i>
-            Practice areas will appear on frontend service sections
+            Services will appear under selected practice area on frontend
         </span>
     </div>
 
     <div class="page-card-table">
-        <table class="min-w-full datatable datatable-PracticeArea">
+        <table class="min-w-full datatable datatable-PracticeAreaService">
             <thead>
                 <tr>
                     <th style="width:40px;"></th>
                     <th>ID</th>
+                    <th>Service</th>
                     <th>Practice Area</th>
                     <th>Slug</th>
-                    <th>Icon</th>
                     <th>Sort</th>
                     <th>Status</th>
                     <th style="text-align:right;">Actions</th>
@@ -77,46 +79,43 @@
             </thead>
 
             <tbody>
-                @foreach($practiceAreas as $practiceArea)
-                    <tr data-entry-id="{{ $practiceArea->id }}">
+                @foreach($practiceAreaServices as $service)
+                    <tr data-entry-id="{{ $service->id }}">
                         <td></td>
 
                         <td>
-                            <span class="id-text">#{{ $practiceArea->id }}</span>
+                            <span class="id-text">#{{ $service->id }}</span>
                         </td>
 
                         <td>
                             <div class="inline-flex-center">
-                                @if(!empty($practiceArea->image))
-                                    <img src="{{ $practiceArea->image }}"
-                                         alt="{{ $practiceArea->title }}"
+                                @if(!empty($service->image))
+                                    <img src="{{ $service->image }}"
+                                         alt="{{ $service->title }}"
                                          class="avatar-circle"
                                          style="object-fit:cover;">
                                 @else
                                     <div class="avatar-circle">
-                                        {{ strtoupper(substr($practiceArea->title ?? 'P', 0, 1)) }}
+                                        {{ strtoupper(substr($service->title ?? 'S', 0, 1)) }}
                                     </div>
                                 @endif
 
                                 <div>
-                                    <p class="table-main-text">{{ $practiceArea->title ?? '-' }}</p>
+                                    <p class="table-main-text">
+                                        {{ $service->title ?? '-' }}
+                                    </p>
 
                                     <p class="table-sub-text">
-                                        {{ Str::limit($practiceArea->short_description ?? 'Frontend Practice Area', 55) }}
+                                        {{ \Illuminate\Support\Str::limit($service->short_description ?? 'Practice Area Service', 55) }}
                                     </p>
                                 </div>
                             </div>
                         </td>
 
                         <td>
-                            <span class="code-pill">{{ $practiceArea->slug ?? '-' }}</span>
-                        </td>
-
-                        <td>
-                            @if(!empty($practiceArea->icon))
+                            @if($service->practiceArea)
                                 <span class="role-tag">
-                                    <i class="{{ $practiceArea->icon }}"></i>
-                                    {{ $practiceArea->icon }}
+                                    {{ $service->practiceArea->title }}
                                 </span>
                             @else
                                 <span style="font-size:12px; color:#94A3B8;">—</span>
@@ -124,11 +123,19 @@
                         </td>
 
                         <td>
-                            <span class="id-text">{{ $practiceArea->sort_order ?? 0 }}</span>
+                            <span class="code-pill">
+                                {{ $service->slug ?? '-' }}
+                            </span>
                         </td>
 
                         <td>
-                            @if($practiceArea->status)
+                            <span class="id-text">
+                                {{ $service->sort_order ?? 0 }}
+                            </span>
+                        </td>
+
+                        <td>
+                            @if($service->status)
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="status-dot status-success"></span>
                                     <span style="font-size:12.5px; color:#166534;">Active</span>
@@ -143,24 +150,24 @@
 
                         <td>
                             <div class="action-row">
-                                @can('practice_area_show')
-                                    <a href="{{ route('admin.practice-areas.show', $practiceArea->id) }}"
+                                @can('practice_area_service_show')
+                                    <a href="{{ route('admin.practice-area-services.show', $service->id) }}"
                                        class="btn-outline">
                                         <i class="fas fa-eye"></i>
                                         View
                                     </a>
                                 @endcan
 
-                                @can('practice_area_edit')
-                                    <a href="{{ route('admin.practice-areas.edit', $practiceArea->id) }}"
+                                @can('practice_area_service_edit')
+                                    <a href="{{ route('admin.practice-area-services.edit', $service->id) }}"
                                        class="btn-outline btn-outline-edit">
                                         <i class="fas fa-pencil-alt"></i>
                                         Edit
                                     </a>
                                 @endcan
 
-                                @can('practice_area_delete')
-                                    <form action="{{ route('admin.practice-areas.destroy', $practiceArea->id) }}"
+                                @can('practice_area_service_delete')
+                                    <form action="{{ route('admin.practice-area-services.destroy', $service->id) }}"
                                           method="POST"
                                           style="display:inline;"
                                           onsubmit="return confirm('{{ trans('global.areYouSure') }}')">
@@ -188,14 +195,14 @@
 @parent
 <script>
 $(function () {
-    initAdminDataTable('.datatable-PracticeArea', {
-        canDelete: @can('practice_area_delete') true @else false @endcan,
-        massDeleteUrl: "{{ route('admin.practice-areas.massDestroy') }}",
+    initAdminDataTable('.datatable-PracticeAreaService', {
+        canDelete: @can('practice_area_service_delete') true @else false @endcan,
+        massDeleteUrl: "{{ route('admin.practice-area-services.massDestroy') }}",
         deleteText: "{{ trans('global.datatables.delete') }}",
         zeroSelectedText: "{{ trans('global.datatables.zero_selected') }}",
         confirmText: "{{ trans('global.areYouSure') }}",
-        searchPlaceholder: 'Search practice areas...',
-        infoText: 'Showing _START_–_END_ of _TOTAL_ practice areas'
+        searchPlaceholder: 'Search services...',
+        infoText: 'Showing _START_–_END_ of _TOTAL_ services'
     });
 });
 </script>

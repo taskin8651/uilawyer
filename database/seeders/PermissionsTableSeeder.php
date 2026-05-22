@@ -106,6 +106,26 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 104,
                 'title' => 'practice_area_access',
             ],
+            [
+                'id'    => 105,
+                'title' => 'practice_area_service_create',
+            ],
+            [
+                'id'    => 106,
+                'title' => 'practice_area_service_edit',
+            ],
+            [
+                'id'    => 107,
+                'title' => 'practice_area_service_show',
+            ],
+            [
+                'id'    => 108,
+                'title' => 'practice_area_service_delete',
+            ],
+            [
+                'id'    => 109,
+                'title' => 'practice_area_service_access',
+            ],
         ];
 
         Permission::insert($permissions);
