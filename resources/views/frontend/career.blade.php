@@ -507,6 +507,26 @@
     </div>
 
     <div class="form-group">
+        <label for="idProof">ID Proof Upload *</label>
+
+        <label for="idProof" class="file-upload">
+            <i class="bi bi-file-earmark-person-fill"></i>
+
+            <div>
+                <strong>Upload ID Proof</strong>
+                <span>PDF, JPG, PNG supported</span>
+            </div>
+        </label>
+
+        <input type="file"
+               id="idProof"
+               name="id_proof"
+               accept=".pdf,.jpg,.jpeg,.png"
+               required
+               hidden>
+    </div>
+
+    <div class="form-group">
         <label for="message">Message / Statement Of Interest *</label>
 
         <textarea id="message"

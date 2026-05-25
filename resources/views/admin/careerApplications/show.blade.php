@@ -122,6 +122,13 @@
                         Download Resume
                     </a>
                 @endif
+
+                @if($careerApplication->id_proof)
+                    <a href="{{ $careerApplication->id_proof }}" target="_blank" class="quick-link">
+                        <i class="fas fa-id-card"></i>
+                        View ID Proof
+                    </a>
+                @endif
             </div>
         </div>
     </div>
@@ -247,7 +254,7 @@
                     <i class="fas fa-file-upload"></i>
                 </div>
 
-                <p class="detail-section-title">Resume</p>
+                <p class="detail-section-title">Uploaded Documents</p>
             </div>
 
             <div class="detail-section-pad-sm">
@@ -264,6 +271,22 @@
 
                         <p class="assign-empty-title">No resume uploaded</p>
                         <p class="assign-empty-text">Applicant did not upload resume.</p>
+                    </div>
+                @endif
+
+                @if($careerApplication->id_proof)
+                    <a href="{{ $careerApplication->id_proof }}" target="_blank" class="quick-link primary" style="margin-top:10px;">
+                        <i class="fas fa-id-card"></i>
+                        View / Download ID Proof
+                    </a>
+                @else
+                    <div class="assign-empty" style="margin-top:12px;">
+                        <div class="assign-empty-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+
+                        <p class="assign-empty-title">No ID proof uploaded</p>
+                        <p class="assign-empty-text">Applicant did not upload ID proof.</p>
                     </div>
                 @endif
             </div>

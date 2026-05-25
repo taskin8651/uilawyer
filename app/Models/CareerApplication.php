@@ -38,11 +38,17 @@ class CareerApplication extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('resume')->singleFile();
+        $this->addMediaCollection('id_proof')->singleFile();
     }
 
     public function getResumeAttribute()
     {
         return $this->getFirstMediaUrl('resume');
+    }
+
+    public function getIdProofAttribute()
+    {
+        return $this->getFirstMediaUrl('id_proof');
     }
 
     protected function serializeDate(DateTimeInterface $date)

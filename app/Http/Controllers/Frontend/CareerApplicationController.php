@@ -21,7 +21,7 @@ class CareerApplicationController extends Controller
         $data['consent'] = $request->has('consent') ? 1 : 0;
         $data['status'] = 'new';
 
-        unset($data['resume']);
+        unset($data['resume'], $data['id_proof']);
 
         $careerApplication = CareerApplication::create($data);
 
@@ -29,6 +29,12 @@ class CareerApplicationController extends Controller
             $careerApplication
                 ->addMediaFromRequest('resume')
                 ->toMediaCollection('resume');
+        }
+
+        if ($request->hasFile('id_proof')) {
+            $careerApplication
+                ->addMediaFromRequest('id_proof')
+                ->toMediaCollection('id_proof');
         }
 
         return back()

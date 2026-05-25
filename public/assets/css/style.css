@@ -3117,6 +3117,32 @@ textarea {
 
 .site-header{position:sticky;top:0;z-index:9999;}
 
+/* FRONTEND FORM FIELD ERRORS */
+.has-field-error input,
+.has-field-error select,
+.has-field-error textarea,
+.has-field-error .file-upload {
+  border-color: rgba(220, 38, 38, .72) !important;
+  box-shadow: 0 0 0 5px rgba(220, 38, 38, .09) !important;
+}
+
+.frontend-field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 6px 0 0;
+  color: #b91c1c;
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 900;
+}
+
+.frontend-field-error i {
+  margin-top: 2px;
+  color: #dc2626;
+  font-size: 13px;
+}
+
 /* FRONTEND SUCCESS POPUP */
 .frontend-success-modal {
   position: fixed;
@@ -3276,6 +3302,5 @@ textarea {
     font-size: 32px;
   }
 }
-
 
 

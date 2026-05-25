@@ -310,6 +310,46 @@
     <a href="{{ $siteSetting->map_direction_url ?: '#' }}" target="_blank"><i class="bi bi-geo-alt-fill"></i>Direction</a>
   </div>
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  @if($errors->any())
+    <script>
+      window.frontendValidationErrors = @json($errors->messages());
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const errors = window.frontendValidationErrors || {};
+
+        Object.keys(errors).forEach(function (field) {
+          const input = document.querySelector('[name="' + field.replace(/"/g, '\\"') + '"]');
+
+          if (!input) {
+            return;
+          }
+
+          const holder = input.closest('.form-group') || input.closest('.consent-check') || input.parentElement;
+
+          if (!holder) {
+            return;
+          }
+
+          holder.classList.add('has-field-error');
+
+          if (holder.querySelector('.frontend-field-error')) {
+            return;
+          }
+
+          const error = document.createElement('p');
+          error.className = 'frontend-field-error';
+          error.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> ' + errors[field][0];
+          holder.appendChild(error);
+        });
+
+        const firstError = document.querySelector('.has-field-error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    </script>
+  @endif
   @if(session('message'))
     <script>
       document.addEventListener('DOMContentLoaded', function () {

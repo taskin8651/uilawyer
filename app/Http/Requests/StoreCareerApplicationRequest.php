@@ -36,6 +36,7 @@ class StoreCareerApplicationRequest extends FormRequest
             'consent'                => 'required|accepted',
 
             'resume'                 => 'required|file|mimes:pdf,doc,docx|min:10|max:5120',
+            'id_proof'               => 'required|file|mimes:pdf,jpg,jpeg,png|min:10|max:5120',
         ];
     }
 }
