@@ -57,27 +57,11 @@
             <div class="form-card-icon"><i class="fas fa-cog"></i></div>
             <div>
                 <p class="form-card-title">Publish Settings</p>
-                <p class="form-card-subtitle">Button, URL, sort order and status</p>
+                <p class="form-card-subtitle">sort order and status</p>
             </div>
         </div>
 
-        <div class="form-card-body">
-            <div class="field-group">
-                <label class="field-label" for="button_text">Button Text</label>
-                <input type="text" name="button_text" id="button_text"
-                       value="{{ old('button_text', $practiceAreaService->button_text ?? 'View Details') }}"
-                       class="field-input {{ $errors->has('button_text') ? 'error' : '' }}">
-            </div>
-
-            <div class="field-group">
-                <label class="field-label" for="url">Detail URL</label>
-                <input type="text" name="url" id="url"
-                       value="{{ old('url', $practiceAreaService->url ?? '') }}"
-                       placeholder="Blank rakhne par dynamic detail URL auto set hoga"
-                       class="field-input {{ $errors->has('url') ? 'error' : '' }}">
-            </div>
-
-            <div class="field-group">
+        <div class="form-card-body"><div class="field-group">
                 <label class="field-label" for="sort_order">Sort Order</label>
                 <input type="number" name="sort_order" id="sort_order"
                        value="{{ old('sort_order', $practiceAreaService->sort_order ?? 0) }}"
@@ -159,3 +143,4 @@
     </button>
     <a href="{{ route('admin.practice-area-services.index') }}" class="btn-ghost">Cancel</a>
 </div>
+

@@ -88,6 +88,8 @@ Route::get('/practice-areas/{practiceArea:slug}', [App\Http\Controllers\Frontend
 Route::get('/practice-services/{practiceAreaService:slug}', [App\Http\Controllers\Frontend\PracticeAreaPageController::class, 'showService'])->name('frontend.practice-services.show');
 
 Route::get('/articles', [App\Http\Controllers\Frontend\ArticlePageController::class, 'index'])->name('frontend.articles.index');
+Route::get('/articles/submit', [App\Http\Controllers\Frontend\ArticlePageController::class, 'create'])->name('frontend.articles.submit');
+Route::post('/articles/submit', [App\Http\Controllers\Frontend\ArticlePageController::class, 'store'])->name('frontend.articles.submit.store');
 Route::get('/articles/{article:slug}', [App\Http\Controllers\Frontend\ArticlePageController::class, 'show'])->name('frontend.articles.show');
 
 Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('frontend.contact.index');

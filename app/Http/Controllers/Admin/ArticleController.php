@@ -45,23 +45,28 @@ class ArticleController extends Controller
         $data['is_latest'] = $request->has('is_latest') ? 1 : 0;
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        $data['read_more_text'] = $data['read_more_text'] ?? 'Read More';
-        $data['read_more_url'] = $this->cleanReadMoreUrl($data['read_more_url'] ?? null);
+        $data['is_public_submission'] = $request->has('is_public_submission') ? 1 : 0;
 
-        unset($data['article_image']);
+        unset($data['article_image'], $data['article_document'], $data['payment_screenshot']);
 
         $article = Article::create($data);
-
-        if (blank($article->read_more_url)) {
-            $article->update([
-                'read_more_url' => route('frontend.articles.show', ['article' => $article->slug], false),
-            ]);
-        }
 
         if ($request->hasFile('article_image')) {
             $article
                 ->addMediaFromRequest('article_image')
                 ->toMediaCollection('article_image');
+        }
+
+        if ($request->hasFile('article_document')) {
+            $article
+                ->addMediaFromRequest('article_document')
+                ->toMediaCollection('article_document');
+        }
+
+        if ($request->hasFile('payment_screenshot')) {
+            $article
+                ->addMediaFromRequest('payment_screenshot')
+                ->toMediaCollection('payment_screenshot');
         }
 
         return redirect()->route('admin.articles.index')
@@ -96,11 +101,9 @@ class ArticleController extends Controller
         $data['is_latest'] = $request->has('is_latest') ? 1 : 0;
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        $data['read_more_text'] = $data['read_more_text'] ?? 'Read More';
-        $data['read_more_url'] = $this->cleanReadMoreUrl($data['read_more_url'] ?? null)
-            ?: route('frontend.articles.show', ['article' => $data['slug']], false);
+        $data['is_public_submission'] = $request->has('is_public_submission') ? 1 : $article->is_public_submission;
 
-        unset($data['article_image']);
+        unset($data['article_image'], $data['article_document'], $data['payment_screenshot']);
 
         $article->update($data);
 
@@ -108,6 +111,18 @@ class ArticleController extends Controller
             $article
                 ->addMediaFromRequest('article_image')
                 ->toMediaCollection('article_image');
+        }
+
+        if ($request->hasFile('article_document')) {
+            $article
+                ->addMediaFromRequest('article_document')
+                ->toMediaCollection('article_document');
+        }
+
+        if ($request->hasFile('payment_screenshot')) {
+            $article
+                ->addMediaFromRequest('payment_screenshot')
+                ->toMediaCollection('payment_screenshot');
         }
 
         return redirect()->route('admin.articles.index')
@@ -130,13 +145,6 @@ class ArticleController extends Controller
         Article::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    private function cleanReadMoreUrl(?string $url): ?string
-    {
-        $url = trim((string) $url);
-
-        return $url === '' || $url === '#' ? null : $url;
     }
 
     private function uniqueSlug(string $value, ?int $ignoreId = null): string

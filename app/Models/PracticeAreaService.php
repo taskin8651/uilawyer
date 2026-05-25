@@ -19,8 +19,6 @@ class PracticeAreaService extends Model
         'icon_class',
         'short_description',
         'description',
-        'button_text',
-        'url',
         'status',
         'sort_order',
         'meta_title',

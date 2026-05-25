@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePublicArticleRequest;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\PracticeArea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ArticlePageController extends Controller
 {
@@ -122,5 +124,71 @@ class ArticlePageController extends Controller
             'relatedArticles' => $relatedArticles,
             'fallbackImage' => self::FALLBACK_IMAGE,
         ]);
+    }
+
+    public function create()
+    {
+        $articleCategories = ArticleCategory::where('status', 1)
+            ->orderBy('sort_order')
+            ->pluck('name', 'id');
+
+        return view('frontend.submit-article', compact('articleCategories'));
+    }
+
+    public function store(StorePublicArticleRequest $request)
+    {
+        $data = $request->validated();
+
+        $article = Article::create([
+            'article_category_id' => $data['article_category_id'] ?? null,
+            'title' => $data['title'],
+            'slug' => $this->uniqueSlug($data['title']),
+            'author_name' => $data['author_name'],
+            'submitter_email' => $data['submitter_email'],
+            'submitter_phone' => $data['submitter_phone'],
+            'published_date' => now()->toDateString(),
+            'short_description' => $data['short_description'],
+            'description' => $data['description'],
+            'is_public_submission' => 1,
+            'is_latest' => 0,
+            'status' => 0,
+            'sort_order' => 0,
+            'meta_title' => $data['title'],
+            'meta_description' => Str::limit(strip_tags($data['short_description']), 160),
+        ]);
+
+        if ($request->hasFile('article_image')) {
+            $article
+                ->addMediaFromRequest('article_image')
+                ->toMediaCollection('article_image');
+        }
+
+        if ($request->hasFile('article_document')) {
+            $article
+                ->addMediaFromRequest('article_document')
+                ->toMediaCollection('article_document');
+        }
+
+        if ($request->hasFile('payment_screenshot')) {
+            $article
+                ->addMediaFromRequest('payment_screenshot')
+                ->toMediaCollection('payment_screenshot');
+        }
+
+        return back()->with('message', 'Thank you. Your article has been submitted successfully and will be published after admin approval.');
+    }
+
+    private function uniqueSlug(string $value): string
+    {
+        $baseSlug = Str::slug($value) ?: 'article';
+        $slug = $baseSlug;
+        $counter = 2;
+
+        while (Article::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 }

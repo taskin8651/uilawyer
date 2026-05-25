@@ -156,7 +156,7 @@
           </div>
 
           <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}" class="category-head-btn">
-            {{ $practiceArea->button_text ?: 'View Details' }}
+            View Details
             <i class="bi bi-arrow-right"></i>
           </a>
         </div>
@@ -167,7 +167,7 @@
               <i class="{{ $service->icon_class ?: $practiceArea->icon_class ?: 'bi bi-grid-3x3-gap-fill' }}"></i>
               <h3>{{ $service->title }}</h3>
               <p>{{ $service->short_description }}</p>
-              <span>{{ $service->button_text ?: 'View Details' }} <i class="bi bi-arrow-right"></i></span>
+              <span>View Details <i class="bi bi-arrow-right"></i></span>
             </a>
           @empty
             <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}" class="practice-service-card reveal">

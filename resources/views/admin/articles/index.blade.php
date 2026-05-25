@@ -96,7 +96,12 @@
 
                                 <div>
                                     <p class="table-main-text">{{ $article->title ?? '-' }}</p>
-                                    <p class="table-sub-text">{{ $article->slug ?? '-' }}</p>
+                                    <p class="table-sub-text">
+                                        {{ $article->slug ?? '-' }}
+                                        @if($article->is_public_submission)
+                                            | Public Submission
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
                         </td>
@@ -136,7 +141,7 @@
                             @else
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="status-dot status-warning"></span>
-                                    <span style="font-size:12.5px; color:#92400E;">Inactive</span>
+                                    <span style="font-size:12.5px; color:#92400E;">Pending / Inactive</span>
                                 </div>
                             @endif
                         </td>

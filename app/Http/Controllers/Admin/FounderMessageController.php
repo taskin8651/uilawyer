@@ -37,8 +37,6 @@ class FounderMessageController extends Controller
                         'text' => 'Since 1999',
                     ],
                 ],
-                'button_text' => 'View Team',
-                'button_url' => 'our-team.html',
             ]
         );
 
@@ -64,8 +62,6 @@ class FounderMessageController extends Controller
             'meta_icons.*' => 'nullable|string|max:255',
             'meta_texts' => 'nullable|array',
             'meta_texts.*' => 'nullable|string|max:255',
-            'button_text' => 'nullable|string|max:255',
-            'button_url' => 'nullable|string|max:255',
             'founder_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
 

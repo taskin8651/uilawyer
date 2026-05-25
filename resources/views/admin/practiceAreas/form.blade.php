@@ -54,19 +54,11 @@
             <div class="form-card-icon"><i class="fas fa-cog"></i></div>
             <div>
                 <p class="form-card-title">Publish Settings</p>
-                <p class="form-card-subtitle">Menu order, button text and status</p>
+                <p class="form-card-subtitle">Menu order, status</p>
             </div>
         </div>
 
-        <div class="form-card-body">
-            <div class="field-group">
-                <label class="field-label" for="button_text">Button Text</label>
-                <input type="text" name="button_text" id="button_text"
-                       value="{{ old('button_text', $practiceArea->button_text ?? 'View Details') }}"
-                       class="field-input {{ $errors->has('button_text') ? 'error' : '' }}">
-            </div>
-
-            <div class="field-group">
+        <div class="form-card-body"><div class="field-group">
                 <label class="field-label" for="sort_order">Sort Order</label>
                 <input type="number" name="sort_order" id="sort_order"
                        value="{{ old('sort_order', $practiceArea->sort_order ?? 0) }}"
@@ -148,3 +140,4 @@
     </button>
     <a href="{{ route('admin.practice-areas.index') }}" class="btn-ghost">Cancel</a>
 </div>
+

@@ -199,29 +199,7 @@
                                class="field-input {{ $errors->has('card_designation') ? 'error' : '' }}">
                     </div>
                 </div>
-
-                <div class="field-group">
-                    <label class="field-label">Button Text</label>
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-link icon"></i>
-                        <input type="text"
-                               name="button_text"
-                               value="{{ old('button_text', $founderMessage->button_text) }}"
-                               placeholder="View Team"
-                               class="field-input {{ $errors->has('button_text') ? 'error' : '' }}">
-                    </div>
                 </div>
-
-                <div class="field-group">
-                    <label class="field-label">Button URL</label>
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-external-link-alt icon"></i>
-                        <input type="text"
-                               name="button_url"
-                               value="{{ old('button_url', $founderMessage->button_url) }}"
-                               placeholder="our-team.html"
-                               class="field-input {{ $errors->has('button_url') ? 'error' : '' }}">
-                    </div>
                 </div>
 
             </div>

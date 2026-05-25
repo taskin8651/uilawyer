@@ -36,8 +36,6 @@ class PracticeAreaController extends Controller
         $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title']);
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        $data['button_text'] = $data['button_text'] ?? 'View Details';
-
         unset($data['practice_area_image']);
 
         $practiceArea = PracticeArea::create($data);
@@ -73,8 +71,6 @@ class PracticeAreaController extends Controller
         $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title'], $practiceArea->id);
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        $data['button_text'] = $data['button_text'] ?? 'View Details';
-
         unset($data['practice_area_image']);
 
         $practiceArea->update($data);

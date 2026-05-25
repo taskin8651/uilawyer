@@ -121,11 +121,7 @@
                     @foreach($practiceArea->services->take(3) as $service)
 
                         @php
-                            $serviceUrl = $service->url
-                                ?: route('frontend.practice-area.index', [
-                                    'category' => $practiceArea->slug,
-                                    'service' => $service->slug
-                                ]);
+                            $serviceUrl = route('frontend.practice-services.show', $service);
                         @endphp
 
                         <a href="{{ $serviceUrl }}">
@@ -667,7 +663,7 @@
                 </p>
 
                 <a href="{{ route('frontend.articles.show', $article->slug) }}" class="read-link">
-                    {{ $article->read_more_text ?: 'Read Article' }}
+                    Read Article
                     <i class="bi bi-arrow-right"></i>
                 </a>
 

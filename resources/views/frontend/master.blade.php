@@ -101,7 +101,8 @@
 
     $isArticleActive = request()->routeIs(
         'frontend.articles.index',
-        'frontend.articles.show'
+        'frontend.articles.show',
+        'frontend.articles.submit'
     );
 
     $isCareerActive = request()->routeIs(
@@ -274,6 +275,7 @@
     <a href="{{ $siteSetting->map_direction_url ?: '#' }}" target="_blank"><i class="bi bi-geo-alt-fill"></i>Direction</a>
   </div>
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  @yield('scripts')
 </body>
 </html>
 

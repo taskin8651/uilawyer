@@ -193,39 +193,11 @@
 
                 <div>
                     <p class="form-card-title">Publish Settings</p>
-                    <p class="form-card-subtitle">Update visibility and buttons</p>
+                    <p class="form-card-subtitle">Update visibility and ordering</p>
                 </div>
             </div>
 
             <div class="form-card-body">
-
-                <div class="field-group">
-                    <label class="field-label" for="read_more_text">Read More Text</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-arrow-right icon"></i>
-
-                        <input type="text"
-                               name="read_more_text"
-                               id="read_more_text"
-                               value="{{ old('read_more_text', $article->read_more_text) }}"
-                               class="field-input {{ $errors->has('read_more_text') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label" for="read_more_url">Read More URL</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-link icon"></i>
-
-                        <input type="text"
-                               name="read_more_url"
-                               id="read_more_url"
-                               value="{{ old('read_more_url', $article->read_more_url) }}"
-                               class="field-input {{ $errors->has('read_more_url') ? 'error' : '' }}">
-                    </div>
-                </div>
 
                 <div class="field-group">
                     <label class="field-label" for="sort_order">Sort Order</label>

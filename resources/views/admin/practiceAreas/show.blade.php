@@ -174,11 +174,6 @@
                 </div>
 
                 <div class="detail-row">
-                    <span class="detail-label">Button Text</span>
-                    <span class="detail-value">{{ $practiceArea->button_text ?? '-' }}</span>
-                </div>
-
-                <div class="detail-row">
                     <span class="detail-label">Sort Order</span>
                     <span class="detail-value">{{ $practiceArea->sort_order ?? 0 }}</span>
                 </div>

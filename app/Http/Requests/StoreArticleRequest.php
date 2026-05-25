@@ -19,11 +19,12 @@ class StoreArticleRequest extends FormRequest
             'title'              => 'nullable|string|max:255',
             'slug'               => 'nullable|string|max:255|unique:articles,slug',
             'author_name'        => 'nullable|string|max:255',
+            'submitter_email'    => 'nullable|email|max:255',
+            'submitter_phone'    => 'nullable|string|max:30',
             'published_date'     => 'nullable|date',
             'short_description'  => 'nullable|string',
             'description'        => 'nullable|string',
-            'read_more_text'     => 'nullable|string|max:255',
-            'read_more_url'      => 'nullable|string|max:255',
+            'is_public_submission' => 'nullable|boolean',
             'is_latest'          => 'nullable|boolean',
             'status'             => 'nullable|boolean',
             'sort_order'         => 'nullable|integer',
@@ -31,6 +32,8 @@ class StoreArticleRequest extends FormRequest
             'meta_description'   => 'nullable|string',
             'meta_keywords'      => 'nullable|string|max:255',
             'article_image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'article_document'   => 'nullable|file|mimes:pdf,doc,docx|max:8192',
+            'payment_screenshot' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ];
     }
 }

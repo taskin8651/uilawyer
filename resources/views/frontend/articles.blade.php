@@ -32,6 +32,11 @@ $siteSetting    = \App\Models\SiteSetting::first();
                     cyber and litigation matters.
                 </p>
 
+                <a href="{{ route('frontend.articles.submit') }}" class="btn btn-primary magnetic">
+                    <i class="bi bi-pencil-square"></i>
+                    Add Article
+                </a>
+
                 <nav class="articles-crumb" aria-label="breadcrumb">
                     <a href="{{ url('/') }}">Home</a>
                     <i class="bi bi-chevron-right"></i>
@@ -200,7 +205,7 @@ $siteSetting    = \App\Models\SiteSetting::first();
 
                             <div class="article-bottom">
                                 <a href="{{ route('frontend.articles.show', ['article' => $article->slug]) }}">
-                                    {{ $article->read_more_text ?: 'Read More' }}
+                                    Read More
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
 

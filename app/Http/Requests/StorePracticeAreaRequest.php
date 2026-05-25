@@ -18,7 +18,6 @@ class StorePracticeAreaRequest extends FormRequest
             'title'             => 'nullable|string|max:255',
             'slug'              => 'nullable|string|max:255|unique:practice_areas,slug',
             'icon_class'        => 'nullable|string|max:255',
-            'button_text'       => 'nullable|string|max:255',
             'short_description' => 'nullable|string',
             'description'       => 'nullable|string',
             'status'            => 'nullable|boolean',

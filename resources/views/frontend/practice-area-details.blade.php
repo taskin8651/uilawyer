@@ -98,7 +98,7 @@
 
       <div class="article-consult-actions">
         <a href="{{ route('frontend.legal-enquiry.index') }}" class="btn btn-primary magnetic">
-          {{ $practiceArea->button_text ?: 'Book Consultation' }}
+          Book Consultation
           <i class="bi bi-arrow-right"></i>
         </a>
         <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">

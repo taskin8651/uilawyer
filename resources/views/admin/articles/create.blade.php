@@ -173,41 +173,11 @@
 
                 <div>
                     <p class="form-card-title">Publish Settings</p>
-                    <p class="form-card-subtitle">Frontend visibility and buttons</p>
+                    <p class="form-card-subtitle">Frontend visibility and ordering</p>
                 </div>
             </div>
 
             <div class="form-card-body">
-
-                <div class="field-group">
-                    <label class="field-label" for="read_more_text">Read More Text</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-arrow-right icon"></i>
-
-                        <input type="text"
-                               name="read_more_text"
-                               id="read_more_text"
-                               value="{{ old('read_more_text', 'Read More') }}"
-                               placeholder="Read More"
-                               class="field-input {{ $errors->has('read_more_text') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label" for="read_more_url">Read More URL</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-link icon"></i>
-
-                        <input type="text"
-                               name="read_more_url"
-                               id="read_more_url"
-                               value="{{ old('read_more_url', '#') }}"
-                               placeholder="article-details.html"
-                               class="field-input {{ $errors->has('read_more_url') ? 'error' : '' }}">
-                    </div>
-                </div>
 
                 <div class="field-group">
                     <label class="field-label" for="sort_order">Sort Order</label>

@@ -26,8 +26,6 @@ class FounderMessage extends Model implements HasMedia
         'card_name',
         'card_designation',
         'meta_items',
-        'button_text',
-        'button_url',
     ];
 
     protected $casts = [

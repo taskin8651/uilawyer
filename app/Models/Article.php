@@ -19,11 +19,12 @@ class Article extends Model implements HasMedia
         'title',
         'slug',
         'author_name',
+        'submitter_email',
+        'submitter_phone',
         'published_date',
         'short_description',
         'description',
-        'read_more_text',
-        'read_more_url',
+        'is_public_submission',
         'is_latest',
         'status',
         'sort_order',
@@ -34,6 +35,7 @@ class Article extends Model implements HasMedia
 
     protected $casts = [
         'published_date' => 'date',
+        'is_public_submission' => 'boolean',
         'is_latest'      => 'boolean',
         'status'         => 'boolean',
     ];
@@ -46,11 +48,23 @@ class Article extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('article_image')->singleFile();
+        $this->addMediaCollection('article_document')->singleFile();
+        $this->addMediaCollection('payment_screenshot')->singleFile();
     }
 
     public function getImageAttribute()
     {
         return $this->getFirstMediaUrl('article_image');
+    }
+
+    public function getDocumentAttribute()
+    {
+        return $this->getFirstMediaUrl('article_document');
+    }
+
+    public function getPaymentScreenshotAttribute()
+    {
+        return $this->getFirstMediaUrl('payment_screenshot');
     }
 
     protected function serializeDate(DateTimeInterface $date)

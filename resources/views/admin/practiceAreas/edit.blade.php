@@ -180,35 +180,11 @@
 
                 <div>
                     <p class="form-card-title">Publish Settings</p>
-                    <p class="form-card-subtitle">Update button text, order and frontend visibility</p>
+                    <p class="form-card-subtitle">Update order and frontend visibility</p>
                 </div>
             </div>
 
-            <div class="form-card-body">
-
-                <div class="field-group">
-                    <label class="field-label" for="button_text">
-                        Button Text
-                    </label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-arrow-right icon"></i>
-
-                        <input type="text"
-                               name="button_text"
-                               id="button_text"
-                               value="{{ old('button_text', $practiceArea->button_text) }}"
-                               placeholder="View Details"
-                               class="field-input {{ $errors->has('button_text') ? 'error' : '' }}">
-                    </div>
-
-                    @if($errors->has('button_text'))
-                        <p class="field-error">
-                            <i class="fas fa-exclamation-circle"></i>
-                            {{ $errors->first('button_text') }}
-                        </p>
-                    @endif
-                </div>
+            <div class="form-card-body"></div>
 
                 <div class="field-group">
                     <label class="field-label" for="sort_order">

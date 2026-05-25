@@ -143,6 +143,25 @@
                 </div>
 
                 <div class="detail-row">
+                    <span class="detail-label">Submission Type</span>
+                    @if($article->is_public_submission)
+                        <span class="status-pill warning">Public Submission</span>
+                    @else
+                        <span class="status-pill success">Admin Article</span>
+                    @endif
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Submitter Email</span>
+                    <span class="detail-value">{{ $article->submitter_email ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Submitter Phone</span>
+                    <span class="detail-value">{{ $article->submitter_phone ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
                     <span class="detail-label">Published Date</span>
                     <span class="detail-value">
                         {{ optional($article->published_date)->format('d M Y') ?? '-' }}
@@ -212,26 +231,52 @@
             </div>
         </div>
 
+        <div class="detail-card mb-3">
+            <div class="detail-section-head">
+                <div class="detail-section-icon">
+                    <i class="fas fa-paperclip"></i>
+                </div>
+
+                <p class="detail-section-title">Submitted Files</p>
+            </div>
+
+            <div class="detail-section-body">
+                <div class="detail-row">
+                    <span class="detail-label">Article Document</span>
+                    @if($article->document)
+                        <a href="{{ $article->document }}" target="_blank" class="quick-link primary">
+                            <i class="fas fa-file-download"></i>
+                            View Document
+                        </a>
+                    @else
+                        <span class="detail-value">-</span>
+                    @endif
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Payment Screenshot</span>
+                    @if($article->payment_screenshot)
+                        <a href="{{ $article->payment_screenshot }}" target="_blank" class="quick-link primary">
+                            <i class="fas fa-receipt"></i>
+                            View Screenshot
+                        </a>
+                    @else
+                        <span class="detail-value">-</span>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="detail-card">
             <div class="detail-section-head">
                 <div class="detail-section-icon">
                     <i class="fas fa-search"></i>
                 </div>
 
-                <p class="detail-section-title">SEO & Button Details</p>
+                <p class="detail-section-title">SEO Details</p>
             </div>
 
             <div class="detail-section-body">
-                <div class="detail-row">
-                    <span class="detail-label">Read More Text</span>
-                    <span class="detail-value">{{ $article->read_more_text ?? '-' }}</span>
-                </div>
-
-                <div class="detail-row">
-                    <span class="detail-label">Read More URL</span>
-                    <span class="detail-value">{{ $article->read_more_url ?? '-' }}</span>
-                </div>
-
                 <div class="detail-row">
                     <span class="detail-label">Meta Title</span>
                     <span class="detail-value">{{ $article->meta_title ?? '-' }}</span>

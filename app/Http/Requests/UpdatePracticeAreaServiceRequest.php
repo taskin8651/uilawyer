@@ -21,8 +21,6 @@ class UpdatePracticeAreaServiceRequest extends FormRequest
             'icon_class'        => 'nullable|string|max:255',
             'short_description' => 'nullable|string',
             'description'       => 'nullable|string',
-            'button_text'       => 'nullable|string|max:255',
-            'url'               => 'nullable|string|max:255',
             'status'            => 'nullable|boolean',
             'sort_order'        => 'nullable|integer',
             'meta_title'        => 'nullable|string|max:255',

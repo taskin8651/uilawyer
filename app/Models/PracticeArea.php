@@ -18,7 +18,6 @@ class PracticeArea extends Model implements HasMedia
         'title',
         'slug',
         'icon_class',
-        'button_text',
         'short_description',
         'description',
         'status',

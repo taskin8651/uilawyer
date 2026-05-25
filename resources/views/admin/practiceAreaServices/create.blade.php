@@ -161,63 +161,11 @@
 
                 <div>
                     <p class="form-card-title">Publish Settings</p>
-                    <p class="form-card-subtitle">Button, URL, sort order and status</p>
+                    <p class="form-card-subtitle">sort order and status</p>
                 </div>
             </div>
 
-            <div class="form-card-body">
-
-                <div class="field-group">
-                    <label class="field-label" for="button_text">
-                        Button Text
-                    </label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-arrow-right icon"></i>
-
-                        <input type="text"
-                               name="button_text"
-                               id="button_text"
-                               value="{{ old('button_text', 'View Details') }}"
-                               placeholder="View Details"
-                               class="field-input {{ $errors->has('button_text') ? 'error' : '' }}">
-                    </div>
-
-                    @if($errors->has('button_text'))
-                        <p class="field-error">
-                            <i class="fas fa-exclamation-circle"></i>
-                            {{ $errors->first('button_text') }}
-                        </p>
-                    @endif
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label" for="url">
-                        Detail URL
-                    </label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-external-link-alt icon"></i>
-
-                        <input type="text"
-                               name="url"
-                               id="url"
-                               value="{{ old('url') }}"
-                               placeholder="Blank rakhne par dynamic detail URL auto set hoga"
-                               class="field-input {{ $errors->has('url') ? 'error' : '' }}">
-                    </div>
-
-                    @if($errors->has('url'))
-                        <p class="field-error">
-                            <i class="fas fa-exclamation-circle"></i>
-                            {{ $errors->first('url') }}
-                        </p>
-                    @else
-                        <p class="field-hint">
-                            External ya custom URL dena ho to yaha add karo.
-                        </p>
-                    @endif
-                </div>
+            <div class="form-card-body"></div></div>
 
                 <div class="field-group">
                     <label class="field-label" for="sort_order">

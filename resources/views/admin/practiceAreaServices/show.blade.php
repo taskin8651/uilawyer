@@ -124,12 +124,6 @@
                     </a>
                 @endcan
 
-                @if($practiceAreaService->url)
-                    <a href="{{ $practiceAreaService->url }}" target="_blank" class="quick-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        Open Detail URL
-                    </a>
-                @endif
             </div>
         </div>
     </div>
@@ -180,26 +174,6 @@
                             <i class="{{ $practiceAreaService->icon_class }}"></i>
                             {{ $practiceAreaService->icon_class }}
                         </span>
-                    @else
-                        <span class="detail-value">-</span>
-                    @endif
-                </div>
-
-                <div class="detail-row">
-                    <span class="detail-label">Button Text</span>
-                    <span class="detail-value">{{ $practiceAreaService->button_text ?? '-' }}</span>
-                </div>
-
-                <div class="detail-row">
-                    <span class="detail-label">Detail URL</span>
-
-                    @if($practiceAreaService->url)
-                        <a href="{{ $practiceAreaService->url }}"
-                           target="_blank"
-                           class="detail-value"
-                           style="color:#2563eb;">
-                            {{ $practiceAreaService->url }}
-                        </a>
                     @else
                         <span class="detail-value">-</span>
                     @endif

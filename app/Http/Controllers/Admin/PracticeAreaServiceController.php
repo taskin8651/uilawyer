@@ -45,10 +45,6 @@ class PracticeAreaServiceController extends Controller
         $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title']);
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        $data['button_text'] = $data['button_text'] ?? 'View Details';
-        $data['url'] = $this->cleanUrl($data['url'] ?? null)
-            ?: route('frontend.practice-services.show', ['practiceAreaService' => $data['slug']], false);
-
         PracticeAreaService::create($data);
 
         return redirect()->route('admin.practice-area-services.index')
@@ -82,10 +78,6 @@ class PracticeAreaServiceController extends Controller
         $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title'], $practiceAreaService->id);
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        $data['button_text'] = $data['button_text'] ?? 'View Details';
-        $data['url'] = $this->cleanUrl($data['url'] ?? null)
-            ?: route('frontend.practice-services.show', ['practiceAreaService' => $data['slug']], false);
-
         $practiceAreaService->update($data);
 
         return redirect()->route('admin.practice-area-services.index')
@@ -108,13 +100,6 @@ class PracticeAreaServiceController extends Controller
         PracticeAreaService::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    private function cleanUrl(?string $url): ?string
-    {
-        $url = trim((string) $url);
-
-        return $url === '' || $url === '#' ? null : $url;
     }
 
     private function uniqueSlug(string $value, ?int $ignoreId = null): string
