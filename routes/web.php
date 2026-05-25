@@ -49,6 +49,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('articles/destroy', 'ArticleController@massDestroy')->name('articles.massDestroy');
     Route::resource('articles', 'ArticleController');
 
+    Route::delete('verdict-judgments/destroy', 'VerdictJudgmentController@massDestroy')->name('verdict-judgments.massDestroy');
+    Route::resource('verdict-judgments', 'VerdictJudgmentController');
+
     Route::delete('practice-areas/destroy', 'PracticeAreaController@massDestroy')->name('practice-areas.massDestroy');
     Route::resource('practice-areas', 'PracticeAreaController');
 
@@ -83,6 +86,9 @@ Route::get('/join-our-team', [App\Http\Controllers\Frontend\TeamController::clas
 Route::post('/join-our-team', [App\Http\Controllers\Frontend\TeamController::class, 'storeJoin'])->name('frontend.team.join.store');
 Route::get('/our-team/{attorney}', [App\Http\Controllers\Frontend\TeamController::class, 'show'])->name('frontend.attorneys.show');
 Route::get('/about', [App\Http\Controllers\Frontend\AboutController::class, 'index'])->name('frontend.about'); 
+Route::view('/terms', 'frontend.terms')->name('frontend.terms');
+Route::view('/refund-policy', 'frontend.refund')->name('frontend.refund');
+Route::view('/privacy-policy', 'frontend.privacy')->name('frontend.privacy');
 Route::get('/practice-area', [App\Http\Controllers\Frontend\PracticeAreaPageController::class, 'index'])->name('frontend.practice-area.index');
 Route::get('/practice-areas/{practiceArea:slug}', [App\Http\Controllers\Frontend\PracticeAreaPageController::class, 'show'])->name('frontend.practice-areas.show');
 Route::get('/practice-services/{practiceAreaService:slug}', [App\Http\Controllers\Frontend\PracticeAreaPageController::class, 'showService'])->name('frontend.practice-services.show');
@@ -91,6 +97,9 @@ Route::get('/articles', [App\Http\Controllers\Frontend\ArticlePageController::cl
 Route::get('/articles/submit', [App\Http\Controllers\Frontend\ArticlePageController::class, 'create'])->name('frontend.articles.submit');
 Route::post('/articles/submit', [App\Http\Controllers\Frontend\ArticlePageController::class, 'store'])->name('frontend.articles.submit.store');
 Route::get('/articles/{article:slug}', [App\Http\Controllers\Frontend\ArticlePageController::class, 'show'])->name('frontend.articles.show');
+
+Route::get('/verdicts-and-judgments', [App\Http\Controllers\Frontend\VerdictJudgmentPageController::class, 'index'])->name('frontend.verdicts.index');
+Route::get('/verdicts-and-judgments/{verdictJudgment:slug}', [App\Http\Controllers\Frontend\VerdictJudgmentPageController::class, 'show'])->name('frontend.verdicts.show');
 
 Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('frontend.contact.index');
 Route::get('/book-consultation', [App\Http\Controllers\Frontend\LegalEnquiryController::class, 'index'])->name('frontend.legal-enquiry.index');

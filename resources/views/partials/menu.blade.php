@@ -147,7 +147,8 @@
 @can('article_management_access')
     @php
         $articleActive = request()->is('admin/article-categories*')
-            || request()->is('admin/articles*');
+            || request()->is('admin/articles*')
+            || request()->is('admin/verdict-judgments*');
     @endphp
 
     <div x-data="{ open: {{ $articleActive ? 'true' : 'false' }} }">
@@ -188,6 +189,14 @@
                    class="sub-link {{ request()->is('admin/articles*') ? 'active' : '' }}">
                     <i class="fas fa-file-alt"></i>
                     Articles
+                </a>
+            @endcan
+
+            @can('verdict_judgment_access')
+                <a href="{{ route('admin.verdict-judgments.index') }}"
+                   class="sub-link {{ request()->is('admin/verdict-judgments*') ? 'active' : '' }}">
+                    <i class="fas fa-gavel"></i>
+                    Verdicts & Judgments
                 </a>
             @endcan
 

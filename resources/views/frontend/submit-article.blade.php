@@ -12,33 +12,51 @@
         </button>
 
         <div class="wpo-section-title">
-            <h2>
-                Publish Your Article on Rajpati and Associates
-                <br>
-                <p>
-                    Get your article featured on Rajpati and Associates' website. Showcase your expertise to our audience for a nominal fee of Rs. 400. Submit your article today!
-                </p>
-            </h2>
+            <h2>Payment Required</h2>
+            <p>
+                Pay before submission and upload payment screenshot with the form.
+            </p>
         </div>
 
         <div class="article-payment-points">
-            <span><i class="bi bi-currency-rupee"></i> Pay Rs. 400 before submitting</span>
-            <span><i class="bi bi-image-fill"></i> Upload payment screenshot with the form</span>
-            <span><i class="bi bi-shield-check"></i> Article publishes only after admin approval</span>
+            <span><i class="bi bi-currency-rupee"></i> Intern: ₹1 symbolic payment</span>
+            <span><i class="bi bi-journal-text"></i> Article publishing: ₹400</span>
+            <span><i class="bi bi-phone-fill"></i> PhonePe / Google Pay: 94310 21093</span>
         </div>
 
-        <a href="upi://pay?pa=mdsayebalam10@okhdfcbank&pn=Rajpati%20and%20Associates&am=400&cu=INR"
-           class="article-payment-upi"
-           target="_blank">
-            <span class="payment-icon">
-                <i class="bi bi-qr-code-scan"></i>
-            </span>
-            <span>
-                <strong>Click To Payment</strong>
-                <small>UPI: mdsayebalam10@okhdfcbank</small>
-            </span>
-            <i class="bi bi-arrow-up-right-circle-fill"></i>
-        </a>
+        <div class="payment-option-grid">
+
+            <a href="upi://pay?pa=9431021093@upi&pn=Rajpati%20And%20Associates&am=1&cu=INR&tn=Intern%20Symbolic%20Payment"
+               class="article-payment-upi"
+               target="_blank">
+                <span class="payment-icon">
+                    <i class="bi bi-person-badge-fill"></i>
+                </span>
+
+                <span>
+                    <strong>Pay ₹1</strong>
+                    <small>For Intern</small>
+                </span>
+
+                <i class="bi bi-arrow-up-right-circle-fill"></i>
+            </a>
+
+            <a href="upi://pay?pa=9431021093@upi&pn=Rajpati%20And%20Associates&am=400&cu=INR&tn=Article%20Publishing%20Payment"
+               class="article-payment-upi"
+               target="_blank">
+                <span class="payment-icon">
+                    <i class="bi bi-journal-richtext"></i>
+                </span>
+
+                <span>
+                    <strong>Pay ₹400</strong>
+                    <small>For Article Publishing</small>
+                </span>
+
+                <i class="bi bi-arrow-up-right-circle-fill"></i>
+            </a>
+
+        </div>
 
         <a href="#submitArticleForm" class="btn btn-primary magnetic" id="articlePaymentContinue">
             Continue To Form

@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+
+class StoreVerdictJudgmentRequest extends FormRequest
+{
+    public function authorize()
+    {
+        return Gate::allows('verdict_judgment_create');
+    }
+
+    public function rules()
+    {
+        return [
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:verdict_judgments,slug',
+            'court_name' => 'nullable|string|max:255',
+            'case_number' => 'nullable|string|max:255',
+            'citation' => 'nullable|string|max:255',
+            'author_name' => 'nullable|string|max:255',
+            'judgment_date' => 'nullable|date',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
+            'result_summary' => 'nullable|string',
+            'is_featured' => 'nullable|boolean',
+            'status' => 'nullable|boolean',
+            'sort_order' => 'nullable|integer',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string|max:255',
+            'verdict_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|min:10|max:4096|dimensions:min_width=300,min_height=180',
+            'verdict_document' => 'nullable|file|mimes:pdf,doc,docx|min:10|max:8192',
+        ];
+    }
+}

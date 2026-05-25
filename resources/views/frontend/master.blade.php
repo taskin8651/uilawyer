@@ -105,6 +105,11 @@
         'frontend.articles.submit'
     );
 
+    $isVerdictActive = request()->routeIs(
+        'frontend.verdicts.index',
+        'frontend.verdicts.show'
+    );
+
     $isCareerActive = request()->routeIs(
         'frontend.career-application.index'
     );
@@ -178,6 +183,10 @@
 
     <a href="{{ route('frontend.articles.index') }}" class="{{ $isArticleActive ? 'active' : '' }}">
         Articles
+    </a>
+
+    <a href="{{ route('frontend.verdicts.index') }}" class="{{ $isVerdictActive ? 'active' : '' }}">
+        Verdicts
     </a>
 
     <a href="{{ route('frontend.career-application.index') }}" class="{{ $isCareerActive ? 'active' : '' }}">
@@ -275,6 +284,7 @@
             <a href="/our-team">Our Team</a>
             <a href="{{ route('frontend.team.join') }}">Join Our Team</a>
             <a href="/articles">Articles</a>
+            <a href="{{ route('frontend.verdicts.index') }}">Verdicts & Judgments</a>
             <a href="/career-application">Career</a>
             <a href="/contact">Contact Us</a>
             <a href="{{ route('frontend.legal-enquiry.index') }}">Book Consultation</a>
@@ -294,7 +304,11 @@
 
       <div class="footer-bottom">
         <p>{{ $siteSetting->copyright_text }}</p>
-        <p><a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">Refund</a></p>
+        <p>
+          <a href="{{ route('frontend.terms') }}">Terms</a> |
+          <a href="{{ route('frontend.privacy') }}">Privacy</a> |
+          <a href="{{ route('frontend.refund') }}">Refund</a>
+        </p>
       </div>
     </div>
   </footer>
