@@ -101,9 +101,10 @@
 
     $isArticleActive = request()->routeIs(
         'frontend.articles.index',
-        'frontend.articles.show',
-        'frontend.articles.submit'
+        'frontend.articles.show'
     );
+
+    $isSubmitArticleActive = request()->routeIs('frontend.articles.submit');
 
     $isVerdictActive = request()->routeIs(
         'frontend.verdicts.index',
@@ -173,21 +174,44 @@
         About
     </a>
 
-    <a href="{{ route('frontend.team') }}" class="{{ $isTeamActive ? 'active' : '' }}">
-        Our Team
-    </a>
+    <div class="nav-drop team-nav-drop {{ ($isTeamActive || $isJoinTeamActive) ? 'active' : '' }}">
+        <button type="button" class="nav-drop-btn {{ ($isTeamActive || $isJoinTeamActive) ? 'active' : '' }}">
+            Our Team
+            <i class="bi bi-chevron-down"></i>
+        </button>
 
-    <a href="{{ route('frontend.team.join') }}" class="{{ $isJoinTeamActive ? 'active' : '' }}">
-        Join Team
-    </a>
+        <div class="nav-submenu">
+            <a href="{{ route('frontend.team') }}" class="{{ $isTeamActive ? 'active' : '' }}">
+                Our Team
+            </a>
 
-    <a href="{{ route('frontend.articles.index') }}" class="{{ $isArticleActive ? 'active' : '' }}">
-        Articles
-    </a>
+            <a href="{{ route('frontend.team.join') }}" class="{{ $isJoinTeamActive ? 'active' : '' }}">
+                Join Team
+            </a>
+        </div>
+    </div>
 
-    <a href="{{ route('frontend.verdicts.index') }}" class="{{ $isVerdictActive ? 'active' : '' }}">
+    <div class="nav-drop article-nav-drop {{ ($isArticleActive || $isSubmitArticleActive) ? 'active' : '' }}">
+        <button type="button" class="nav-drop-btn {{ ($isArticleActive || $isSubmitArticleActive) ? 'active' : '' }}">
+            Articles
+            <i class="bi bi-chevron-down"></i>
+        </button>
+
+        <div class="nav-submenu">
+            <a href="{{ route('frontend.articles.index') }}" class="{{ $isArticleActive ? 'active' : '' }}">
+                Articles
+            </a>
+
+            <a href="{{ route('frontend.articles.submit') }}" class="{{ $isSubmitArticleActive ? 'active' : '' }}">
+                Add Article
+            </a>
+            <a href="{{ route('frontend.verdicts.index') }}" class="{{ $isVerdictActive ? 'active' : '' }}">
         Verdicts
     </a>
+        </div>
+    </div>
+
+    
 
     <a href="{{ route('frontend.career-application.index') }}" class="{{ $isCareerActive ? 'active' : '' }}">
         Career
