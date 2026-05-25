@@ -203,6 +203,41 @@
 
   @yield('content')
 
+  @if(session('message'))
+    <div class="frontend-success-modal" id="frontendSuccessModal" role="dialog" aria-modal="true" aria-labelledby="frontendSuccessTitle">
+      <div class="frontend-success-card">
+        <button type="button" class="frontend-success-close" id="frontendSuccessClose" aria-label="Close success popup">
+          <i class="bi bi-x-lg"></i>
+        </button>
+
+        <div class="frontend-success-icon">
+          <i class="bi bi-check2-circle"></i>
+        </div>
+
+        <span class="frontend-success-kicker">{{ session('message_title', 'Form Submission') }}</span>
+
+        <h2 id="frontendSuccessTitle">{{ session('message_title', 'Thank You') }}</h2>
+
+        <p class="frontend-success-message">
+          {{ session('message') }}
+        </p>
+
+        <div class="frontend-success-contact">
+          <span>For updates, contact us at</span>
+          <a href="mailto:{{ $siteSetting->email }}">
+            <i class="bi bi-envelope-fill"></i>
+            {{ $siteSetting->email }}
+          </a>
+        </div>
+
+        <button type="button" class="btn btn-primary magnetic" id="frontendSuccessOk">
+          Okay
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  @endif
+
 
   <footer class="footer">
     <div class="container">
@@ -275,6 +310,28 @@
     <a href="{{ $siteSetting->map_direction_url ?: '#' }}" target="_blank"><i class="bi bi-geo-alt-fill"></i>Direction</a>
   </div>
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  @if(session('message'))
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('frontendSuccessModal');
+        const close = document.getElementById('frontendSuccessClose');
+        const ok = document.getElementById('frontendSuccessOk');
+
+        function hideSuccessModal() {
+          if (!modal) return;
+          modal.classList.add('is-hidden');
+        }
+
+        close && close.addEventListener('click', hideSuccessModal);
+        ok && ok.addEventListener('click', hideSuccessModal);
+        modal && modal.addEventListener('click', function (event) {
+          if (event.target === modal) {
+            hideSuccessModal();
+          }
+        });
+      });
+    </script>
+  @endif
   @yield('scripts')
 </body>
 </html>

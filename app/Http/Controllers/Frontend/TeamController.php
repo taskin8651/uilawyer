@@ -91,6 +91,8 @@ class TeamController extends Controller
                 ->toMediaCollection('attorney_image');
         }
 
-        return back()->with('message', 'Thank you. Your team application has been submitted successfully. It will show on the team page after admin approval.');
+        return back()
+            ->with('message_title', 'Join Our Team')
+            ->with('message', 'Thank you. Your team application has been submitted successfully. It will show on the team page after admin approval.');
     }
 }

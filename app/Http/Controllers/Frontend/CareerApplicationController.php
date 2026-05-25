@@ -31,6 +31,8 @@ class CareerApplicationController extends Controller
                 ->toMediaCollection('resume');
         }
 
-        return back()->with('message', 'Thank you. Your application has been submitted successfully.');
+        return back()
+            ->with('message_title', 'Career Application')
+            ->with('message', 'Thank you. Your career application has been submitted successfully.');
     }
 }

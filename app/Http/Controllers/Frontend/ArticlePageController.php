@@ -175,7 +175,9 @@ class ArticlePageController extends Controller
                 ->toMediaCollection('payment_screenshot');
         }
 
-        return back()->with('message', 'Thank you. Your article has been submitted successfully and will be published after admin approval.');
+        return back()
+            ->with('message_title', 'Article Submission')
+            ->with('message', 'Thank you. Your article has been submitted successfully and will be published after admin approval.');
     }
 
     private function uniqueSlug(string $value): string

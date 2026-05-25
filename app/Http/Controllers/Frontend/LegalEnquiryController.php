@@ -45,6 +45,15 @@ class LegalEnquiryController extends Controller
                 ->toMediaCollection('case_document');
         }
 
-        return back()->with('message', 'Thank you. Your legal enquiry has been submitted successfully.');
+        $messageTitle = match ($request->input('form_type')) {
+            'contact' => 'Contact Enquiry',
+            'attorney_profile' => 'Profile Consultation',
+            'consultation' => 'Book Consultation',
+            default => 'Legal Enquiry',
+        };
+
+        return back()
+            ->with('message_title', $messageTitle)
+            ->with('message', 'Thank you. Your legal enquiry has been submitted successfully.');
     }
 }
