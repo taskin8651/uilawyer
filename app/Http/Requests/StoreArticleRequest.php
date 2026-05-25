@@ -31,9 +31,9 @@ class StoreArticleRequest extends FormRequest
             'meta_title'         => 'nullable|string|max:255',
             'meta_description'   => 'nullable|string',
             'meta_keywords'      => 'nullable|string|max:255',
-            'article_image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
-            'article_document'   => 'nullable|file|mimes:pdf,doc,docx|max:8192',
-            'payment_screenshot' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'article_image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|min:10|max:4096|dimensions:min_width=300,min_height=180',
+            'article_document'   => 'nullable|file|mimes:pdf,doc,docx|min:10|max:8192',
+            'payment_screenshot' => 'nullable|image|mimes:jpg,jpeg,png,webp|min:10|max:4096|dimensions:min_width=200,min_height=200',
         ];
     }
 }
