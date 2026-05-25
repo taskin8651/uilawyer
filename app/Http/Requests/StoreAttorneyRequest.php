@@ -17,6 +17,12 @@ class StoreAttorneyRequest extends FormRequest
         return [
             'name' => 'nullable|string|max:255',
             'designation' => 'nullable|string|max:255',
+            'place_of_practice' => 'nullable|string|max:255',
+            'experience' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:1000',
+            'phone' => 'nullable|string|max:30',
+            'email' => 'nullable|email|max:255',
+            'about_team' => 'nullable|string|max:3000',
             'badge' => 'nullable|string|max:255',
 
             'meta_icons' => 'nullable|array',
@@ -26,12 +32,6 @@ class StoreAttorneyRequest extends FormRequest
 
             'tags' => 'nullable|array',
             'tags.*' => 'nullable|string|max:255',
-
-            'profile_button_text' => 'nullable|string|max:255',
-            'profile_button_url' => 'nullable|string|max:255',
-
-            'consult_button_text' => 'nullable|string|max:255',
-            'consult_button_url' => 'nullable|string|max:255',
 
             'sort_order' => 'nullable|integer',
             'status' => 'nullable|boolean',

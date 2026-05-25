@@ -17,13 +17,15 @@ class Attorney extends Model implements HasMedia
     protected $fillable = [
         'name',
         'designation',
+        'place_of_practice',
+        'experience',
+        'address',
+        'phone',
+        'email',
+        'about_team',
         'badge',
         'meta_items',
         'tags',
-        'profile_button_text',
-        'profile_button_url',
-        'consult_button_text',
-        'consult_button_url',
         'sort_order',
         'status',
     ];
@@ -31,7 +33,7 @@ class Attorney extends Model implements HasMedia
     protected $casts = [
         'meta_items' => 'array',
         'tags'       => 'array',
-        'status'     => 'boolean',
+        'status' => 'boolean',
     ];
 
     public function registerMediaCollections(): void

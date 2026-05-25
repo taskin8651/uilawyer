@@ -16,7 +16,7 @@ class AttorneyController extends Controller
     {
         abort_if(Gate::denies('attorney_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $attorneys = Attorney::orderBy('sort_order')->latest()->get();
+        $attorneys = Attorney::orderBy('status')->orderBy('sort_order')->latest()->get();
 
         return view('admin.attorneys.index', compact('attorneys'));
     }

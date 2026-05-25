@@ -102,6 +102,62 @@
                     </div>
                 </div>
 
+                <div class="admin-form-grid">
+                    <div class="field-group">
+                        <label class="field-label" for="place_of_practice">Place Of Practice</label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-map-marker-alt icon"></i>
+                            <input type="text" name="place_of_practice" id="place_of_practice"
+                                   value="{{ old('place_of_practice', $attorney->place_of_practice) }}"
+                                   class="field-input {{ $errors->has('place_of_practice') ? 'error' : '' }}">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="experience">Experience</label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-calendar-check icon"></i>
+                            <input type="text" name="experience" id="experience"
+                                   value="{{ old('experience', $attorney->experience) }}"
+                                   class="field-input {{ $errors->has('experience') ? 'error' : '' }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-form-grid">
+                    <div class="field-group">
+                        <label class="field-label" for="phone">Phone</label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-phone icon"></i>
+                            <input type="text" name="phone" id="phone"
+                                   value="{{ old('phone', $attorney->phone) }}"
+                                   class="field-input {{ $errors->has('phone') ? 'error' : '' }}">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="email">Email</label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-envelope icon"></i>
+                            <input type="email" name="email" id="email"
+                                   value="{{ old('email', $attorney->email) }}"
+                                   class="field-input {{ $errors->has('email') ? 'error' : '' }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="address">Address</label>
+                    <textarea name="address" id="address" rows="3"
+                              class="field-input {{ $errors->has('address') ? 'error' : '' }}">{{ old('address', $attorney->address) }}</textarea>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="about_team">About Team Member</label>
+                    <textarea name="about_team" id="about_team" rows="4"
+                              class="field-input {{ $errors->has('about_team') ? 'error' : '' }}">{{ old('about_team', $attorney->about_team) }}</textarea>
+                </div>
+
                 <div class="field-group">
                     <label class="field-label" for="badge">
                         Badge
@@ -211,76 +267,6 @@
 
             </div>
         </div>
-
-        <div class="form-card">
-            <div class="form-card-header">
-                <div class="form-card-icon">
-                    <i class="fas fa-link"></i>
-                </div>
-
-                <div>
-                    <p class="form-card-title">Buttons</p>
-                    <p class="form-card-subtitle">Update frontend action buttons</p>
-                </div>
-            </div>
-
-            <div class="form-card-body">
-
-                <div class="field-group">
-                    <label class="field-label">Profile Button Text</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-eye icon"></i>
-
-                        <input type="text"
-                               name="profile_button_text"
-                               value="{{ old('profile_button_text', $attorney->profile_button_text) }}"
-                               class="field-input {{ $errors->has('profile_button_text') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Profile Button URL</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-external-link-alt icon"></i>
-
-                        <input type="text"
-                               name="profile_button_url"
-                               value="{{ old('profile_button_url', $attorney->profile_button_url) }}"
-                               class="field-input {{ $errors->has('profile_button_url') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Consult Button Text</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-comments icon"></i>
-
-                        <input type="text"
-                               name="consult_button_text"
-                               value="{{ old('consult_button_text', $attorney->consult_button_text) }}"
-                               class="field-input {{ $errors->has('consult_button_text') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Consult Button URL</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-link icon"></i>
-
-                        <input type="text"
-                               name="consult_button_url"
-                               value="{{ old('consult_button_url', $attorney->consult_button_url) }}"
-                               class="field-input {{ $errors->has('consult_button_url') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 
     <div class="form-card" style="margin-top:22px;">
@@ -406,3 +392,4 @@
 @endcan
 
 @endsection
+

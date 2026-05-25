@@ -79,6 +79,8 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 // Frontend routes
 Route::get('/', [App\Http\Controllers\Frontend\IndexController::class, 'index'])->name('frontend.index');
 Route::get('/our-team', [App\Http\Controllers\Frontend\TeamController::class, 'index'])->name('frontend.team'); 
+Route::get('/join-our-team', [App\Http\Controllers\Frontend\TeamController::class, 'join'])->name('frontend.team.join');
+Route::post('/join-our-team', [App\Http\Controllers\Frontend\TeamController::class, 'storeJoin'])->name('frontend.team.join.store');
 Route::get('/our-team/{attorney}', [App\Http\Controllers\Frontend\TeamController::class, 'show'])->name('frontend.attorneys.show');
 Route::get('/about', [App\Http\Controllers\Frontend\AboutController::class, 'index'])->name('frontend.about'); 
 Route::get('/practice-area', [App\Http\Controllers\Frontend\PracticeAreaPageController::class, 'index'])->name('frontend.practice-area.index');

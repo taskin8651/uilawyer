@@ -88,6 +88,68 @@
                     @endif
                 </div>
 
+                <div class="admin-form-grid">
+                    <div class="field-group">
+                        <label class="field-label" for="place_of_practice">Place Of Practice</label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-map-marker-alt icon"></i>
+                            <input type="text" name="place_of_practice" id="place_of_practice"
+                                   value="{{ old('place_of_practice') }}"
+                                   placeholder="Patna High Court / District Court"
+                                   class="field-input {{ $errors->has('place_of_practice') ? 'error' : '' }}">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="experience">Experience</label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-calendar-check icon"></i>
+                            <input type="text" name="experience" id="experience"
+                                   value="{{ old('experience') }}"
+                                   placeholder="5+ Years"
+                                   class="field-input {{ $errors->has('experience') ? 'error' : '' }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-form-grid">
+                    <div class="field-group">
+                        <label class="field-label" for="phone">Phone</label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-phone icon"></i>
+                            <input type="text" name="phone" id="phone"
+                                   value="{{ old('phone') }}"
+                                   placeholder="+91 XXXXX XXXXX"
+                                   class="field-input {{ $errors->has('phone') ? 'error' : '' }}">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="email">Email</label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-envelope icon"></i>
+                            <input type="email" name="email" id="email"
+                                   value="{{ old('email') }}"
+                                   placeholder="name@example.com"
+                                   class="field-input {{ $errors->has('email') ? 'error' : '' }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="address">Address</label>
+                    <textarea name="address" id="address" rows="3"
+                              placeholder="Full address"
+                              class="field-input {{ $errors->has('address') ? 'error' : '' }}">{{ old('address') }}</textarea>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="about_team">About Team Member</label>
+                    <textarea name="about_team" id="about_team" rows="4"
+                              placeholder="Short professional introduction"
+                              class="field-input {{ $errors->has('about_team') ? 'error' : '' }}">{{ old('about_team') }}</textarea>
+                </div>
+
                 <div class="field-group">
                     <label class="field-label" for="badge">
                         Badge
@@ -172,87 +234,6 @@
 
             </div>
         </div>
-
-        <div class="form-card">
-            <div class="form-card-header">
-                <div class="form-card-icon">
-                    <i class="fas fa-link"></i>
-                </div>
-
-                <div>
-                    <p class="form-card-title">Buttons</p>
-                    <p class="form-card-subtitle">Frontend card action buttons</p>
-                </div>
-            </div>
-
-            <div class="form-card-body">
-
-                <div class="field-group">
-                    <label class="field-label">Profile Button Text</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-eye icon"></i>
-
-                        <input type="text"
-                               name="profile_button_text"
-                               value="{{ old('profile_button_text', 'View Profile') }}"
-                               placeholder="View Profile"
-                               class="field-input {{ $errors->has('profile_button_text') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Profile Button URL</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-external-link-alt icon"></i>
-
-                        <input type="text"
-                               name="profile_button_url"
-                               value="{{ old('profile_button_url', 'profile.html') }}"
-                               placeholder="profile.html"
-                               class="field-input {{ $errors->has('profile_button_url') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Consult Button Text</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-comments icon"></i>
-
-                        <input type="text"
-                               name="consult_button_text"
-                               value="{{ old('consult_button_text', 'Consult Now') }}"
-                               placeholder="Consult Now"
-                               class="field-input {{ $errors->has('consult_button_text') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Consult Button URL</label>
-
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-link icon"></i>
-
-                        <input type="text"
-                               name="consult_button_url"
-                               value="{{ old('consult_button_url', 'index.html#consultation') }}"
-                               placeholder="index.html#consultation"
-                               class="field-input {{ $errors->has('consult_button_url') ? 'error' : '' }}">
-                    </div>
-                </div>
-
-                <div class="form-info-box">
-                    <p>
-                        <i class="fas fa-info-circle"></i>
-                        These buttons will appear on the frontend attorney card.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 
     <div class="form-card" style="margin-top:22px;">

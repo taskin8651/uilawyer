@@ -9,8 +9,8 @@
     $locationMeta = $metaItems->first(fn ($meta) => str_contains($meta['icon'] ?? '', 'geo'));
     $experienceMeta = $metaItems->first(fn ($meta) => str_contains($meta['icon'] ?? '', 'award') || str_contains($meta['icon'] ?? '', 'calendar'));
     $practiceMeta = $metaItems->first(fn ($meta) => str_contains($meta['icon'] ?? '', 'bank'));
-    $location = $locationMeta['text'] ?? 'Patna, Bihar';
-    $experience = $experienceMeta['text'] ?? 'Trusted Since 1999';
+    $location = $attorney->place_of_practice ?: ($locationMeta['text'] ?? 'Patna, Bihar');
+    $experience = $attorney->experience ?: ($experienceMeta['text'] ?? 'Trusted Since 1999');
     $practiceFocus = $tags->isNotEmpty() ? $tags->implode(' & ') : ($practiceMeta['text'] ?? 'Litigation & Consultation');
 
     $siteSetting = \App\Models\SiteSetting::first();
@@ -123,9 +123,13 @@
         </h2>
 
         <p class="section-text">
-          {{ $attorney->name }} is associated with Rajpati & Associates,
-          a Patna-based legal services firm known for All India Legal Services and legal
-          guidance since 1999.
+          @if($attorney->about_team)
+            {{ $attorney->about_team }}
+          @else
+            {{ $attorney->name }} is associated with Rajpati & Associates,
+            a Patna-based legal services firm known for All India Legal Services and legal
+            guidance since 1999.
+          @endif
         </p>
 
         <p class="section-text">

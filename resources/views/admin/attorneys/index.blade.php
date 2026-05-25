@@ -103,7 +103,7 @@
 
                                 <div>
                                     <p class="table-main-text">{{ $attorney->name ?? '-' }}</p>
-                                    <p class="table-sub-text">Attorney Profile</p>
+                                    <p class="table-sub-text">{{ $attorney->phone ?: 'Attorney Profile' }}</p>
                                 </div>
                             </div>
                         </td>
@@ -125,7 +125,7 @@
                                 @forelse($attorney->tags ?? [] as $tag)
                                     <span class="role-tag">{{ $tag }}</span>
                                 @empty
-                                    <span style="font-size:12px; color:#94A3B8;">—</span>
+                                    <span style="font-size:12px; color:#94A3B8;">-</span>
                                 @endforelse
                             </div>
                         </td>
@@ -143,7 +143,7 @@
                             @else
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="status-dot status-warning"></span>
-                                    <span style="font-size:12.5px; color:#92400E;">Inactive</span>
+                                    <span style="font-size:12.5px; color:#92400E;">Pending / Inactive</span>
                                 </div>
                             @endif
                         </td>
@@ -205,3 +205,4 @@ $(function () {
 });
 </script>
 @endsection
+

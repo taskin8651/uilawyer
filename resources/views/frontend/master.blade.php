@@ -97,6 +97,8 @@
         'frontend.attorneys.show'
     );
 
+    $isJoinTeamActive = request()->routeIs('frontend.team.join');
+
     $isArticleActive = request()->routeIs(
         'frontend.articles.index',
         'frontend.articles.show'
@@ -169,6 +171,10 @@
         Our Team
     </a>
 
+    <a href="{{ route('frontend.team.join') }}" class="{{ $isJoinTeamActive ? 'active' : '' }}">
+        Join Team
+    </a>
+
     <a href="{{ route('frontend.articles.index') }}" class="{{ $isArticleActive ? 'active' : '' }}">
         Articles
     </a>
@@ -231,6 +237,7 @@
           <div class="footer-links">
             <a href="/about">About Us</a>
             <a href="/our-team">Our Team</a>
+            <a href="{{ route('frontend.team.join') }}">Join Our Team</a>
             <a href="/articles">Articles</a>
             <a href="/career-application">Career</a>
             <a href="/contact">Contact Us</a>

@@ -153,6 +153,36 @@
                 </div>
 
                 <div class="detail-row">
+                    <span class="detail-label">Place Of Practice</span>
+                    <span class="detail-value">{{ $attorney->place_of_practice ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Experience</span>
+                    <span class="detail-value">{{ $attorney->experience ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Phone</span>
+                    <span class="detail-value">{{ $attorney->phone ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Email</span>
+                    <span class="detail-value">{{ $attorney->email ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Address</span>
+                    <span class="detail-value">{{ $attorney->address ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">About</span>
+                    <span class="detail-value">{{ $attorney->about_team ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
                     <span class="detail-label">Badge</span>
 
                     @if($attorney->badge)
@@ -260,46 +290,6 @@
                 @else
                     <span class="detail-value">No tags added.</span>
                 @endif
-            </div>
-        </div>
-
-        <div class="detail-card">
-            <div class="detail-section-head">
-                <div class="detail-section-icon">
-                    <i class="fas fa-link"></i>
-                </div>
-
-                <p class="detail-section-title">Button Details</p>
-            </div>
-
-            <div class="detail-section-body">
-                <div class="detail-row">
-                    <span class="detail-label">Profile Button</span>
-                    <span class="detail-value">
-                        {{ $attorney->profile_button_text ?? '-' }}
-                    </span>
-                </div>
-
-                <div class="detail-row">
-                    <span class="detail-label">Profile URL</span>
-                    <span class="detail-value">
-                        {{ $attorney->profile_button_url ?? '-' }}
-                    </span>
-                </div>
-
-                <div class="detail-row">
-                    <span class="detail-label">Consult Button</span>
-                    <span class="detail-value">
-                        {{ $attorney->consult_button_text ?? '-' }}
-                    </span>
-                </div>
-
-                <div class="detail-row">
-                    <span class="detail-label">Consult URL</span>
-                    <span class="detail-value">
-                        {{ $attorney->consult_button_url ?? '-' }}
-                    </span>
-                </div>
             </div>
         </div>
     </div>

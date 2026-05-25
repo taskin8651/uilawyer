@@ -263,18 +263,14 @@
                 @endif
 
                 <div class="attorney-actions">
-                    @if($attorney->profile_button_text)
-                        <a href="{{ route('frontend.attorneys.show', $attorney) }}" class="profile-btn">
-                            {{ $attorney->profile_button_text }}
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
-                    @endif
+                    <a href="{{ route('frontend.attorneys.show', $attorney) }}" class="profile-btn">
+                        View Profile
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
 
-                    @if($attorney->consult_button_text)
-                        <a href="{{ $attorney->consult_button_url ?: '#consultation' }}" class="consult-btn">
-                            {{ $attorney->consult_button_text }}
-                        </a>
-                    @endif
+                    <a href="{{ route('frontend.legal-enquiry.index') }}" class="consult-btn">
+                        Consult Now
+                    </a>
                 </div>
             </div>
         </article>
@@ -388,12 +384,17 @@
         </div>
 
         <div class="team-cta-actions">
+          <a href="{{ route('frontend.team.join') }}" class="btn btn-primary magnetic">
+            <i class="bi bi-person-plus-fill"></i>
+            Join Our Team
+          </a>
+
           <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>
 
-          <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
+          <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-glass magnetic">
             <i class="bi bi-whatsapp"></i>
             WhatsApp Us
           </a>
