@@ -347,7 +347,7 @@
 
         <p class="section-text">
           Fill the application form carefully and upload your resume. Our team may contact
-          shortlisted candidates through phone, WhatsApp or email.
+          shortlisted candidates through phone, advocate chat or email.
         </p>
 
         <div class="application-points">
@@ -632,7 +632,7 @@
 
           <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-glass magnetic">
             <i class="bi bi-whatsapp"></i>
-            WhatsApp
+            Speak With an Advocate
           </a>
         </div>
       </div>

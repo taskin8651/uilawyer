@@ -27,7 +27,7 @@
 
                 <p>
                     Contact Rajpati & Associates for confidential legal consultation, case enquiry,
-                    court support, appointment booking, direction and quick WhatsApp assistance.
+                    court support, appointment booking, direction and quick advocate-chat assistance.
                 </p>
 
                 <nav class="contact-crumb" aria-label="breadcrumb">
@@ -43,8 +43,8 @@
                     </div>
 
                     <div>
-                        <strong>WhatsApp</strong>
-                        <span>Quick Enquiry</span>
+                        <strong>Advocate Chat</strong>
+                        <span>Quick legal enquiry</span>
                     </div>
 
                     <div>
@@ -65,7 +65,7 @@
 
             <div class="contact-quick-grid">
 
-                <a href="{{ $siteSetting->phone }}" class="contact-quick-card reveal">
+                <a href="tel:{{ $siteSetting->phone }}" class="contact-quick-card reveal">
                     <div class="contact-quick-icon">
                         <i class="bi bi-telephone-fill"></i>
                     </div>
@@ -75,12 +75,12 @@
                     </div>
                 </a>
 
-                <a href="{{ $siteSetting->whatsapp }}" target="_blank" class="contact-quick-card reveal">
+                <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="contact-quick-card reveal">
                     <div class="contact-quick-icon">
                         <i class="bi bi-whatsapp"></i>
                     </div>
                     <div>
-                        <strong>WhatsApp</strong>
+                        <strong>Speak With an Advocate</strong>
                         <span>Quick legal enquiry</span>
                     </div>
                 </a>
@@ -155,7 +155,7 @@
                         <div class="contact-info-item">
                             <i class="bi bi-whatsapp"></i>
                             <div>
-                                <strong>WhatsApp Consultation</strong>
+                                <strong>Advocate Chat</strong>
                                 <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank">{{ $siteSetting->whatsapp }}</a>
                             </div>
                         </div>
@@ -179,14 +179,14 @@
                     </div>
 
                     <div class="contact-action-row">
-                        <a href="{{ $siteSetting->phone }}" class="btn btn-primary magnetic">
+                        <a href="tel:{{ $siteSetting->phone }}" class="btn btn-primary magnetic">
                             <i class="bi bi-telephone-fill"></i>
                             Call Now
                         </a>
 
                         <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-dark magnetic">
                             <i class="bi bi-whatsapp"></i>
-                            WhatsApp Us
+                            Speak With an Advocate
                         </a>
                     </div>
 
@@ -220,6 +220,11 @@
     @csrf
 
     <input type="hidden" name="form_type" value="contact">
+
+    <p class="confidential-note">
+        <i class="bi bi-shield-lock-fill"></i>
+        Your information remains confidential and is reviewed only by our legal team.
+    </p>
 
     <div class="form-grid">
         <div class="form-group">
@@ -382,7 +387,7 @@
                 </h2>
 
                 <p class="section-text">
-                    For urgent legal matters, you can call or send a WhatsApp enquiry with basic case details.
+                    For urgent legal matters, you can call or send a legal enquiry with basic case details.
                 </p>
 
                 <div class="hours-list">
@@ -419,7 +424,7 @@
 
                     <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
-                        WhatsApp
+                        Discuss Your Matter
                     </a>
                 </div>
             </div>
@@ -507,7 +512,7 @@
 
                     <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
-                        WhatsApp Us
+                        Discuss Your Matter
                     </a>
                 </div>
             </div>

@@ -151,6 +151,44 @@
                 </div>
 
                 <div class="field-group">
+                    <label class="field-label" for="profile_summary">Profile Summary</label>
+                    <textarea name="profile_summary" id="profile_summary" rows="3"
+                              placeholder="Short credibility summary for profile cards"
+                              class="field-input {{ $errors->has('profile_summary') ? 'error' : '' }}">{{ old('profile_summary') }}</textarea>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="biography">Detailed Biography</label>
+                    <textarea name="biography" id="biography" rows="6"
+                              placeholder="Detailed biography for attorney profile page"
+                              class="field-input {{ $errors->has('biography') ? 'error' : '' }}">{{ old('biography') }}</textarea>
+                </div>
+
+                <div class="admin-form-grid">
+                    <div class="field-group">
+                        <label class="field-label" for="qualifications">Qualifications</label>
+                        <textarea name="qualifications" id="qualifications" rows="3" class="field-input">{{ old('qualifications') }}</textarea>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="practice_areas_text">Key Practice Areas</label>
+                        <textarea name="practice_areas_text" id="practice_areas_text" rows="3" class="field-input">{{ old('practice_areas_text') }}</textarea>
+                    </div>
+                </div>
+
+                <div class="admin-form-grid">
+                    <div class="field-group">
+                        <label class="field-label" for="courts_represented">Courts Represented Before</label>
+                        <textarea name="courts_represented" id="courts_represented" rows="3" class="field-input">{{ old('courts_represented') }}</textarea>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="languages_spoken">Languages Spoken</label>
+                        <textarea name="languages_spoken" id="languages_spoken" rows="3" class="field-input">{{ old('languages_spoken') }}</textarea>
+                    </div>
+                </div>
+
+                <div class="field-group">
                     <label class="field-label" for="badge">
                         Badge
                     </label>

@@ -38,6 +38,10 @@ class ChangePasswordController extends Controller
     {
         $user = auth()->user();
 
+        if ($user->is_admin) {
+            abort(Response::HTTP_FORBIDDEN, 'Admin users cannot delete their own account.');
+        }
+
         $user->update([
             'email' => time() . '_' . $user->email,
         ]);

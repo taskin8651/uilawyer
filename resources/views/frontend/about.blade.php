@@ -458,7 +458,7 @@
                     <div class="trust-mini-card">
                         <i class="bi bi-phone-fill"></i>
                         <strong>Easy Contact</strong>
-                        <span>Call & WhatsApp access</span>
+                        <span>Call & advocate-chat access</span>
                     </div>
 
                 </div>
@@ -500,7 +500,7 @@
 
                     <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
-                        WhatsApp Us
+                        Discuss Your Matter
                     </a>
                 </div>
 

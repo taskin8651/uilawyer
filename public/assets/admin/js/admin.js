@@ -2,7 +2,9 @@ $(function () {
     if ($.fn.dataTable) {
         $.extend(true, $.fn.dataTable.defaults, {
             scrollX: true,
-            pageLength: 25
+            pageLength: 25,
+            dom: 'lBfrtip',
+            buttons: []
         });
     }
 });
@@ -51,11 +53,11 @@ function closeSidebar() {
         sidebar.classList.add('collapsed');
     }
 
-    const theme = localStorage.getItem('dash_theme');
+    const colorTheme = localStorage.getItem('dash_theme');
 
-    if (theme) {
+    if (colorTheme) {
         try {
-            const obj = JSON.parse(theme);
+            const obj = JSON.parse(colorTheme);
 
             if (obj.accent) {
                 document.documentElement.style.setProperty('--accent', obj.accent.trim());
@@ -64,7 +66,60 @@ function closeSidebar() {
             console.warn('Theme restore failed:', e);
         }
     }
+
+    const mode = localStorage.getItem('admin_color_mode') || 'light';
+    document.documentElement.setAttribute('data-admin-theme', mode);
 })();
+
+function toggleAdminThemeMode() {
+    const current = document.documentElement.getAttribute('data-admin-theme') || 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+
+    document.documentElement.setAttribute('data-admin-theme', next);
+    localStorage.setItem('admin_color_mode', next);
+}
+
+function initAdminGlobalSearch(items) {
+    const input = document.getElementById('admin-global-search');
+    const results = document.getElementById('admin-search-results');
+
+    if (!input || !results) return;
+
+    input.addEventListener('input', function () {
+        const value = this.value.trim().toLowerCase();
+        results.innerHTML = '';
+
+        if (!value) {
+            results.style.display = 'none';
+            return;
+        }
+
+        const matches = items
+            .filter(item => item.title.toLowerCase().includes(value) || item.keywords.toLowerCase().includes(value))
+            .slice(0, 8);
+
+        if (!matches.length) {
+            results.innerHTML = '<div class="admin-search-empty">No matching admin page found</div>';
+            results.style.display = 'block';
+            return;
+        }
+
+        matches.forEach(function (item) {
+            const link = document.createElement('a');
+            link.href = item.url;
+            link.innerHTML = '<i class="' + item.icon + '"></i><span>' + item.title + '</span>';
+            results.appendChild(link);
+        });
+
+        results.style.display = 'block';
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.admin-search')) {
+            results.style.display = 'none';
+        }
+    });
+}
 
 
 

@@ -1,26 +1,19 @@
 <aside id="sidebar">
+    @php
+        $sidebarSetting = \App\Models\SiteSetting::first();
+        $sidebarLogo = $sidebarSetting?->logo ?: asset('assets/img/logo.png');
+    @endphp
 
     {{-- BRAND --}}
     <div class="sidebar-brand">
         <div class="brand-area">
             <div class="brand-icon">
-                <i class="fas fa-bolt"></i>
+                <img src="{{ $sidebarLogo }}" alt="Rajpati & Associates" style="width:28px;height:28px;object-fit:contain;">
             </div>
 
             <span class="brand-text">
                 {{ trans('panel.site_title') }}
             </span>
-        </div>
-    </div>
-
-    {{-- USER MINI CARD --}}
-    <div class="user-info">
-        <div class="user-avatar">
-            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-        </div>
-
-        <div class="user-meta">
-            <p class="user-name">{{ auth()->user()->name }}</p>
         </div>
     </div>
 
@@ -104,6 +97,71 @@
 
         </div>
     </div>
+@endcan
+@can('task_access')
+    <a href="{{ route('admin.tasks.index') }}"
+       data-tooltip="Tasks"
+       class="nav-link {{ request()->is('admin/tasks*') ? 'active' : '' }}">
+        <div class="nav-group-left">
+            <i class="fas fa-list-check nav-icon"></i>
+            <span class="nav-label">Task Management</span>
+        </div>
+    </a>
+@endcan
+
+@can('internship_access')
+    <a href="{{ route('admin.internships.index') }}"
+       data-tooltip="Internships"
+       class="nav-link {{ request()->is('admin/internships*') ? 'active' : '' }}">
+        <div class="nav-group-left">
+            <i class="fas fa-user-graduate nav-icon"></i>
+            <span class="nav-label">Internships</span>
+        </div>
+    </a>
+@endcan
+
+@can('important_link_access')
+    <a href="{{ route('admin.important-links.index') }}"
+       data-tooltip="Important Links"
+       class="nav-link {{ request()->is('admin/important-links*') ? 'active' : '' }}">
+        <div class="nav-group-left">
+            <i class="fas fa-link nav-icon"></i>
+            <span class="nav-label">Important Links</span>
+        </div>
+    </a>
+@endcan
+
+@can('legal_qa_access')
+    <a href="{{ route('admin.legal-qas.index') }}"
+       data-tooltip="Legal Q&A"
+       class="nav-link {{ request()->is('admin/legal-qas*') ? 'active' : '' }}">
+        <div class="nav-group-left">
+            <i class="fas fa-comments nav-icon"></i>
+            <span class="nav-label">Legal Q&A / AI Chat</span>
+        </div>
+    </a>
+@endcan
+
+@can('awareness_video_access')
+    <a href="{{ route('admin.awareness-videos.index') }}"
+       data-tooltip="Awareness"
+       class="nav-link {{ request()->is('admin/awareness-videos*') ? 'active' : '' }}">
+        <div class="nav-group-left">
+            <i class="fas fa-video nav-icon"></i>
+            <span class="nav-label">Awareness Videos</span>
+        </div>
+    </a>
+@endcan
+
+@can('meta_tag_access')
+    <a href="{{ route('admin.meta-tags.index') }}"
+       data-tooltip="Meta Tags"
+       class="nav-link {{ request()->is('admin/meta-tags*') ? 'active' : '' }}">
+        <div class="nav-group-left">
+            <i class="fas fa-tags nav-icon"></i>
+            <span class="nav-label">Meta Tag Management</span>
+        </div>
+    </a>
 @endcan
 
         {{-- ABOUT PAGE MANAGEMENT GROUP --}}
@@ -361,18 +419,6 @@
         <div class="nav-divider"></div>
 
         <p class="sidebar-section-title compact nav-label">Account</p>
-
-        {{-- Change Password --}}
-        @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
-            @can('profile_password_edit')
-                <a href="{{ route('profile.password.edit') }}"
-                   data-tooltip="Password"
-                   class="nav-link {{ request()->is('profile/password*') ? 'active' : '' }}">
-                    <i class="fas fa-key nav-icon"></i>
-                    <span class="nav-label">{{ trans('global.change_password') }}</span>
-                </a>
-            @endcan
-        @endif
 
         {{-- Settings --}}
         <a href="{{ route('admin.site-settings.index') }}"

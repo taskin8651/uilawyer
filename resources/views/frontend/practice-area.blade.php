@@ -109,7 +109,7 @@
           <span><i class="bi bi-check-circle-fill"></i> Family, Civil & Criminal Law</span>
           <span><i class="bi bi-check-circle-fill"></i> Legal Notice & Cheque Bounce</span>
           <span><i class="bi bi-check-circle-fill"></i> Cyber Crime & Documentation</span>
-          <span><i class="bi bi-check-circle-fill"></i> Call / WhatsApp Consultation</span>
+          <span><i class="bi bi-check-circle-fill"></i> Call / advocate chat consultation</span>
         </div>
       </div>
 
@@ -777,7 +777,7 @@
           <span>04</span>
           <i class="bi bi-telephone-inbound-fill"></i>
           <h3>Get Consultation</h3>
-          <p>Our team connects through call or WhatsApp for next legal steps.</p>
+          <p>Our team connects through call or advocate chat for next legal steps.</p>
         </div>
 
       </div>
@@ -816,7 +816,7 @@
 
           <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
             <i class="bi bi-whatsapp"></i>
-            WhatsApp Us
+            Discuss Your Matter
           </a>
         </div>
       </div>

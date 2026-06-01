@@ -11,7 +11,7 @@
     $practiceMeta = $metaItems->first(fn ($meta) => str_contains($meta['icon'] ?? '', 'bank'));
     $location = $attorney->place_of_practice ?: ($locationMeta['text'] ?? 'Patna, Bihar');
     $experience = $attorney->experience ?: ($experienceMeta['text'] ?? 'Trusted Since 1999');
-    $practiceFocus = $tags->isNotEmpty() ? $tags->implode(' & ') : ($practiceMeta['text'] ?? 'Litigation & Consultation');
+    $practiceFocus = $attorney->practice_areas_text ?: ($tags->isNotEmpty() ? $tags->implode(' & ') : ($practiceMeta['text'] ?? 'Litigation & Consultation'));
 
     $siteSetting = \App\Models\SiteSetting::first();
 @endphp
@@ -104,7 +104,7 @@
 
             <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank">
               <i class="bi bi-whatsapp"></i>
-              WhatsApp
+              Speak With an Advocate
             </a>
           </div>
         </div>
@@ -123,7 +123,9 @@
         </h2>
 
         <p class="section-text">
-          @if($attorney->about_team)
+          @if($attorney->biography)
+            {{ $attorney->biography }}
+          @elseif($attorney->about_team)
             {{ $attorney->about_team }}
           @else
             {{ $attorney->name }} is associated with Rajpati & Associates,
@@ -159,8 +161,8 @@
 
           <div>
             <i class="bi bi-shield-check"></i>
-            <strong>Approach</strong>
-            <span>Confidential & Client-first</span>
+            <strong>Languages</strong>
+            <span>{{ $attorney->languages_spoken ?: 'Hindi, English' }}</span>
           </div>
 
         </div>
@@ -181,6 +183,23 @@
     </div>
   </section>
   <!-- PROFILE MAIN END -->
+
+  <section class="section attorney-credentials-section">
+    <div class="container attorney-credentials-grid">
+      @foreach([
+        ['bi bi-mortarboard-fill', 'Qualifications', $attorney->qualifications],
+        ['bi bi-grid-3x3-gap-fill', 'Key Practice Areas', $attorney->practice_areas_text],
+        ['bi bi-bank2', 'Courts Represented Before', $attorney->courts_represented],
+        ['bi bi-chat-square-text-fill', 'Languages Spoken', $attorney->languages_spoken],
+      ] as $item)
+        <div class="attorney-credential-card reveal">
+          <i class="{{ $item[0] }}"></i>
+          <h3>{{ $item[1] }}</h3>
+          <p>{{ $item[2] ?: 'Details can be updated from the attorney admin profile.' }}</p>
+        </div>
+      @endforeach
+    </div>
+  </section>
 
 
   <!-- PRACTICE AREAS START -->
@@ -337,7 +356,7 @@
 
         <div class="profile-consult-points">
           <span><i class="bi bi-check-circle-fill"></i> Confidential enquiry</span>
-          <span><i class="bi bi-check-circle-fill"></i> Call / WhatsApp follow-up</span>
+          <span><i class="bi bi-check-circle-fill"></i> Call / advocate chat follow-up</span>
           <span><i class="bi bi-check-circle-fill"></i> Document upload support</span>
         </div>
       </div>
@@ -365,6 +384,11 @@
     @csrf
 
     <input type="hidden" name="form_type" value="attorney_profile">
+
+    <p class="confidential-note">
+        <i class="bi bi-shield-lock-fill"></i>
+        Your information remains confidential and is reviewed only by our legal team.
+    </p>
 
     <div class="form-grid">
         <div class="form-group">
@@ -572,7 +596,7 @@
           </h2>
 
           <p>
-            Call or WhatsApp for family law, criminal law, civil law, property dispute,
+            Call or chat with an advocate for family law, criminal law, civil law, property dispute,
             cyber crime, legal notice or litigation support.
           </p>
         </div>
@@ -585,7 +609,7 @@
 
           <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
             <i class="bi bi-whatsapp"></i>
-            WhatsApp Us
+            Discuss Your Matter
           </a>
         </div>
       </div>

@@ -108,7 +108,7 @@ const siteHeader = document.getElementById("siteHeader");
     }
 
     if (typingWord) {
-      const words = ["Justice", "Case", "Rights", "Family", "Peace"];
+      const words = ["Rights", "Disputes", "Cases", "Relief", "Strategy"];
       let wordIndex = 0;
       let charIndex = 0;
       let isDeleting = false;

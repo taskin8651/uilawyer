@@ -160,6 +160,11 @@
                 </div>
 
                 <div class="detail-row">
+                    <span class="detail-label">Approval</span>
+                    <span class="role-tag">{{ ucfirst($testimonial->approval_status ?? 'new') }}</span>
+                </div>
+
+                <div class="detail-row">
                     <span class="detail-label">Status</span>
 
                     @if($testimonial->status)

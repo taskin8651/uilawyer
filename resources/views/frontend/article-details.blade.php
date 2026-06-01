@@ -239,7 +239,7 @@
 
         <div class="article-consult-actions">
           <a href="{{ route('frontend.legal-enquiry.index') }}" class="btn btn-primary magnetic">
-            Book Consultation
+            Discuss Your Legal Matter
             <i class="bi bi-arrow-right"></i>
           </a>
 

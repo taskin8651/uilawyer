@@ -23,6 +23,8 @@ class FounderMessageController extends Controller
                 'founder_designation' => 'Founder, Rajpati & Associates',
                 'card_name' => 'Pramod Rajpati',
                 'card_designation' => 'Founder & Legal Professional',
+                'button_text' => 'Meet Our Team',
+                'button_url' => '/our-team',
                 'meta_items' => [
                     [
                         'icon' => 'bi bi-geo-alt-fill',
@@ -58,6 +60,8 @@ class FounderMessageController extends Controller
             'founder_designation' => 'nullable|string|max:255',
             'card_name' => 'nullable|string|max:255',
             'card_designation' => 'nullable|string|max:255',
+            'button_text' => 'nullable|string|max:255',
+            'button_url' => 'nullable|string|max:255',
             'meta_icons' => 'nullable|array',
             'meta_icons.*' => 'nullable|string|max:255',
             'meta_texts' => 'nullable|array',

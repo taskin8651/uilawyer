@@ -285,7 +285,7 @@
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="btn-submit">
+        <button type="submit" class="btn-primary">
             <i class="fas fa-save"></i>
             Save Settings
         </button>

@@ -79,8 +79,9 @@
       <div class="article-sidebar-card reveal">
         <h3 class="sidebar-title">Need Legal Advice?</h3>
         <p>{{ $practiceAreaService->short_description ?: 'Share your matter and connect for confidential legal guidance.' }}</p>
+        <p class="confidential-note compact"><i class="bi bi-shield-lock-fill"></i> Your information remains confidential and is reviewed only by our legal team.</p>
         <a href="{{ route('frontend.legal-enquiry.index') }}" class="author-btn">
-          Book Consultation
+          Speak With an Advocate
           <i class="bi bi-arrow-right"></i>
         </a>
       </div>
@@ -102,7 +103,7 @@
 
       <div class="article-consult-actions">
         <a href="{{ route('frontend.legal-enquiry.index') }}" class="btn btn-primary magnetic">
-          Book Consultation
+          Discuss Your Matter
           <i class="bi bi-arrow-right"></i>
         </a>
         <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">

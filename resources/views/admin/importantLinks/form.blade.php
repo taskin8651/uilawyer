@@ -1,0 +1,8 @@
+<div class="admin-form-grid"><div class="form-card"><div class="form-card-header"><div class="form-card-icon"><i class="fas fa-link"></i></div><div><p class="form-card-title">Link Details</p><p class="form-card-subtitle">Title, URL and icon class</p></div></div><div class="form-card-body">
+<div class="field-group"><label class="field-label">Title</label><input name="title" class="field-input" required value="{{ old('title', $importantLink->title ?? '') }}"></div>
+<div class="field-group"><label class="field-label">URL</label><input type="url" name="url" class="field-input" required value="{{ old('url', $importantLink->url ?? '') }}"></div>
+<div class="field-group"><label class="field-label">Icon</label><input name="icon" class="field-input" value="{{ old('icon', $importantLink->icon ?? 'fas fa-link') }}"></div>
+</div></div><div class="form-card"><div class="form-card-header"><div class="form-card-icon"><i class="fas fa-cog"></i></div><div><p class="form-card-title">Publish</p><p class="form-card-subtitle">Status and sorting</p></div></div><div class="form-card-body">
+<div class="field-group"><label class="field-label">Sort Order</label><input type="number" name="sort_order" class="field-input" value="{{ old('sort_order', $importantLink->sort_order ?? 0) }}"></div>
+<label class="role-checkbox-item"><input type="checkbox" name="status" value="1" class="role-checkbox" {{ old('status', $importantLink->status ?? true) ? 'checked' : '' }}><div class="check-icon"></div><span class="checkbox-text">Active</span></label>
+</div></div></div><div class="form-actions"><button class="btn-primary"><i class="fas fa-save"></i> Save Link</button><a href="{{ route('admin.important-links.index') }}" class="btn-ghost">Cancel</a></div>

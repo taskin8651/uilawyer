@@ -39,6 +39,11 @@
 </head>
 
 <body>
+@php
+    $adminImportantLinks = \App\Models\ImportantLink::where('status', 1)->orderBy('sort_order')->get();
+    $adminNotifications = \App\Models\AdminNotification::latest()->take(8)->get();
+    $adminUnreadNotifications = $adminNotifications->whereNull('read_at')->count();
+@endphp
 
 <div class="admin-layout">
 
@@ -82,9 +87,41 @@
 
                 {{-- Search --}}
                 <div class="admin-search hidden md:flex">
-                    <input type="text" placeholder="Search...">
+                    <input type="text" id="admin-global-search" placeholder="Search...">
                     <i class="fas fa-search"></i>
+                    <div id="admin-search-results" class="admin-search-results"></div>
                 </div>
+
+                @can('important_link_access')
+                    <div x-data="{ open:false }" class="relative">
+                        <button type="button" @click="open = !open" class="header-btn" title="Important Links">
+                            <i class="fas fa-link"></i>
+                        </button>
+                        <div x-show="open" x-transition @click.outside="open=false" class="user-menu notification-menu">
+                            @forelse($adminImportantLinks as $link)
+                                <a href="{{ $link->url }}" target="_blank" rel="noopener">
+                                    <p class="notification-title"><i class="{{ $link->icon ?: 'fas fa-link' }}"></i> {{ $link->title }}</p>
+                                    <p class="notification-text">{{ $link->url }}</p>
+                                </a>
+                            @empty
+                                <div class="admin-search-empty">No links added yet</div>
+                            @endforelse
+                            <a href="{{ route('admin.important-links.index') }}">
+                                <p class="notification-title"><i class="fas fa-gear"></i> Manage links</p>
+                            </a>
+                        </div>
+                    </div>
+                @endcan
+
+                @can('awareness_video_access')
+                    <a href="{{ route('admin.awareness-videos.index') }}" class="header-btn" title="Awareness Sessions">
+                        <i class="fas fa-video"></i>
+                    </a>
+                @endcan
+
+                <button type="button" class="header-btn" onclick="toggleAdminThemeMode()" title="Toggle dark mode">
+                    <i class="fas fa-circle-half-stroke"></i>
+                </button>
 
                 {{-- Language --}}
                 @if(count(config('panel.available_languages', [])) > 1)
@@ -108,10 +145,30 @@
                 @endif
 
                 {{-- Notifications --}}
-                <button type="button" class="header-btn notification-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notif-dot"></span>
-                </button>
+                @can('notification_access')
+                    <div x-data="{ open:false }" class="relative">
+                        <button type="button" @click="open = !open" class="header-btn notification-btn">
+                            <i class="fas fa-bell"></i>
+                            @if($adminUnreadNotifications)
+                                <span class="notif-dot"></span>
+                            @endif
+                        </button>
+                        <div x-show="open" x-transition @click.outside="open=false" class="user-menu notification-menu">
+                            @forelse($adminNotifications as $notification)
+                                <a href="{{ route('admin.notifications.show', $notification) }}">
+                                    <p class="notification-title">{{ $notification->read_at ? '' : '• ' }}{{ $notification->title }}</p>
+                                    <p class="notification-text">{{ \Illuminate\Support\Str::limit($notification->message, 90) }}</p>
+                                    <p class="notification-time">{{ $notification->created_at->diffForHumans() }}</p>
+                                </a>
+                            @empty
+                                <div class="admin-search-empty">No notifications yet</div>
+                            @endforelse
+                            <a href="{{ route('admin.notifications.index') }}">
+                                <p class="notification-title"><i class="fas fa-list"></i> View all notifications</p>
+                            </a>
+                        </div>
+                    </div>
+                @endcan
 
                 {{-- User dropdown --}}
                 <div x-data="{ open:false }" class="relative">
@@ -214,6 +271,7 @@
 
 {{-- JS --}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
 <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
@@ -227,6 +285,21 @@
 <script src="{{ asset('assets/admin/js/admin.js') }}"></script>
 <script src="{{ asset('assets/admin/js/admin-form.js') }}"></script>
 <script src="{{ asset('assets/admin/js/admin-list.js') }}"></script>
+
+<script>
+initAdminGlobalSearch([
+    { title: 'Dashboard', url: "{{ route('admin.home') }}", icon: 'fas fa-chart-pie', keywords: 'home dashboard' },
+    @can('user_access') { title: 'Users', url: "{{ route('admin.users.index') }}", icon: 'fas fa-user-circle', keywords: 'staff admin users' }, @endcan
+    @can('task_access') { title: 'Tasks', url: "{{ route('admin.tasks.index') }}", icon: 'fas fa-list-check', keywords: 'task management assigned due' }, @endcan
+    @can('internship_access') { title: 'Internships', url: "{{ route('admin.internships.index') }}", icon: 'fas fa-user-graduate', keywords: 'internship applications students' }, @endcan
+    @can('legal_qa_access') { title: 'Legal Q&A', url: "{{ route('admin.legal-qas.index') }}", icon: 'fas fa-comments', keywords: 'ai chat question answer legal' }, @endcan
+    @can('important_link_access') { title: 'Important Links', url: "{{ route('admin.important-links.index') }}", icon: 'fas fa-link', keywords: 'phc ecourts consumer links' }, @endcan
+    @can('awareness_video_access') { title: 'Awareness Videos', url: "{{ route('admin.awareness-videos.index') }}", icon: 'fas fa-video', keywords: 'sessions videos awareness' }, @endcan
+    @can('meta_tag_access') { title: 'Meta Tags', url: "{{ route('admin.meta-tags.index') }}", icon: 'fas fa-tags', keywords: 'seo meta title description keywords' }, @endcan
+    @can('testimonial_access') { title: 'Testimonials', url: "{{ route('admin.testimonials.index') }}", icon: 'fas fa-star', keywords: 'feedback reviews approval' }, @endcan
+    @can('audit_log_access') { title: 'Audit Logs', url: "{{ route('admin.audit-logs.index') }}", icon: 'fas fa-history', keywords: 'logs activity audit' }, @endcan
+]);
+</script>
 
 @yield('scripts')
 

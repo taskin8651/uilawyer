@@ -168,6 +168,15 @@
                 </div>
 
                 <div class="field-group">
+                    <label class="field-label" for="approval_status">Approval Status</label>
+                    <select name="approval_status" id="approval_status" class="field-input">
+                        @foreach(['new' => 'New', 'approved' => 'Approved', 'rejected' => 'Rejected'] as $value => $label)
+                            <option value="{{ $value }}" {{ old('approval_status', $testimonial->approval_status ?? 'new') === $value ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="field-group">
                     <label class="field-label">
                         Status
                     </label>

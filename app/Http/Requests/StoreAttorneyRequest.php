@@ -23,6 +23,12 @@ class StoreAttorneyRequest extends FormRequest
             'phone' => 'nullable|string|max:30',
             'email' => 'nullable|email|max:255',
             'about_team' => 'nullable|string|max:3000',
+            'biography' => 'nullable|string',
+            'qualifications' => 'nullable|string|max:2000',
+            'practice_areas_text' => 'nullable|string|max:2000',
+            'courts_represented' => 'nullable|string|max:2000',
+            'languages_spoken' => 'nullable|string|max:1000',
+            'profile_summary' => 'nullable|string|max:1000',
             'badge' => 'nullable|string|max:255',
 
             'meta_icons' => 'nullable|array',

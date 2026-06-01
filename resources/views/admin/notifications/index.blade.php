@@ -1,0 +1,7 @@
+@extends('layouts.admin')
+@section('page-title', 'Notifications')
+@section('content')
+<div class="admin-page-head"><div><h2 class="admin-page-title">Admin Notifications</h2><p class="admin-page-subtitle">Important system alerts with read/unread status.</p></div></div>
+<div class="page-card"><div class="page-card-table"><table class="min-w-full datatable datatable-Notification"><thead><tr><th></th><th>ID</th><th>Title</th><th>Type</th><th>Status</th><th>Date</th><th style="text-align:right;">Actions</th></tr></thead><tbody>@foreach($notifications as $notification)<tr data-entry-id="{{ $notification->id }}"><td></td><td>#{{ $notification->id }}</td><td>{{ $notification->title }}</td><td>{{ ucfirst($notification->type) }}</td><td>{{ $notification->read_at ? 'Read' : 'Unread' }}</td><td>{{ $notification->created_at->format('d M Y') }}</td><td><div class="action-row">@can('notification_show')<a class="btn-outline" href="{{ route('admin.notifications.show', $notification) }}">View</a>@endcan @can('notification_delete')<form method="POST" action="{{ route('admin.notifications.destroy', $notification) }}" style="display:inline" onsubmit="return confirm('{{ trans('global.areYouSure') }}')">@csrf @method('DELETE')<button class="btn-outline btn-outline-danger">Delete</button></form>@endcan</div></td></tr>@endforeach</tbody></table></div></div>
+@endsection
+@section('scripts')@parent<script>$(function(){initAdminDataTable('.datatable-Notification',{searchPlaceholder:'Search notifications...'});});</script>@endsection

@@ -47,7 +47,7 @@ $siteSetting    = \App\Models\SiteSetting::first();
                     </div>
 
                     <div>
-                        <strong>Call / WhatsApp</strong>
+                        <strong>Call / Advocate Chat</strong>
                         <span>Quick Support</span>
                     </div>
                 </div>
@@ -136,8 +136,8 @@ $siteSetting    = \App\Models\SiteSetting::first();
 
                     <div>
                         <i class="bi bi-chat-square-text-fill"></i>
-                        <strong>Call / WhatsApp Follow-Up</strong>
-                        <span>Our team can contact you through phone or WhatsApp after enquiry submission.</span>
+                        <strong>Call / Advocate Chat Follow-Up</strong>
+                        <span>Our team can contact you through phone or advocate chat after enquiry submission.</span>
                     </div>
 
                     <div>
@@ -156,7 +156,7 @@ $siteSetting    = \App\Models\SiteSetting::first();
 
                     <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank">
                         <i class="bi bi-whatsapp"></i>
-                        WhatsApp Consultation
+                        Speak With an Advocate
                     </a>
                 </div>
 
@@ -186,6 +186,11 @@ $siteSetting    = \App\Models\SiteSetting::first();
     @csrf
 
     <input type="hidden" name="form_type" value="consultation">
+
+    <p class="confidential-note">
+        <i class="bi bi-shield-lock-fill"></i>
+        Your information remains confidential and is reviewed only by our legal team.
+    </p>
 
     <div class="form-grid">
         <div class="form-group">
@@ -573,7 +578,7 @@ $siteSetting    = \App\Models\SiteSetting::first();
                     </span>
 
                     <h2>
-                        Call Or WhatsApp Rajpati & Associates For Quick Consultation Support.
+                        Speak With Rajpati & Associates For Quick Consultation Support.
                     </h2>
 
                     <p>
@@ -590,7 +595,7 @@ $siteSetting    = \App\Models\SiteSetting::first();
 
                     <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic">
                         <i class="bi bi-whatsapp"></i>
-                        WhatsApp Us
+                        Discuss Your Matter
                     </a>
                 </div>
 

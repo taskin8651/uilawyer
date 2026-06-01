@@ -25,6 +25,8 @@ class FounderMessage extends Model implements HasMedia
         'founder_designation',
         'card_name',
         'card_designation',
+        'button_text',
+        'button_url',
         'meta_items',
     ];
 

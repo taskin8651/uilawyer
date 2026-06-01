@@ -28,6 +28,28 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
+    Route::post('notifications/{notification}/read', 'AdminNotificationController@markRead')->name('notifications.markRead');
+    Route::resource('notifications', 'AdminNotificationController')->only(['index', 'show', 'destroy']);
+
+    Route::delete('tasks/destroy', 'TaskController@massDestroy')->name('tasks.massDestroy');
+    Route::resource('tasks', 'TaskController');
+
+    Route::delete('internships/destroy', 'InternshipApplicationController@massDestroy')->name('internships.massDestroy');
+    Route::post('internships/{internship}/status', 'InternshipApplicationController@updateStatus')->name('internships.updateStatus');
+    Route::resource('internships', 'InternshipApplicationController')->only(['index', 'show', 'destroy']);
+
+    Route::delete('important-links/destroy', 'ImportantLinkController@massDestroy')->name('important-links.massDestroy');
+    Route::resource('important-links', 'ImportantLinkController');
+
+    Route::delete('legal-qas/destroy', 'LegalQaController@massDestroy')->name('legal-qas.massDestroy');
+    Route::resource('legal-qas', 'LegalQaController')->only(['index', 'store', 'show', 'destroy']);
+
+    Route::delete('awareness-videos/destroy', 'AwarenessVideoController@massDestroy')->name('awareness-videos.massDestroy');
+    Route::resource('awareness-videos', 'AwarenessVideoController');
+
+    Route::delete('meta-tags/destroy', 'MetaTagController@massDestroy')->name('meta-tags.massDestroy');
+    Route::resource('meta-tags', 'MetaTagController');
+
      Route::get('about-intro', 'AboutIntroController@index')->name('about-intro.index');
     Route::post('about-intro', 'AboutIntroController@update')->name('about-intro.update');
 
@@ -101,9 +123,16 @@ Route::get('/articles/{article:slug}', [App\Http\Controllers\Frontend\ArticlePag
 Route::get('/verdicts-and-judgments', [App\Http\Controllers\Frontend\VerdictJudgmentPageController::class, 'index'])->name('frontend.verdicts.index');
 Route::get('/verdicts-and-judgments/{verdictJudgment:slug}', [App\Http\Controllers\Frontend\VerdictJudgmentPageController::class, 'show'])->name('frontend.verdicts.show');
 
+Route::get('/important-links', [App\Http\Controllers\Frontend\ResourceController::class, 'importantLinks'])->name('frontend.important-links.index');
+Route::get('/awareness-videos', [App\Http\Controllers\Frontend\ResourceController::class, 'awarenessVideos'])->name('frontend.awareness-videos.index');
+Route::get('/legal-qa', [App\Http\Controllers\Frontend\ResourceController::class, 'legalQa'])->name('frontend.legal-qa.index');
+Route::post('/legal-qa', [App\Http\Controllers\Frontend\ResourceController::class, 'storeLegalQa'])->name('frontend.legal-qa.store');
+
 Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('frontend.contact.index');
 Route::get('/book-consultation', [App\Http\Controllers\Frontend\LegalEnquiryController::class, 'index'])->name('frontend.legal-enquiry.index');
 Route::post('/legal-enquiry', [App\Http\Controllers\Frontend\LegalEnquiryController::class, 'store'])->name('frontend.legal-enquiry.store');
 
 Route::get('/career-application', [App\Http\Controllers\Frontend\CareerApplicationController::class, 'index'])->name('frontend.career-application.index');  
 Route::post('/career-application', [App\Http\Controllers\Frontend\CareerApplicationController::class, 'store'])->name('frontend.career-application.store');
+Route::get('/internship-application', [App\Http\Controllers\Frontend\InternshipApplicationController::class, 'index'])->name('frontend.internship-application.index');
+Route::post('/internship-application', [App\Http\Controllers\Frontend\InternshipApplicationController::class, 'store'])->name('frontend.internship-application.store');

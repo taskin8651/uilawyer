@@ -103,6 +103,69 @@
 
 <div class="form-card" style="margin-top:22px;">
     <div class="form-card-header">
+        <div class="form-card-icon"><i class="fas fa-book-open"></i></div>
+        <div>
+            <p class="form-card-title">Knowledge Resource Content</p>
+            <p class="form-card-subtitle">Optional educational sections shown on the practice detail page</p>
+        </div>
+    </div>
+
+    <div class="form-card-body">
+        @foreach([
+            'issue_overview' => ['What is the legal issue?', 'Explain the issue in simple client-friendly language.'],
+            'legal_position' => ['Legal position', 'How the law generally regulates this issue.'],
+            'remedies' => ['Available remedies', 'List practical legal remedies and reliefs.'],
+            'documents_required' => ['Documents usually required', 'Mention common documents clients should keep ready.'],
+            'process_overview' => ['General process', 'Explain the broad legal process without promising outcomes.'],
+            'when_to_consult_lawyer' => ['When to consult a lawyer', 'Explain warning signs or urgency points.'],
+        ] as $field => $meta)
+            <div class="field-group">
+                <label class="field-label" for="{{ $field }}">{{ $meta[0] }}</label>
+                <textarea name="{{ $field }}" id="{{ $field }}" rows="4"
+                          placeholder="{{ $meta[1] }}"
+                          class="field-input {{ $errors->has($field) ? 'error' : '' }}">{{ old($field, $practiceArea->{$field} ?? '') }}</textarea>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+<div class="form-card" style="margin-top:22px;">
+    <div class="form-card-header">
+        <div class="form-card-icon"><i class="fas fa-question-circle"></i></div>
+        <div>
+            <p class="form-card-title">Practice FAQs</p>
+            <p class="form-card-subtitle">Optional questions and answers for SEO and visitor clarity</p>
+        </div>
+    </div>
+
+    <div class="form-card-body">
+        @php
+            $faqItems = old('faq_items', $practiceArea->faq_items ?? []);
+        @endphp
+
+        @for($i = 0; $i < 5; $i++)
+            <div class="admin-form-grid" style="margin-bottom:14px;">
+                <div class="field-group">
+                    <label class="field-label">Question {{ $i + 1 }}</label>
+                    <input type="text" name="faq_questions[]"
+                           value="{{ old('faq_questions.' . $i, $faqItems[$i]['question'] ?? '') }}"
+                           placeholder="What documents are required?"
+                           class="field-input">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Answer {{ $i + 1 }}</label>
+                    <textarea name="faq_answers[]" rows="3"
+                              placeholder="Write a short helpful answer."
+                              class="field-input">{{ old('faq_answers.' . $i, $faqItems[$i]['answer'] ?? '') }}</textarea>
+                </div>
+            </div>
+        @endfor
+    </div>
+</div>
+
+<div class="form-card" style="margin-top:22px;">
+    <div class="form-card-header">
         <div class="form-card-icon"><i class="fas fa-search"></i></div>
         <div>
             <p class="form-card-title">SEO Meta</p>

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ArticleCategory extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Auditable;
 
     public $table = 'article_categories';
 

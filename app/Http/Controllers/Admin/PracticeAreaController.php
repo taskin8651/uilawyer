@@ -36,7 +36,8 @@ class PracticeAreaController extends Controller
         $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title']);
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        unset($data['practice_area_image']);
+        $data['faq_items'] = $this->prepareFaqItems($request);
+        unset($data['practice_area_image'], $data['faq_questions'], $data['faq_answers']);
 
         $practiceArea = PracticeArea::create($data);
 
@@ -71,7 +72,8 @@ class PracticeAreaController extends Controller
         $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title'], $practiceArea->id);
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        unset($data['practice_area_image']);
+        $data['faq_items'] = $this->prepareFaqItems($request);
+        unset($data['practice_area_image'], $data['faq_questions'], $data['faq_answers']);
 
         $practiceArea->update($data);
 
@@ -117,5 +119,23 @@ class PracticeAreaController extends Controller
         }
 
         return $slug;
+    }
+
+    private function prepareFaqItems(Request $request): array
+    {
+        $faqItems = [];
+
+        foreach (($request->faq_questions ?? []) as $key => $question) {
+            $answer = $request->faq_answers[$key] ?? null;
+
+            if ($question || $answer) {
+                $faqItems[] = [
+                    'question' => $question,
+                    'answer' => $answer,
+                ];
+            }
+        }
+
+        return $faqItems;
     }
 }

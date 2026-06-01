@@ -193,7 +193,7 @@
 
         <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-glass magnetic">
           <i class="bi bi-whatsapp"></i>
-          WhatsApp
+          Speak With an Advocate
         </a>
       </div>
     </div>

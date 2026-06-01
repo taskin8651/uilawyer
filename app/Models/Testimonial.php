@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Testimonial extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Auditable;
 
     public $table = 'testimonials';
 
@@ -19,6 +20,7 @@ class Testimonial extends Model
         'review',
         'sort_order',
         'status',
+        'approval_status',
     ];
 
     protected $casts = [

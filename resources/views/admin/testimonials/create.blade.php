@@ -156,6 +156,15 @@
                 </div>
 
                 <div class="field-group">
+                    <label class="field-label" for="approval_status">Approval Status</label>
+                    <select name="approval_status" id="approval_status" class="field-input">
+                        <option value="new" {{ old('approval_status', 'new') === 'new' ? 'selected' : '' }}>New</option>
+                        <option value="approved" {{ old('approval_status') === 'approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="rejected" {{ old('approval_status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
                     <label class="field-label">
                         Status
                     </label>

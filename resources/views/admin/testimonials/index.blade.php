@@ -34,13 +34,13 @@
     </div>
 
     <div class="stat-card">
-        <p class="stat-label">Active</p>
-        <p class="stat-value">{{ $testimonials->where('status', 1)->count() }}</p>
+        <p class="stat-label">Approved</p>
+        <p class="stat-value">{{ $testimonials->where('approval_status', 'approved')->count() }}</p>
     </div>
 
     <div class="stat-card">
-        <p class="stat-label">Inactive</p>
-        <p class="stat-value">{{ $testimonials->where('status', 0)->count() }}</p>
+        <p class="stat-label">New</p>
+        <p class="stat-value">{{ $testimonials->where('approval_status', 'new')->count() }}</p>
     </div>
 
     <div class="stat-card">
@@ -69,6 +69,7 @@
                     <th>Rating</th>
                     <th>Review</th>
                     <th>Sort</th>
+                    <th>Approval</th>
                     <th>Status</th>
                     <th style="text-align:right;">Actions</th>
                 </tr>
@@ -110,6 +111,10 @@
 
                         <td>
                             <span class="id-text">{{ $testimonial->sort_order ?? 0 }}</span>
+                        </td>
+
+                        <td>
+                            <span class="role-tag">{{ ucfirst($testimonial->approval_status ?? 'new') }}</span>
                         </td>
 
                         <td>

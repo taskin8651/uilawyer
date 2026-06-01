@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +11,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Attorney extends Model implements HasMedia
 {
-    use SoftDeletes, InteractsWithMedia;
+    use SoftDeletes, InteractsWithMedia, Auditable;
 
     public $table = 'attorneys';
 
@@ -23,6 +24,12 @@ class Attorney extends Model implements HasMedia
         'phone',
         'email',
         'about_team',
+        'biography',
+        'qualifications',
+        'practice_areas_text',
+        'courts_represented',
+        'languages_spoken',
+        'profile_summary',
         'badge',
         'meta_items',
         'tags',

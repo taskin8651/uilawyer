@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutIntro;
 use App\Models\Article;
 use App\Models\Attorney;
+use App\Models\AwarenessVideo;
+use App\Models\ImportantLink;
+use App\Models\LegalQa;
 use App\Models\PracticeArea;
 use App\Models\Testimonial;
 
@@ -41,9 +44,28 @@ class IndexController extends Controller
             ->get();
 
         $homeTestimonials = Testimonial::where('status', 1)
+            ->where('approval_status', 'approved')
             ->orderBy('sort_order', 'asc')
             ->latest()
             ->take(6)
+            ->get();
+
+        $homeImportantLinks = ImportantLink::where('status', 1)
+            ->orderBy('sort_order', 'asc')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        $homeAwarenessVideos = AwarenessVideo::where('status', 1)
+            ->orderBy('sort_order', 'asc')
+            ->latest()
+            ->take(3)
+            ->get();
+
+        $homeLegalQas = LegalQa::where('status', 'answered')
+            ->whereNotNull('answer')
+            ->latest()
+            ->take(3)
             ->get();
 
         return view('frontend.index', compact(
@@ -51,7 +73,10 @@ class IndexController extends Controller
             'practiceAreaCategories',
             'homeAttorneys',
             'homeArticles',
-            'homeTestimonials'
+            'homeTestimonials',
+            'homeImportantLinks',
+            'homeAwarenessVideos',
+            'homeLegalQas'
         ));
     }
 }

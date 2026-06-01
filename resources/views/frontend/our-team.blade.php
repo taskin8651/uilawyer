@@ -269,7 +269,7 @@
                     </a>
 
                     <a href="{{ route('frontend.legal-enquiry.index') }}" class="consult-btn">
-                        Consult Now
+                        Discuss Matter
                     </a>
                 </div>
             </div>
@@ -396,7 +396,7 @@
 
           <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-glass magnetic">
             <i class="bi bi-whatsapp"></i>
-            WhatsApp Us
+            Discuss Your Matter
           </a>
         </div>
       </div>

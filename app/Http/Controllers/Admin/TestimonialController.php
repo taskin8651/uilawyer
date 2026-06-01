@@ -39,6 +39,7 @@ class TestimonialController extends Controller
             'review'             => 'required|string',
             'sort_order'         => 'nullable|integer',
             'status'             => 'nullable|boolean',
+            'approval_status'    => 'required|in:new,approved,rejected',
         ]);
 
         $data['status'] = $request->has('status') ? 1 : 0;
@@ -74,6 +75,7 @@ class TestimonialController extends Controller
             'review'             => 'required|string',
             'sort_order'         => 'nullable|integer',
             'status'             => 'nullable|boolean',
+            'approval_status'    => 'required|in:new,approved,rejected',
         ]);
 
         $data['status'] = $request->has('status') ? 1 : 0;

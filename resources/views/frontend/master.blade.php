@@ -4,6 +4,17 @@
   @php
     $siteSetting = \App\Models\SiteSetting::current();
     $siteLogo = $siteSetting->logo ?: asset('assets/img/logo2.png');
+    $centralMeta = \App\Models\MetaTag::where('status', 1)->where('page_key', optional(request()->route())->getName())->first();
+    $pageMetaTitle = $centralMeta->meta_title ?? ($metaTitle ?? null);
+    $pageMetaDescription = $centralMeta->meta_description ?? ($metaDescription ?? null);
+    if(isset($attorney)) {
+      $pageMetaTitle = $pageMetaTitle ?: trim($attorney->name . ' - Advocate Profile | ' . $siteSetting->site_name);
+      $pageMetaDescription = $pageMetaDescription ?: ($attorney->profile_summary ?: $attorney->about_team ?: 'Attorney profile, practice focus and consultation details at ' . $siteSetting->site_name . '.');
+    }
+    if(isset($practiceArea)) {
+      $pageMetaTitle = $pageMetaTitle ?: ($practiceArea->meta_title ?: $practiceArea->title . ' Lawyer | ' . $siteSetting->site_name);
+      $pageMetaDescription = $pageMetaDescription ?: ($practiceArea->meta_description ?: $practiceArea->short_description);
+    }
     $practiceAreaMeta = [
       'family-law' => ['icon' => 'bi bi-heartbreak', 'text' => 'Divorce, custody, maintenance and domestic violence matters.', 'anchor' => 'family-law'],
       'criminal-law' => ['icon' => 'bi bi-shield-lock', 'text' => 'Bail, FIR, trial cases, NDPS and economic offences.', 'anchor' => 'criminal-law'],
@@ -17,15 +28,19 @@
     $practiceAreaCategories = \App\Models\PracticeArea::where('status', 1)
       ->orderBy('sort_order')
       ->get();
+    $importantFooterLinks = \App\Models\ImportantLink::where('status', 1)
+      ->orderBy('sort_order')
+      ->take(6)
+      ->get();
   @endphp
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>{{ $siteSetting->seo_title ?: $siteSetting->site_name }}</title>
-  <meta name="description" content="{{ $siteSetting->seo_description }}" />
-  <meta name="keywords" content="{{ $siteSetting->seo_keywords }}" />
-  <meta property="og:title" content="{{ $siteSetting->seo_title ?: $siteSetting->site_name }}" />
-  <meta property="og:description" content="{{ $siteSetting->seo_description }}" />
+  <title>{{ $pageMetaTitle ?: ($siteSetting->seo_title ?: $siteSetting->site_name) }}</title>
+  <meta name="description" content="{{ $pageMetaDescription ?: $siteSetting->seo_description }}" />
+  <meta name="keywords" content="{{ $centralMeta->meta_keywords ?? ($practiceArea->meta_keywords ?? $siteSetting->seo_keywords) }}" />
+  <meta property="og:title" content="{{ $pageMetaTitle ?: ($siteSetting->seo_title ?: $siteSetting->site_name) }}" />
+  <meta property="og:description" content="{{ $pageMetaDescription ?: $siteSetting->seo_description }}" />
   @if($siteSetting->seo_image)
     <meta property="og:image" content="{{ $siteSetting->seo_image }}" />
   @endif
@@ -65,7 +80,7 @@
       </div>
       <div class="topbar-right">
         <a href="tel:{{ $siteSetting->phone }}"><i class="bi bi-telephone-fill"></i> {{ $siteSetting->phone }}</a>
-        <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+        <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i> Speak With an Advocate</a>
         <a href="{{ route('frontend.career-application.index') }}"><i class="bi bi-briefcase-fill"></i> Career</a>
       </div>
     </div>
@@ -112,7 +127,14 @@
     );
 
     $isCareerActive = request()->routeIs(
-        'frontend.career-application.index'
+        'frontend.career-application.index',
+        'frontend.internship-application.index'
+    );
+
+    $isResourceActive = request()->routeIs(
+        'frontend.important-links.index',
+        'frontend.awareness-videos.index',
+        'frontend.legal-qa.index'
     );
 
     $isContactActive = request()->routeIs(
@@ -211,11 +233,30 @@
         </div>
     </div>
 
+    <div class="nav-drop resource-nav-drop {{ $isResourceActive ? 'active' : '' }}">
+        <button type="button" class="nav-drop-btn {{ $isResourceActive ? 'active' : '' }}">
+            Resources
+            <i class="bi bi-chevron-down"></i>
+        </button>
+
+        <div class="nav-submenu">
+            <a href="{{ route('frontend.important-links.index') }}" class="{{ request()->routeIs('frontend.important-links.index') ? 'active' : '' }}">
+                Important Links
+            </a>
+
+            <a href="{{ route('frontend.awareness-videos.index') }}" class="{{ request()->routeIs('frontend.awareness-videos.index') ? 'active' : '' }}">
+                Awareness Videos
+            </a>
+
+            <a href="{{ route('frontend.legal-qa.index') }}" class="{{ request()->routeIs('frontend.legal-qa.index') ? 'active' : '' }}">
+                Legal Q&A
+            </a>
+        </div>
+    </div>
+
     
 
-    <a href="{{ route('frontend.career-application.index') }}" class="{{ $isCareerActive ? 'active' : '' }}">
-        Career
-    </a>
+   
 
     <a href="{{ route('frontend.contact.index') }}" class="{{ $isContactActive ? 'active' : '' }}">
         Contact
@@ -277,7 +318,11 @@
       <div class="footer-grid">
         <div>
           <h3>{{ $siteSetting->site_name }}</h3>
-          <p>{{ $siteSetting->seo_description }}</p>
+          <p>{{ $siteSetting->seo_description ?: 'Professional legal consultation, litigation support and client-focused guidance across important practice areas.' }}</p>
+          <a href="{{ route('frontend.legal-enquiry.index') }}" class="footer-cta-link">
+            Discuss Your Legal Matter
+            <i class="bi bi-arrow-right"></i>
+          </a>
           <div class="socials">
             @if($siteSetting->facebook_url)<a href="{{ $siteSetting->facebook_url }}" target="_blank"><i class="bi bi-facebook"></i></a>@endif
             @if($siteSetting->twitter_url)<a href="{{ $siteSetting->twitter_url }}" target="_blank"><i class="bi bi-twitter-x"></i></a>@endif
@@ -290,7 +335,7 @@
         <div>
           <h4>Practice Areas</h4>
           <div class="footer-links">
-            @foreach($practiceAreaCategories as $practiceArea)
+            @foreach($practiceAreaCategories->take(6) as $practiceArea)
               @php
                 $practiceMeta = $practiceAreaMeta[$practiceArea->slug] ?? ['anchor' => $practiceArea->slug];
               @endphp
@@ -298,20 +343,34 @@
                 {{ $practiceArea->title }}
               </a>
             @endforeach
+            <a href="{{ route('frontend.practice-area.index') }}" class="footer-more-link">View All Practice Areas</a>
           </div>
         </div>
 
         <div>
-          <h4>Important Links</h4>
+          <h4>Quick Links</h4>
           <div class="footer-links">
             <a href="/about">About Us</a>
             <a href="/our-team">Our Team</a>
             <a href="{{ route('frontend.team.join') }}">Join Our Team</a>
+            <a href="{{ route('frontend.internship-application.index') }}">Internship Application</a>
             <a href="/articles">Articles</a>
             <a href="{{ route('frontend.verdicts.index') }}">Verdicts & Judgments</a>
-            <a href="/career-application">Career</a>
+            <a href="{{ route('frontend.career-application.index') }}">Career</a>
             <a href="/contact">Contact Us</a>
-            <a href="{{ route('frontend.legal-enquiry.index') }}">Book Consultation</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Resources</h4>
+          <div class="footer-links">
+            <a href="{{ route('frontend.important-links.index') }}">Important Legal Links</a>
+            <a href="{{ route('frontend.awareness-videos.index') }}">Awareness Videos</a>
+            <a href="{{ route('frontend.legal-qa.index') }}">Legal Q&A</a>
+            @foreach($importantFooterLinks->take(4) as $importantFooterLink)
+              <a href="{{ $importantFooterLink->url }}" target="_blank" rel="noopener">{{ $importantFooterLink->title }}</a>
+            @endforeach
+            <a href="{{ route('frontend.important-links.index') }}" class="footer-more-link">View All Resources</a>
           </div>
         </div>
 
@@ -320,8 +379,7 @@
           <div class="footer-contact">
             <span><i class="bi bi-geo-alt-fill"></i> {{ $siteSetting->address_full }}</span>
             <a href="tel:{{ $siteSetting->phone }}"><i class="bi bi-telephone-fill"></i> {{ $siteSetting->phone }}</a>
-            <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp
-              Consultation</a>
+            <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i> Speak With an Advocate</a>
           </div>
         </div>
       </div>
@@ -337,14 +395,14 @@
     </div>
   </footer>
 
-  <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+  <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="whatsapp-float" aria-label="Speak With an Advocate">
     <i class="bi bi-whatsapp"></i>
   </a>
 
   <div class="mobile-bottom-bar">
     <a href="tel:{{ $siteSetting->phone }}" class="active"><i class="bi bi-telephone-fill"></i>Call</a>
-    <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i>WhatsApp</a>
-    <a href="#consultation"><i class="bi bi-calendar2-check-fill"></i>Book</a>
+    <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank"><i class="bi bi-whatsapp"></i>Advocate</a>
+    <a href="{{ route('frontend.legal-enquiry.index') }}"><i class="bi bi-calendar2-check-fill"></i>Book</a>
     <a href="{{ $siteSetting->map_direction_url ?: '#' }}" target="_blank"><i class="bi bi-geo-alt-fill"></i>Direction</a>
   </div>
   <script src="{{ asset('assets/js/main.js') }}"></script>

@@ -11,16 +11,15 @@
     <div class="container hero-wrap">
       <div class="hero-content">
         <div class="hero-badge"><i class="bi bi-shield-check"></i> Trusted Legal Guidance Since 1999</div>
-        <h1>Strategic Legal Support For Your <span class="gold-word" id="typingWord">Justice</span><span
-            class="typing-cursor"></span>, Rights & Peace.</h1>
-        <p>Rajpati & Associates delivers professional legal representation across family law, criminal matters, civil
-          disputes, Muslim law, service matters, cyber law, property disputes and legal notices with a confidential
-          client-first approach.</p>
+        <h1>Protecting Rights. <span class="gold-word" id="typingWord">Resolving</span><span
+            class="typing-cursor"></span> Disputes.</h1>
+        <p>Strategic litigation and legal consultation across India for family, criminal, civil, Muslim law,
+          service, cyber, property and legal notice matters with confidential, client-first guidance.</p>
         <div class="hero-actions">
           <a href="#consultation" class="btn btn-primary magnetic"><i class="bi bi-chat-square-text-fill"></i> Get Legal
             Advice</a>
           <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic"><i class="bi bi-telephone-fill"></i> Call Now</a>
-          <a href="{{ route('frontend.practice-area.index') }}" class="btn btn-glass magnetic"><i class="bi bi-grid-1x2-fill"></i> Explore Services</a>
+          <a href="{{ route('frontend.practice-area.index') }}" class="btn btn-glass magnetic"><i class="bi bi-grid-1x2-fill"></i> View Practice Areas</a>
         </div>
         <div class="hero-trust">
           <div class="trust-pill"><i class="bi bi-check2-circle"></i> All India Services</div>
@@ -70,7 +69,7 @@
         </a>
         <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="quick-card">
           <div class="quick-icon"><i class="bi bi-whatsapp"></i></div>
-          <div><strong>WhatsApp Us</strong><span>Quick case enquiry</span></div>
+          <div><strong>Chat With an Advocate</strong><span>Quick legal enquiry</span></div>
         </a>
         <a href="#consultation" class="quick-card">
           <div class="quick-icon"><i class="bi bi-calendar2-check-fill"></i></div>
@@ -161,6 +160,147 @@
 </div>
     </div>
   </section>
+
+  <section class="trust-metrics-section">
+    <div class="container">
+      <div class="trust-metrics-grid reveal">
+        <div>
+          <span>Nationwide</span>
+          <strong>Legal Support</strong>
+          <p>Consultation and case guidance for clients across India.</p>
+        </div>
+        <div>
+          <span>Multiple</span>
+          <strong>Practice Areas</strong>
+          <p>Family, criminal, civil, property, service, cyber and notice matters.</p>
+        </div>
+        <div>
+          <span>Client</span>
+          <strong>Consultations</strong>
+          <p>Structured enquiry review with confidential legal-team follow-up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section home-process-section">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="kicker"><i class="bi bi-diagram-3-fill"></i> How We Help</span>
+        <h2 class="section-title">A Clear Process From Enquiry To Legal Action.</h2>
+        <p class="section-text">Visitors can understand what happens after they contact the firm, which builds trust before booking consultation.</p>
+      </div>
+
+      <div class="home-process-grid">
+        <div class="home-process-card reveal">
+          <span>01</span>
+          <i class="bi bi-chat-square-text-fill"></i>
+          <h3>Share Your Matter</h3>
+          <p>Submit the consultation form or contact through call and advocate chat with basic case details.</p>
+        </div>
+
+        <div class="home-process-card reveal">
+          <span>02</span>
+          <i class="bi bi-file-earmark-check-fill"></i>
+          <h3>Document Review</h3>
+          <p>The team checks the case category, documents, urgency and suitable legal direction.</p>
+        </div>
+
+        <div class="home-process-card reveal">
+          <span>03</span>
+          <i class="bi bi-bank2"></i>
+          <h3>Legal Strategy</h3>
+          <p>You receive practical guidance for notice, reply, filing, bail, mediation or litigation support.</p>
+        </div>
+
+        <div class="home-process-card reveal">
+          <span>04</span>
+          <i class="bi bi-shield-check"></i>
+          <h3>Confidential Follow-Up</h3>
+          <p>Communication stays private and the next step is handled with clear client updates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  @if($homeImportantLinks->count() || $homeAwarenessVideos->count())
+    <section class="section frontend-resource-section">
+      <div class="container">
+        <div class="head-row">
+          <div class="section-head reveal">
+            <span class="kicker"><i class="bi bi-folder2-open"></i> Legal Resources</span>
+            <h2 class="section-title">Important Links & Awareness Updates.</h2>
+            <p class="section-text">Helpful court, legal service and awareness resources are now managed directly from the admin panel.</p>
+          </div>
+          <a href="{{ route('frontend.important-links.index') }}" class="btn btn-dark reveal">
+            View All Resources <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="home-resource-grid">
+          <div class="home-link-panel reveal">
+            <div class="resource-panel-head">
+              <i class="bi bi-link-45deg"></i>
+              <div>
+                <strong>Important Legal Links</strong>
+                <span>Quick access for clients and visitors</span>
+              </div>
+            </div>
+
+            <div class="home-link-list">
+              @forelse($homeImportantLinks as $importantLink)
+                <a href="{{ $importantLink->url }}" target="_blank" rel="noopener">
+                  <i class="bi bi-box-arrow-up-right"></i>
+                  <span>{{ $importantLink->title }}</span>
+                </a>
+              @empty
+                <a href="{{ route('frontend.important-links.index') }}">
+                  <i class="bi bi-box-arrow-up-right"></i>
+                  <span>Important legal links will appear here.</span>
+                </a>
+              @endforelse
+            </div>
+          </div>
+
+          <div class="home-video-panel reveal">
+            <div class="resource-panel-head">
+              <i class="bi bi-play-btn-fill"></i>
+              <div>
+                <strong>Awareness Videos</strong>
+                <span>Legal awareness and public guidance</span>
+              </div>
+            </div>
+
+            <div class="home-video-list">
+              @forelse($homeAwarenessVideos as $video)
+                <a href="{{ $video->video_url }}" target="_blank" rel="noopener" class="home-video-item">
+                  <div class="home-video-thumb">
+                    @if($video->thumbnail_image)
+                      <img src="{{ $video->thumbnail_image }}" alt="{{ $video->title }}">
+                    @else
+                      <i class="bi bi-play-circle-fill"></i>
+                    @endif
+                  </div>
+                  <div>
+                    <strong>{{ $video->title }}</strong>
+                    <span>{{ \Illuminate\Support\Str::limit($video->short_description ?: 'Watch this legal awareness video.', 90) }}</span>
+                  </div>
+                </a>
+              @empty
+                <a href="{{ route('frontend.awareness-videos.index') }}" class="home-video-item">
+                  <div class="home-video-thumb"><i class="bi bi-play-circle-fill"></i></div>
+                  <div>
+                    <strong>Awareness videos will appear here.</strong>
+                    <span>Add videos from admin panel to show them on frontend.</span>
+                  </div>
+                </a>
+              @endforelse
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  @endif
 
   <section class="section about" id="about">
     <div class="container about-wrap">
@@ -296,6 +436,11 @@
     @csrf
 
     <input type="hidden" name="form_type" value="consultation">
+
+    <p class="confidential-note">
+        <i class="bi bi-shield-lock-fill"></i>
+        Your information remains confidential and is reviewed only by our legal team.
+    </p>
 
     <div class="form-grid">
 
@@ -435,8 +580,46 @@
         </div>
         <div class="why-card reveal"><i class="bi bi-phone-fill"></i>
           <h3>Easy Contact Flow</h3>
-          <p>Call, WhatsApp, direction and appointment actions stay visible and mobile-friendly.</p>
+        <p>Call, advocate chat, direction and appointment actions stay visible and mobile-friendly.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section home-qa-section">
+    <div class="container home-qa-wrap">
+      <div class="home-qa-content reveal">
+        <span class="kicker"><i class="bi bi-question-circle-fill"></i> Legal Q&A</span>
+        <h2 class="section-title">Common Legal Questions, Simple Answers.</h2>
+        <p class="section-text">A public Q&A section helps visitors get general guidance and encourages them to book private consultation for specific matters.</p>
+        <div class="home-qa-actions">
+          <a href="{{ route('frontend.legal-qa.index') }}" class="btn btn-primary magnetic">
+            Ask A Question
+            <i class="bi bi-arrow-right"></i>
+          </a>
+          <a href="{{ route('frontend.legal-enquiry.index') }}" class="btn btn-dark magnetic">
+            Book Consultation
+            <i class="bi bi-calendar2-check"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="home-qa-list reveal">
+        @forelse($homeLegalQas as $legalQa)
+          <article class="home-qa-card">
+            <h3>{{ \Illuminate\Support\Str::limit($legalQa->question, 110) }}</h3>
+            <p>{{ \Illuminate\Support\Str::limit($legalQa->answer, 150) }}</p>
+          </article>
+        @empty
+          <article class="home-qa-card">
+            <h3>Can I ask a general legal question online?</h3>
+            <p>Yes. Use the Legal Q&A page for general questions. For private advice, book a confidential consultation.</p>
+          </article>
+          <article class="home-qa-card">
+            <h3>Should I share sensitive case facts publicly?</h3>
+            <p>No. Keep sensitive facts for private consultation, document review and direct communication with the legal team.</p>
+          </article>
+        @endforelse
       </div>
     </div>
   </section>
@@ -612,6 +795,38 @@
   </div>
 </section>
 <!-- TESTIMONIALS END -->
+
+<section class="section google-review-section">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="kicker"><i class="bi bi-google"></i> Client Feedback & Google Reviews</span>
+      <h2 class="section-title">Review-Style Feedback From Clients.</h2>
+      <p class="section-text">A dedicated Google reviews integration can be connected later. Until then, approved client feedback is shown in a clean, verified-review style.</p>
+    </div>
+
+    <div class="google-review-grid">
+      @forelse($homeTestimonials->take(3) as $testimonial)
+        <div class="google-review-card reveal">
+          <div class="google-review-head">
+            <div class="avatar">{{ strtoupper(substr($testimonial->client_name ?? 'R', 0, 1)) }}</div>
+            <div>
+              <strong>{{ $testimonial->client_name ?? 'Rajpati Client' }}</strong>
+              <span>Verified feedback</span>
+            </div>
+          </div>
+          <div class="google-stars">{!! str_repeat('&#9733;', (int) $testimonial->rating) !!}</div>
+          <p>{{ \Illuminate\Support\Str::limit($testimonial->review, 150) }}</p>
+        </div>
+      @empty
+        <div class="google-review-card reveal">
+          <div class="google-review-head"><div class="avatar">R</div><div><strong>Rajpati Client</strong><span>Verified feedback</span></div></div>
+          <div class="google-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>Professional guidance, clear communication and careful handling of legal concerns.</p>
+        </div>
+      @endforelse
+    </div>
+  </div>
+</section>
  
   <section class="section articles" id="articles"> 
     <div class="container">
@@ -622,7 +837,7 @@
           <p class="section-text">Article listing, category filters, search, detail pages and related posts can improve
             SEO authority.</p>
         </div>
-        <a href="/articles  " class="btn btn-dark reveal">View Publications <i class="bi bi-arrow-right"></i></a>
+        <a href="{{ route('frontend.articles.index') }}" class="btn btn-dark reveal">View Publications <i class="bi bi-arrow-right"></i></a>
       </div>
 
       <div class="article-grid">
@@ -723,6 +938,29 @@
     </div>
   </section>
 
+  <section class="section internship-index-section">
+    <div class="container">
+      <div class="internship-index-box reveal">
+        <div>
+          <span class="kicker"><i class="bi bi-mortarboard-fill"></i> Internship & Career</span>
+          <h2>Students And Professionals Can Apply Online.</h2>
+          <p>Internship, career and team applications are connected with the admin panel so submissions can be reviewed properly.</p>
+        </div>
+
+        <div class="internship-index-actions">
+          <a href="{{ route('frontend.internship-application.index') }}" class="btn btn-primary magnetic">
+            Apply For Internship
+            <i class="bi bi-arrow-right"></i>
+          </a>
+          <a href="{{ route('frontend.career-application.index') }}" class="btn btn-glass magnetic">
+            Career Application
+            <i class="bi bi-briefcase-fill"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section cta">
     <div class="container">
       <div class="cta-box reveal">
@@ -734,7 +972,7 @@
         <div class="cta-actions">
           <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic"><i class="bi bi-telephone-fill"></i> Call Now</a>
           <a href="https://wa.me/{{ $siteSetting->whatsapp }}" target="_blank" class="btn btn-primary magnetic"><i
-              class="bi bi-whatsapp"></i> WhatsApp Us</a>
+              class="bi bi-whatsapp"></i> Discuss Your Matter</a>
         </div>
       </div>
     </div>

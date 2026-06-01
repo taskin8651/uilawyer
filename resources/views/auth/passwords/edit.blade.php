@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 
+@unless(auth()->user()->is_admin)
 <div class="row">
     <div class="col-md-6">
         <div class="card">
@@ -91,4 +92,5 @@
     </div>
 
 </div>
+@endunless
 @endsection
