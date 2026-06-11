@@ -49,6 +49,23 @@
                        placeholder="bi bi-heartbreak"
                        class="field-input {{ $errors->has('icon_class') ? 'error' : '' }}">
             </div>
+
+            <div class="field-group">
+                <label class="field-label" for="button_text">Button Text</label>
+                <input type="text" name="button_text" id="button_text"
+                       value="{{ old('button_text', $practiceAreaService->button_text ?? '') }}"
+                       placeholder="View Details"
+                       class="field-input {{ $errors->has('button_text') ? 'error' : '' }}">
+            </div>
+
+            <div class="field-group">
+                <label class="field-label" for="url">Custom URL</label>
+                <input type="text" name="url" id="url"
+                       value="{{ old('url', $practiceAreaService->url ?? '') }}"
+                       placeholder="https://example.com/service"
+                       class="field-input {{ $errors->has('url') ? 'error' : '' }}">
+                <p class="field-hint">Optional external or custom service URL.</p>
+            </div>
         </div>
     </div>
 
@@ -142,5 +159,16 @@
         Save Service
     </button>
     <a href="{{ route('admin.practice-area-services.index') }}" class="btn-ghost">Cancel</a>
+
+    @if($isEdit)
+        @can('practice_area_service_delete')
+            <button type="submit"
+                    form="delete-practice-area-service-form"
+                    class="btn-danger">
+                <i class="fas fa-trash-alt"></i>
+                Delete Service
+            </button>
+        @endcan
+    @endif
 </div>
 

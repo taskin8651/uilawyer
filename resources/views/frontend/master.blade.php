@@ -25,7 +25,10 @@
       'cyber-law' => ['icon' => 'bi bi-globe2', 'text' => 'Cyber crime, cyber fraud and digital evidence support.', 'anchor' => 'cyber-law'],
       'legal-notice' => ['icon' => 'bi bi-file-earmark-text', 'text' => 'Legal notice drafting, replies and cheque bounce support.', 'anchor' => 'legal-notice'],
     ];
-    $practiceAreaCategories = \App\Models\PracticeArea::where('status', 1)
+    $practiceAreaCategories = \App\Models\PracticeArea::with(['services' => function ($query) {
+        $query->where('status', 1)->orderBy('sort_order');
+      }])
+      ->where('status', 1)
       ->orderBy('sort_order')
       ->get();
     $importantFooterLinks = \App\Models\ImportantLink::where('status', 1)
@@ -141,6 +144,12 @@
         'frontend.contact.index',
         'frontend.legal-enquiry.index'
     );
+
+    $activePracticeSlug = optional(request()->route('practiceArea'))->slug
+        ?: optional(optional(request()->route('practiceAreaService'))->practiceArea)->slug
+        ?: request()->get('category');
+
+    $activeServiceSlug = optional(request()->route('practiceAreaService'))->slug;
 @endphp
 
 <nav class="navbar">
@@ -164,24 +173,34 @@
                         'anchor' => $practiceArea->slug,
                     ];
 
-                    $isCurrentPractice =
-                        request()->get('category') === $practiceArea->slug
-                        || request()->is('practice-areas/' . $practiceArea->slug);
+                    $isCurrentPractice = $activePracticeSlug === $practiceArea->slug;
                 @endphp
 
-                <a href="{{ route('frontend.practice-area.index', ['category' => $practiceArea->slug]) }}"
-                   class="mega-card {{ $isCurrentPractice ? 'active' : '' }}">
+                <div class="mega-card mega-practice-card {{ $isCurrentPractice ? 'active' : '' }}">
+                    <a href="{{ route('frontend.practice-areas.show', ['practiceArea' => $practiceArea->slug]) }}"
+                       class="mega-area-link">
+                        <i class="{{ $practiceArea->icon_class ?: $practiceMeta['icon'] }}"></i>
 
-                    <i class="{{ $practiceArea->icon_class ?: $practiceMeta['icon'] }}"></i>
+                        <strong>
+                            {{ $practiceArea->title }}
+                        </strong>
 
-                    <strong>
-                        {{ $practiceArea->title }}
-                    </strong>
+                        <span>
+                            {{ $practiceArea->short_description ?: $practiceMeta['text'] }}
+                        </span>
+                    </a>
 
-                    <span>
-                        {{ $practiceArea->short_description ?: $practiceMeta['text'] }}
-                    </span>
-                </a>
+                    @if($practiceArea->services->isNotEmpty())
+                        <div class="mega-service-list">
+                            @foreach($practiceArea->services as $service)
+                                <a href="{{ route('frontend.practice-services.show', ['practiceAreaService' => $service->slug]) }}"
+                                   class="mega-service-link {{ $activeServiceSlug === $service->slug ? 'active' : '' }}">
+                                    {{ $service->title }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             @empty
                 <a href="{{ route('frontend.practice-area.index') }}" class="mega-card">
                     <i class="bi bi-grid-3x3-gap-fill"></i>

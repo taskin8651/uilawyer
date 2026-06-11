@@ -7,26 +7,18 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PracticeAreaService extends Model
+class PracticeAreaFaq extends Model
 {
     use SoftDeletes, Auditable;
 
-    public $table = 'practice_area_services';
+    public $table = 'practice_area_faqs';
 
     protected $fillable = [
         'practice_area_id',
-        'title',
-        'slug',
-        'icon_class',
-        'short_description',
-        'button_text',
-        'url',
-        'description',
+        'question',
+        'answer',
         'status',
         'sort_order',
-        'meta_title',
-        'meta_description',
-        'meta_keywords',
     ];
 
     protected $casts = [

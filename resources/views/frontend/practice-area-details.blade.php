@@ -14,11 +14,7 @@
     'process_overview' => ['General process', 'bi bi-diagram-3-fill'],
     'when_to_consult_lawyer' => ['When to consult a lawyer', 'bi bi-telephone-inbound-fill'],
   ];
-  $defaultFaqs = $practiceArea->faq_items ?: [
-    ['question' => 'What documents are usually required?', 'answer' => 'Basic identity proof, notices, case papers, messages, receipts, orders or other documents connected with the legal issue are usually helpful.'],
-    ['question' => 'What should a client do first?', 'answer' => 'Collect the important facts and documents, avoid informal admissions, and seek legal consultation before taking further steps.'],
-    ['question' => 'When should a lawyer be contacted?', 'answer' => 'A lawyer should be contacted early when a notice, police issue, family dispute, property conflict, court date or urgent legal risk is involved.'],
-  ];
+  $practiceFaqs = $practiceArea->display_faq_items;
 @endphp
 
 <section class="article-breadcrumb">
@@ -101,11 +97,16 @@
       <section class="practice-faq-section">
         <h2>Frequently Asked Questions</h2>
         <div class="practice-faq-list">
-          @foreach($defaultFaqs as $faq)
+          @foreach($practiceFaqs as $faq)
             @if(!empty($faq['question']) || !empty($faq['answer']))
               <div class="practice-faq-item">
-                <h3>{{ $faq['question'] }}</h3>
-                <p>{{ $faq['answer'] }}</p>
+                @if(!empty($faq['question']))
+                  <h3>{{ $faq['question'] }}</h3>
+                @endif
+
+                @if(!empty($faq['answer']))
+                  <p>{{ $faq['answer'] }}</p>
+                @endif
               </div>
             @endif
           @endforeach

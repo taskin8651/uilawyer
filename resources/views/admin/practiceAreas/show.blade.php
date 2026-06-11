@@ -174,6 +174,11 @@
                 </div>
 
                 <div class="detail-row">
+                    <span class="detail-label">Button Text</span>
+                    <span class="detail-value">{{ $practiceArea->button_text ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
                     <span class="detail-label">Sort Order</span>
                     <span class="detail-value">{{ $practiceArea->sort_order ?? 0 }}</span>
                 </div>
@@ -213,6 +218,32 @@
         <div class="detail-card mb-3">
             <div class="detail-section-head">
                 <div class="detail-section-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+
+                <p class="detail-section-title">Knowledge Resource Content</p>
+            </div>
+
+            <div class="detail-section-pad-sm">
+                @foreach([
+                    'issue_overview' => 'What is the legal issue?',
+                    'legal_position' => 'Legal Position',
+                    'remedies' => 'Available Remedies',
+                    'documents_required' => 'Documents Usually Required',
+                    'process_overview' => 'General Process',
+                    'when_to_consult_lawyer' => 'When To Consult A Lawyer',
+                ] as $field => $label)
+                    <p class="meta-small-label">{{ $label }}</p>
+                    <p class="detail-value" style="display:block; margin-bottom:18px; line-height:1.8;">
+                        {!! $practiceArea->{$field} ? nl2br(e($practiceArea->{$field})) : '-' !!}
+                    </p>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="detail-card mb-3">
+            <div class="detail-section-head">
+                <div class="detail-section-icon">
                     <i class="fas fa-align-left"></i>
                 </div>
 
@@ -235,6 +266,56 @@
                         -
                     @endif
                 </div>
+            </div>
+        </div>
+
+        <div class="detail-card mb-3">
+            <div class="detail-section-head">
+                <div class="detail-section-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+
+                <p class="detail-section-title">Practice FAQs</p>
+            </div>
+
+            <div class="detail-section-pad-sm">
+                @forelse($practiceArea->faqs as $faq)
+                    @if($faq->question || $faq->answer)
+                        <div style="margin-bottom:18px;">
+                            <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px;">
+                                <p class="meta-small-label" style="margin:0;">
+                                    FAQ #{{ $loop->iteration }} · Sort {{ $faq->sort_order ?? 0 }}
+                                </p>
+
+                                @if($faq->status)
+                                    <span class="status-pill success">
+                                        <i class="fas fa-check-circle"></i>
+                                        Active
+                                    </span>
+                                @else
+                                    <span class="status-pill warning">
+                                        <i class="fas fa-clock"></i>
+                                        Inactive
+                                    </span>
+                                @endif
+                            </div>
+
+                            @if($faq->question)
+                                <p class="meta-small-label">{{ $faq->question }}</p>
+                            @endif
+
+                            @if($faq->answer)
+                                <p class="detail-value" style="display:block; line-height:1.8;">
+                                    {{ $faq->answer }}
+                                </p>
+                            @endif
+                        </div>
+                    @endif
+                @empty
+                    <p class="detail-value" style="display:block; line-height:1.8;">
+                        No custom FAQs added yet. Frontend will use default FAQs.
+                    </p>
+                @endforelse
             </div>
         </div>
 

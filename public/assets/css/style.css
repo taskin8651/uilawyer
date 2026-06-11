@@ -401,11 +401,22 @@ textarea {
   position: relative;
 }
 
+.nav-drop::after {
+  content: "";
+  position: absolute;
+  left: -16px;
+  right: -16px;
+  top: 100%;
+  height: 22px;
+}
+
 .mega-menu {
   position: absolute;
   left: 50%;
   top: calc(100% + 18px);
-  width: min(860px, calc(100vw - 36px));
+  width: min(980px, calc(100vw - 36px));
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
   transform: translate(-50%, 16px) scale(.98);
   opacity: 0;
   visibility: hidden;
@@ -421,6 +432,7 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 14px;
+  z-index: 120;
 }
 
 .nav-submenu {
@@ -465,9 +477,24 @@ textarea {
   transition: var(--transition);
 }
 
+.mega-practice-card.active,
 .mega-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 45px rgba(11, 16, 32, .1);
+}
+
+.navbar .mega-area-link {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  column-gap: 12px;
+  align-items: start;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.navbar .mega-area-link:hover {
+  background: transparent;
 }
 
 .mega-card i {
@@ -478,7 +505,7 @@ textarea {
   place-items: center;
   background: var(--court-black);
   color: var(--gold-2);
-  margin-bottom: 12px;
+  grid-row: span 2;
 }
 
 .mega-card strong {
@@ -491,6 +518,30 @@ textarea {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.5;
+}
+
+.mega-service-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.navbar .mega-service-link {
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid rgba(74, 47, 24, .08);
+  color: #111a45;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.navbar .mega-service-link:hover,
+.navbar .mega-service-link.active {
+  background: rgba(184, 138, 45, .16);
+  color: var(--court-black);
 }
 
 .header-actions {
@@ -2742,6 +2793,8 @@ textarea {
   .nav-submenu {
     position: static;
     width: 100%;
+    max-height: none;
+    overflow: visible;
     transform: none;
     opacity: 1;
     visibility: visible;
@@ -2781,16 +2834,13 @@ textarea {
   .mega-card {
     padding: 14px;
     border-radius: 18px;
-    display: grid;
-    grid-template-columns: 42px 1fr;
-    column-gap: 12px;
-    align-items: center;
     background: rgba(255, 250, 240, .86);
   }
 
-  .mega-card i {
-    grid-row: span 2;
-    margin-bottom: 0;
+  .navbar .mega-area-link {
+    grid-template-columns: 42px 1fr;
+    column-gap: 12px;
+    align-items: center;
   }
 
   .mega-card strong {
@@ -2799,6 +2849,11 @@ textarea {
 
   .mega-card span {
     font-size: 11px;
+  }
+
+  .mega-service-list {
+    margin-top: 10px;
+    padding-left: 54px;
   }
 
   .menu-toggle {

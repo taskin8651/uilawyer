@@ -20,6 +20,8 @@ class UpdatePracticeAreaServiceRequest extends FormRequest
             'slug'              => 'nullable|string|max:255|unique:practice_area_services,slug,' . request()->route('practice_area_service')->id,
             'icon_class'        => 'nullable|string|max:255',
             'short_description' => 'nullable|string',
+            'button_text'       => 'nullable|string|max:255',
+            'url'               => 'nullable|string|max:255',
             'description'       => 'nullable|string',
             'status'            => 'nullable|boolean',
             'sort_order'        => 'nullable|integer',

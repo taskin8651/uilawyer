@@ -38,6 +38,14 @@
             </div>
 
             <div class="field-group">
+                <label class="field-label" for="button_text">Button Text</label>
+                <input type="text" name="button_text" id="button_text"
+                       value="{{ old('button_text', $practiceArea->button_text ?? '') }}"
+                       placeholder="View Details"
+                       class="field-input {{ $errors->has('button_text') ? 'error' : '' }}">
+            </div>
+
+            <div class="field-group">
                 <label class="field-label" for="practice_area_image">Image</label>
                 <input type="file" name="practice_area_image" id="practice_area_image"
                        class="field-input {{ $errors->has('practice_area_image') ? 'error' : '' }}">
@@ -140,11 +148,40 @@
 
     <div class="form-card-body">
         @php
-            $faqItems = old('faq_items', $practiceArea->faq_items ?? []);
+            if (old('faq_questions')) {
+                $faqItems = collect(old('faq_questions', []))
+                    ->map(function ($question, $index) {
+                        return [
+                            'question' => $question,
+                            'answer' => old('faq_answers.' . $index),
+                            'status' => old('faq_statuses.' . $index, 0),
+                            'sort_order' => old('faq_sort_orders.' . $index, $index),
+                        ];
+                    })
+                    ->all();
+            } else {
+                $faqItems = $isEdit
+                    ? $practiceArea->faqs->map(fn ($faq) => [
+                        'question' => $faq->question,
+                        'answer' => $faq->answer,
+                        'status' => $faq->status,
+                        'sort_order' => $faq->sort_order,
+                    ])->all()
+                    : [];
+
+                if (empty($faqItems) && $isEdit && !empty($practiceArea->faq_items)) {
+                    $faqItems = $practiceArea->faq_items;
+                }
+            }
+
+            $faqRowCount = max(8, count($faqItems));
         @endphp
 
-        @for($i = 0; $i < 5; $i++)
-            <div class="admin-form-grid" style="margin-bottom:14px;">
+        @for($i = 0; $i < $faqRowCount; $i++)
+            @php
+                $faqActive = (bool) ($faqItems[$i]['status'] ?? 1);
+            @endphp
+            <div class="admin-form-grid" style="margin-bottom:14px; grid-template-columns: 1fr 1fr 120px 130px;">
                 <div class="field-group">
                     <label class="field-label">Question {{ $i + 1 }}</label>
                     <input type="text" name="faq_questions[]"
@@ -158,6 +195,23 @@
                     <textarea name="faq_answers[]" rows="3"
                               placeholder="Write a short helpful answer."
                               class="field-input">{{ old('faq_answers.' . $i, $faqItems[$i]['answer'] ?? '') }}</textarea>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Sort Order</label>
+                    <input type="number" name="faq_sort_orders[]"
+                           value="{{ old('faq_sort_orders.' . $i, $faqItems[$i]['sort_order'] ?? $i) }}"
+                           class="field-input">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Status</label>
+                    <label class="role-checkbox-item {{ $faqActive ? 'checked' : '' }}">
+                        <input type="checkbox" name="faq_statuses[{{ $i }}]" value="1" class="role-checkbox"
+                               {{ $faqActive ? 'checked' : '' }}>
+                        <div class="check-icon"></div>
+                        <span class="checkbox-text">Active</span>
+                    </label>
                 </div>
             </div>
         @endfor
@@ -202,5 +256,16 @@
         Save Practice Area
     </button>
     <a href="{{ route('admin.practice-areas.index') }}" class="btn-ghost">Cancel</a>
+
+    @if($isEdit)
+        @can('practice_area_delete')
+            <button type="submit"
+                    form="delete-practice-area-form"
+                    class="btn-danger">
+                <i class="fas fa-trash-alt"></i>
+                Delete Practice Area
+            </button>
+        @endcan
+    @endif
 </div>
 

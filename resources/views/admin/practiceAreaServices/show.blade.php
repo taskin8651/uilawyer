@@ -180,6 +180,16 @@
                 </div>
 
                 <div class="detail-row">
+                    <span class="detail-label">Button Text</span>
+                    <span class="detail-value">{{ $practiceAreaService->button_text ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Custom URL</span>
+                    <span class="detail-value">{{ $practiceAreaService->url ?? '-' }}</span>
+                </div>
+
+                <div class="detail-row">
                     <span class="detail-label">Sort Order</span>
                     <span class="detail-value">{{ $practiceAreaService->sort_order ?? 0 }}</span>
                 </div>

@@ -36,10 +36,16 @@ class PracticeAreaController extends Controller
         $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title']);
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        $data['faq_items'] = $this->prepareFaqItems($request);
-        unset($data['practice_area_image'], $data['faq_questions'], $data['faq_answers']);
+        unset(
+            $data['practice_area_image'],
+            $data['faq_questions'],
+            $data['faq_answers'],
+            $data['faq_statuses'],
+            $data['faq_sort_orders']
+        );
 
         $practiceArea = PracticeArea::create($data);
+        $this->syncFaqs($practiceArea, $request);
 
         if ($request->hasFile('practice_area_image')) {
             $practiceArea
@@ -55,12 +61,16 @@ class PracticeAreaController extends Controller
     {
         abort_if(Gate::denies('practice_area_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $practiceArea->load(['faqs' => fn ($query) => $query->orderBy('sort_order')]);
+
         return view('admin.practiceAreas.show', compact('practiceArea'));
     }
 
     public function edit(PracticeArea $practiceArea)
     {
         abort_if(Gate::denies('practice_area_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $practiceArea->load(['faqs' => fn ($query) => $query->orderBy('sort_order')]);
 
         return view('admin.practiceAreas.edit', compact('practiceArea'));
     }
@@ -72,10 +82,16 @@ class PracticeAreaController extends Controller
         $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['title'], $practiceArea->id);
         $data['status'] = $request->has('status') ? 1 : 0;
         $data['sort_order'] = $request->sort_order ?? 0;
-        $data['faq_items'] = $this->prepareFaqItems($request);
-        unset($data['practice_area_image'], $data['faq_questions'], $data['faq_answers']);
+        unset(
+            $data['practice_area_image'],
+            $data['faq_questions'],
+            $data['faq_answers'],
+            $data['faq_statuses'],
+            $data['faq_sort_orders']
+        );
 
         $practiceArea->update($data);
+        $this->syncFaqs($practiceArea, $request);
 
         if ($request->hasFile('practice_area_image')) {
             $practiceArea
@@ -121,17 +137,32 @@ class PracticeAreaController extends Controller
         return $slug;
     }
 
+    private function syncFaqs(PracticeArea $practiceArea, Request $request): void
+    {
+        $faqItems = $this->prepareFaqItems($request);
+
+        $practiceArea->faqs()->delete();
+
+        foreach ($faqItems as $faqItem) {
+            $practiceArea->faqs()->create($faqItem);
+        }
+    }
+
     private function prepareFaqItems(Request $request): array
     {
         $faqItems = [];
 
         foreach (($request->faq_questions ?? []) as $key => $question) {
             $answer = $request->faq_answers[$key] ?? null;
+            $question = trim((string) $question);
+            $answer = trim((string) $answer);
 
-            if ($question || $answer) {
+            if ($question !== '' || $answer !== '') {
                 $faqItems[] = [
                     'question' => $question,
                     'answer' => $answer,
+                    'status' => isset($request->faq_statuses[$key]) ? 1 : 0,
+                    'sort_order' => (int) ($request->faq_sort_orders[$key] ?? $key),
                 ];
             }
         }

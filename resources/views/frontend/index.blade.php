@@ -9,56 +9,109 @@
     <div class="hero-noise"></div>
 
     <div class="container hero-wrap">
-      <div class="hero-content">
-        <div class="hero-badge"><i class="bi bi-shield-check"></i> Trusted Legal Guidance Since 1999</div>
-        <h1>Protecting Rights. <span class="gold-word" id="typingWord">Resolving</span><span
-            class="typing-cursor"></span> Disputes.</h1>
-        <p>Strategic litigation and legal consultation across India for family, criminal, civil, Muslim law,
-          service, cyber, property and legal notice matters with confidential, client-first guidance.</p>
-        <div class="hero-actions">
-          <a href="#consultation" class="btn btn-primary magnetic"><i class="bi bi-chat-square-text-fill"></i> Get Legal
-            Advice</a>
-          <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic"><i class="bi bi-telephone-fill"></i> Call Now</a>
-          <a href="{{ route('frontend.practice-area.index') }}" class="btn btn-glass magnetic"><i class="bi bi-grid-1x2-fill"></i> View Practice Areas</a>
-        </div>
-        <div class="hero-trust">
-          <div class="trust-pill"><i class="bi bi-check2-circle"></i> All India Services</div>
-          <div class="trust-pill"><i class="bi bi-check2-circle"></i> Experienced Attorneys</div>
-          <div class="trust-pill"><i class="bi bi-check2-circle"></i> Confidential Consultation</div>
-        </div>
-      </div>
+        <div class="hero-content">
 
-      <div class="legal-stage" id="legalStage">
-        <div class="constellation"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <div class="orbit one"></div>
-        <div class="orbit two"></div>
-        <div class="orbit three"></div>
-        <div class="law-book">
-          <div class="book-pages"></div>
-          <div class="book-side"></div>
-          <div class="book-cover"></div>
+            <div class="hero-badge">
+                <i class="bi bi-shield-check"></i>
+                Trusted Legal Guidance Since 1999
+            </div>
+
+            <h1>
+                Protecting Rights.
+                <span class="gold-word">Resolving Disputes.</span>
+            </h1>
+
+            <p>
+    Strategic litigation and legal consultation across India for family law, criminal law,
+    civil law, property law, muslim law, service matters, cyber law, and legal notice
+    matters with confidential, client-first guidance.
+</p>
+
+            <div class="hero-actions">
+                <a href="#consultation" class="btn btn-primary magnetic">
+                    <i class="bi bi-chat-square-text-fill"></i>
+                    Get Legal Advice
+                </a>
+
+                <a href="tel:{{ $siteSetting->phone }}" class="btn btn-glass magnetic">
+                    <i class="bi bi-telephone-fill"></i>
+                    Call Now
+                </a>
+
+                <a href="{{ route('frontend.practice-area.index') }}" class="btn btn-glass magnetic">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    View Practice Areas
+                </a>
+            </div>
+
+            <div class="hero-trust">
+                <div class="trust-pill">
+                    <i class="bi bi-check2-circle"></i>
+                    All India Legal Services
+                </div>
+
+                <div class="trust-pill">
+                    <i class="bi bi-check2-circle"></i>
+                    Experienced Attorneys
+                </div>
+
+                <div class="trust-pill">
+                    <i class="bi bi-check2-circle"></i>
+                    Confidential Consultation
+                </div>
+            </div>
         </div>
-        <div class="scale-mini">
-          <div class="top"></div>
-          <div class="pillar"></div>
-          <div class="beam"></div>
-          <div class="scale-pan-mini left"></div>
-          <div class="scale-pan-mini right"></div>
-          <div class="base"></div>
+
+        <div class="legal-stage" id="legalStage">
+            <div class="constellation">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="orbit one"></div>
+            <div class="orbit two"></div>
+            <div class="orbit three"></div>
+
+            <div class="law-book">
+                <div class="book-pages"></div>
+                <div class="book-side"></div>
+                <div class="book-cover"></div>
+            </div>
+
+            <div class="scale-mini">
+                <div class="top"></div>
+                <div class="pillar"></div>
+                <div class="beam"></div>
+                <div class="scale-pan-mini left"></div>
+                <div class="scale-pan-mini right"></div>
+                <div class="base"></div>
+            </div>
+
+            <div class="gavel">
+                <div class="gavel-head"></div>
+                <div class="gavel-handle"></div>
+            </div>
+
+            <div class="legal-chip chip-one">
+                <i class="bi bi-file-earmark-text"></i>
+                <span>Case File</span>
+            </div>
+
+            <div class="legal-chip chip-two">
+                <i class="bi bi-shield-check"></i>
+                <span>Legal Advice</span>
+            </div>
+
+            <div class="legal-chip chip-three">
+                <i class="bi bi-bank"></i>
+                <span>Court Matter</span>
+            </div>
+
+            <div class="floating-symbol s1"></div>
+            <div class="floating-symbol s2"></div>
+            <div class="floating-symbol s3"></div>
         </div>
-        <div class="gavel">
-          <div class="gavel-head"></div>
-          <div class="gavel-handle"></div>
-        </div>
-        <div class="legal-chip chip-one"><i class="bi bi-file-earmark-text"></i><span>Case File</span></div>
-        <div class="legal-chip chip-two"><i class="bi bi-shield-check"></i><span>Legal Advice</span></div>
-        <div class="legal-chip chip-three"><i class="bi bi-bank"></i><span>Court Matter</span></div>
-        <div class="floating-symbol s1"></div>
-        <div class="floating-symbol s2"></div>
-        <div class="floating-symbol s3"></div>
-      </div>
     </div>
-  </section>
+</section>
 
   <section class="quick-section">
     <div class="container">
@@ -82,6 +135,301 @@
       </div>
     </div>
   </section>
+
+
+  <!-- ================= WHY CHOOSE US START ================= -->
+<section class="why-choose-section section-padding">
+    <div class="container">
+
+        <div class="section-head reveal">
+            <span class="section-kicker">
+                <i class="bi bi-shield-check"></i>
+                Why Choose Us
+            </span>
+
+            <h2>
+                Why Clients Choose
+                <span>Rajpati & Associates</span>
+            </h2>
+
+            <p>
+                We provide practical legal guidance, strong representation and confidential support
+                for individuals, families and businesses across India.
+            </p>
+        </div>
+
+        <div class="why-choose-grid">
+
+            <div class="why-choose-card reveal">
+                <div class="why-choose-icon">
+                    <i class="bi bi-map-fill"></i>
+                </div>
+
+                <h3>Nationwide Legal Support</h3>
+
+                <p>
+                    Legal consultation and representation support for clients across India
+                    through a structured and professional approach.
+                </p>
+            </div>
+
+            <div class="why-choose-card reveal">
+                <div class="why-choose-icon">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+
+                <h3>Experienced Legal Team</h3>
+
+                <p>
+                    Guidance from advocates handling family law, criminal matters, civil disputes,
+                    property issues, service matters and cyber law cases.
+                </p>
+            </div>
+
+            <div class="why-choose-card reveal">
+                <div class="why-choose-icon">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+
+                <h3>Confidential Consultation</h3>
+
+                <p>
+                    Your information remains confidential and is reviewed carefully by our legal team
+                    before suggesting the next legal step.
+                </p>
+            </div>
+
+            <div class="why-choose-card reveal">
+                <div class="why-choose-icon">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                </div>
+
+                <h3>Multiple Practice Areas</h3>
+
+                <p>
+                    Support for divorce, bail, property disputes, Muslim law, service matters,
+                    cyber crime, legal notices and other legal issues.
+                </p>
+            </div>
+
+            <div class="why-choose-card reveal">
+                <div class="why-choose-icon">
+                    <i class="bi bi-journal-check"></i>
+                </div>
+
+                <h3>Practical Legal Strategy</h3>
+
+                <p>
+                    Clear advice focused on documents, legal process, available remedies and
+                    the most suitable course of action.
+                </p>
+            </div>
+
+            <div class="why-choose-card reveal">
+                <div class="why-choose-icon">
+                    <i class="bi bi-person-check-fill"></i>
+                </div>
+
+                <h3>Client-First Approach</h3>
+
+                <p>
+                    Every matter is handled with attention to the client’s concern, urgency,
+                    legal objective and required court process.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ================= WHY CHOOSE US END ================= -->
+
+<style>
+  /* ================= WHY CHOOSE US START ================= */
+
+.why-choose-section {
+    position: relative;
+    padding: 110px 0;
+    background:
+        radial-gradient(circle at top left, rgba(180, 132, 46, 0.08), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%);
+    overflow: hidden;
+}
+
+.why-choose-section .section-head {
+    max-width: 780px;
+    margin: 0 auto 54px;
+    text-align: center;
+}
+
+.section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding: 8px 15px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #8a5b16;
+    background: rgba(180, 132, 46, 0.10);
+    border: 1px solid rgba(180, 132, 46, 0.18);
+}
+
+.why-choose-section .section-head h2 {
+    margin: 0;
+    font-size: clamp(34px, 4vw, 56px);
+    line-height: 1.08;
+    font-weight: 900;
+    color: #111827;
+}
+
+.why-choose-section .section-head h2 span {
+    display: block;
+    color: #b8842e;
+}
+
+.why-choose-section .section-head p {
+    max-width: 680px;
+    margin: 18px auto 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #6b7280;
+}
+
+.why-choose-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.why-choose-card {
+    position: relative;
+    min-height: 270px;
+    padding: 32px 30px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
+    transition: all 0.35s ease;
+    overflow: hidden;
+}
+
+.why-choose-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top right, rgba(180, 132, 46, 0.14), transparent 38%);
+    opacity: 0;
+    transition: all 0.35s ease;
+    pointer-events: none;
+}
+
+.why-choose-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(180, 132, 46, 0.28);
+    box-shadow: 0 28px 80px rgba(15, 23, 42, 0.13);
+}
+
+.why-choose-card:hover::before {
+    opacity: 1;
+}
+
+.why-choose-icon {
+    position: relative;
+    z-index: 1;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #b8842e, #7a4f13);
+    box-shadow: 0 16px 35px rgba(180, 132, 46, 0.28);
+}
+
+.why-choose-icon i {
+    font-size: 24px;
+}
+
+.why-choose-card h3 {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 12px;
+    font-size: 21px;
+    line-height: 1.3;
+    font-weight: 900;
+    color: #111827;
+}
+
+.why-choose-card p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #6b7280;
+}
+
+/* ================= WHY CHOOSE US RESPONSIVE ================= */
+
+@media (max-width: 991px) {
+    .why-choose-section {
+        padding: 90px 0;
+    }
+
+    .why-choose-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767px) {
+    .why-choose-section {
+        padding: 72px 0;
+    }
+
+    .why-choose-section .section-head {
+        margin-bottom: 36px;
+        text-align: left;
+    }
+
+    .why-choose-section .section-head p {
+        margin-left: 0;
+    }
+
+    .why-choose-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .why-choose-card {
+        min-height: auto;
+        padding: 26px 24px;
+        border-radius: 24px;
+    }
+
+    .why-choose-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 18px;
+        margin-bottom: 18px;
+    }
+
+    .why-choose-card h3 {
+        font-size: 19px;
+    }
+
+    .why-choose-card p {
+        font-size: 14px;
+    }
+}
+
+/* ================= WHY CHOOSE US END ================= */
+</style>
 
   <section class="section practice" id="practice">
     <div class="container">

@@ -34,6 +34,8 @@ class PracticeAreaPageController extends Controller
     {
         abort_unless($practiceArea->status, 404);
 
+        $practiceArea->load('activeFaqs');
+
         $latestPracticeAreas = PracticeArea::where('status', 1)
             ->where('id', '!=', $practiceArea->id)
             ->orderBy('sort_order')
