@@ -378,12 +378,92 @@ table.dataTable tbody tr:last-child td {
     border-color: var(--accent) !important;
 }
 
-.dataTables_wrapper .dt-buttons {
+.dataTables_wrapper {
+    display: flow-root;
+    width: 100%;
+    padding: 12px 10px 16px;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dt-buttons,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    float: none !important;
+}
+
+.dataTables_wrapper .admin-dt-toolbar {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+}
+
+.dataTables_wrapper .admin-dt-actions {
+    clear: both;
+    width: 100%;
+}
+
+.dataTables_wrapper .dataTables_length {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    margin: 0 0 12px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: none !important;
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 12px;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    width: min(280px, 32vw);
+    min-height: 40px;
+    margin-left: 0 !important;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    min-height: 38px;
+    margin: 0 6px;
+}
+
+.dataTables_wrapper .dt-buttons {
+    clear: both;
+    display: grid;
+    grid-template-columns: repeat(3, max-content) 1px repeat(2, max-content) 1fr max-content;
+    align-items: center;
     gap: 8px;
-    margin: 10px 0 14px;
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 10px;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    background: #F8FAFC;
+}
+
+.dataTables_wrapper .dt-buttons::before,
+.dataTables_wrapper .dt-buttons::after {
+    content: none !important;
+}
+
+.dataTables_wrapper .dt-button.admin-dt-btn-select:first-of-type {
+    margin-left: 8px !important;
+}
+
+.dataTables_wrapper .dt-buttons > .dt-button:nth-child(4) {
+    grid-column: 5;
+}
+
+.dataTables_wrapper .dt-buttons > .dt-button:nth-child(5) {
+    grid-column: 6;
+}
+
+.dataTables_wrapper .dt-button.admin-dt-btn-danger {
+    grid-column: 8;
+    justify-self: end;
 }
 
 .dataTables_wrapper button.dt-button.admin-dt-btn,
@@ -393,15 +473,17 @@ table.dataTable tbody tr:last-child td {
     align-items: center !important;
     justify-content: center !important;
     gap: 7px !important;
-    min-height: 34px !important;
-    padding: 7px 13px !important;
+    min-width: 88px !important;
+    min-height: 38px !important;
+    margin: 0 !important;
+    padding: 8px 14px !important;
     border-radius: 9px !important;
     border: 1px solid #E2E8F0 !important;
     background: #FFFFFF !important;
     background-image: none !important;
     box-shadow: none !important;
     color: #475569 !important;
-    font-size: 12px !important;
+    font-size: 12.5px !important;
     font-weight: 700 !important;
     line-height: 1 !important;
     letter-spacing: 0 !important;
@@ -411,7 +493,9 @@ table.dataTable tbody tr:last-child td {
 }
 
 .dataTables_wrapper .dt-button.admin-dt-btn i {
-    font-size: 12px;
+    width: 14px;
+    font-size: 13px;
+    text-align: center;
 }
 
 .dataTables_wrapper .dt-button.admin-dt-btn:hover,
@@ -427,8 +511,12 @@ table.dataTable tbody tr:last-child td {
 }
 
 .dataTables_wrapper .dt-button.admin-dt-btn-export {
-    background: #F8FAFC !important;
+    background: #FFFFFF !important;
     color: #334155 !important;
+}
+
+.dataTables_wrapper .dt-button.admin-dt-btn-export:hover {
+    background: #F1F5F9 !important;
 }
 
 .dataTables_wrapper .dt-button.admin-dt-btn-excel {
@@ -438,12 +526,14 @@ table.dataTable tbody tr:last-child td {
 }
 
 .dataTables_wrapper .dt-button.admin-dt-btn-select {
+    min-width: 108px !important;
     color: var(--accent) !important;
     border-color: color-mix(in srgb, var(--accent) 24%, #E2E8F0) !important;
     background: var(--accent-light) !important;
 }
 
 .dataTables_wrapper .dt-button.admin-dt-btn-danger {
+    min-width: 142px !important;
     background: #FFF1F2 !important;
     color: #BE123C !important;
     border-color: #FECDD3 !important;
@@ -455,15 +545,136 @@ table.dataTable tbody tr:last-child td {
     color: #9F1239 !important;
 }
 
-@media (max-width: 640px) {
+.dataTables_wrapper .dataTables_scroll {
+    clear: both;
+    width: 100%;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dataTables_wrapper .dataTables_scrollHead,
+.dataTables_wrapper .dataTables_scrollBody {
+    border: 0 !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding-top: 12px !important;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    float: right !important;
+    padding-top: 10px !important;
+}
+
+@media (max-width: 900px) {
     .dataTables_wrapper .dt-buttons {
-        align-items: stretch;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .dataTables_wrapper .dt-button.admin-dt-btn-select:first-of-type {
+        margin-left: 0 !important;
+    }
+
+    .dataTables_wrapper .dt-buttons > .dt-button:nth-child(4),
+    .dataTables_wrapper .dt-buttons > .dt-button:nth-child(5),
+    .dataTables_wrapper .dt-button.admin-dt-btn-danger {
+        grid-column: auto;
+        justify-self: stretch;
     }
 
     .dataTables_wrapper button.dt-button.admin-dt-btn,
     .dataTables_wrapper div.dt-button.admin-dt-btn,
     .dataTables_wrapper a.dt-button.admin-dt-btn {
-        flex: 1 1 calc(50% - 8px);
-        min-width: 130px;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-card-table {
+        padding: 0;
+    }
+
+    .dataTables_wrapper {
+        padding: 12px;
+    }
+
+    .dataTables_wrapper .admin-dt-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex;
+        float: none !important;
+        width: 100%;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .dataTables_wrapper .dataTables_filter label,
+    .dataTables_wrapper .dataTables_filter input {
+        width: 100%;
+    }
+
+    .dataTables_wrapper .dataTables_length label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .dataTables_wrapper .dt-buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .dataTables_wrapper button.dt-button.admin-dt-btn,
+    .dataTables_wrapper div.dt-button.admin-dt-btn,
+    .dataTables_wrapper a.dt-button.admin-dt-btn {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 42px !important;
+        padding: 9px 8px !important;
+        font-size: 12px !important;
+    }
+
+    .dataTables_wrapper .dt-button.admin-dt-btn-danger {
+        grid-column: 1 / -1;
+    }
+
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        display: flex;
+        float: none !important;
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        margin: 2px 0 !important;
+    }
+}
+
+@media (max-width: 390px) {
+    .dataTables_wrapper .dt-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .dataTables_wrapper .dt-button.admin-dt-btn-danger {
+        grid-column: auto;
     }
 }

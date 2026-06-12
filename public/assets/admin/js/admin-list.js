@@ -69,6 +69,7 @@ function initAdminDataTable(selector, options = {}) {
 
     const dataTable = $(selector + ':not(.ajaxTable)').DataTable({
         buttons: dtButtons,
+        dom: '<"admin-dt-toolbar"lf><"admin-dt-actions"B>rtip',
         order: options.order || [[1, 'desc']],
         pageLength: options.pageLength || 25,
         scrollX: true,

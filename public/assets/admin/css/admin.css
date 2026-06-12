@@ -832,6 +832,12 @@ body {
     color: #FDA4AF !important;
 }
 
+[data-admin-theme="dark"] .dataTables_wrapper .dt-buttons,
+[data-admin-theme="dark"] .dataTables_wrapper .dataTables_scroll {
+    background: var(--surface-soft);
+    border-color: var(--border);
+}
+
 /* Keep page-specific admin components readable in dark mode. */
 [data-admin-theme="dark"] .detail-card,
 [data-admin-theme="dark"] .profile-card-role,
