@@ -323,3 +323,103 @@ if (testimonialSlider) {
   updateSlider();
   startAutoplay();
 }
+
+/* GOOGLE REVIEW SLIDER */
+const googleReviewSlider = document.getElementById("googleReviewSlider");
+
+if (googleReviewSlider) {
+  const track = googleReviewSlider.querySelector(".google-review-track");
+  const cards = Array.from(googleReviewSlider.querySelectorAll(".google-review-card"));
+  const prevBtn = googleReviewSlider.querySelector(".google-review-prev");
+  const nextBtn = googleReviewSlider.querySelector(".google-review-next");
+  const dotsWrap = googleReviewSlider.querySelector(".google-review-dots");
+
+  let currentIndex = 0;
+  let autoplayTimer = null;
+
+  function getVisibleCards() {
+    if (window.innerWidth <= 760) return 1;
+    if (window.innerWidth <= 1120) return 2;
+    return 3;
+  }
+
+  function getMaxIndex() {
+    return Math.max(cards.length - getVisibleCards(), 0);
+  }
+
+  function updateSlider() {
+    if (!cards.length) return;
+
+    const cardWidth = cards[0].offsetWidth;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    track.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+
+    dotsWrap.querySelectorAll(".google-review-dot").forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentIndex);
+    });
+  }
+
+  function createDots() {
+    dotsWrap.innerHTML = "";
+
+    for (let i = 0; i <= getMaxIndex(); i++) {
+      const dot = document.createElement("button");
+      dot.className = "google-review-dot";
+      dot.type = "button";
+      dot.setAttribute("aria-label", `Go to Google review slide ${i + 1}`);
+      dot.addEventListener("click", function () {
+        currentIndex = i;
+        updateSlider();
+        restartAutoplay();
+      });
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  function nextSlide() {
+    currentIndex = currentIndex >= getMaxIndex() ? 0 : currentIndex + 1;
+    updateSlider();
+  }
+
+  function prevSlide() {
+    currentIndex = currentIndex <= 0 ? getMaxIndex() : currentIndex - 1;
+    updateSlider();
+  }
+
+  function stopAutoplay() {
+    clearInterval(autoplayTimer);
+  }
+
+  function startAutoplay() {
+    if (getMaxIndex() > 0) autoplayTimer = setInterval(nextSlide, 4000);
+  }
+
+  function restartAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  prevBtn.addEventListener("click", function () {
+    prevSlide();
+    restartAutoplay();
+  });
+
+  nextBtn.addEventListener("click", function () {
+    nextSlide();
+    restartAutoplay();
+  });
+
+  googleReviewSlider.addEventListener("mouseenter", stopAutoplay);
+  googleReviewSlider.addEventListener("mouseleave", startAutoplay);
+
+  window.addEventListener("resize", function () {
+    currentIndex = Math.min(currentIndex, getMaxIndex());
+    createDots();
+    updateSlider();
+    restartAutoplay();
+  });
+
+  createDots();
+  updateSlider();
+  startAutoplay();
+}

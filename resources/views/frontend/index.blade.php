@@ -1147,32 +1147,73 @@
 <section class="section google-review-section">
   <div class="container">
     <div class="section-head center reveal">
-      <span class="kicker"><i class="bi bi-google"></i> Client Feedback & Google Reviews</span>
-      <h2 class="section-title">Review-Style Feedback From Clients.</h2>
-      <p class="section-text">A dedicated Google reviews integration can be connected later. Until then, approved client feedback is shown in a clean, verified-review style.</p>
+      <span class="kicker"><i class="bi bi-google"></i> Google Reviews</span>
+      <h2 class="section-title">What Clients Say On Google.</h2>
+      @if($googleReviews)
+        <p class="section-text google-review-summary">
+          <strong>{{ number_format($googleReviews['rating'], 1) }}</strong>
+          <span class="google-stars" aria-label="{{ $googleReviews['rating'] }} out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          from {{ $googleReviews['review_count'] }} Google reviews
+        </p>
+      @else
+        <p class="section-text">Approved client feedback about our legal support and communication.</p>
+      @endif
     </div>
 
-    <div class="google-review-grid">
-      @forelse($homeTestimonials->take(3) as $testimonial)
-        <div class="google-review-card reveal">
+    <div class="google-review-slider reveal" id="googleReviewSlider">
+      <button class="google-review-nav google-review-prev" type="button" aria-label="Previous Google review">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+
+      <div class="google-review-track-wrap">
+        <div class="google-review-track">
+      @forelse(collect($googleReviews['reviews'] ?? []) as $review)
+        <div class="google-review-card">
           <div class="google-review-head">
-            <div class="avatar">{{ strtoupper(substr($testimonial->client_name ?? 'R', 0, 1)) }}</div>
+            @if($review['photo_url'])
+              <img class="avatar" src="{{ $review['photo_url'] }}" alt="{{ $review['author_name'] }}" loading="lazy" referrerpolicy="no-referrer">
+            @else
+              <div class="avatar">{{ strtoupper(substr($review['author_name'], 0, 1)) }}</div>
+            @endif
             <div>
-              <strong>{{ $testimonial->client_name ?? 'Rajpati Client' }}</strong>
-              <span>Verified feedback</span>
+              <strong>{{ $review['author_name'] }}</strong>
+              <span>{{ $review['published_at'] ?: 'Google review' }}</span>
             </div>
           </div>
-          <div class="google-stars">{!! str_repeat('&#9733;', (int) $testimonial->rating) !!}</div>
-          <p>{{ \Illuminate\Support\Str::limit($testimonial->review, 150) }}</p>
+          <div class="google-stars" aria-label="{{ $review['rating'] }} out of 5 stars">{!! str_repeat('&#9733;', $review['rating']) !!}</div>
+          <p>
+            {{ filled($review['text'])
+                ? \Illuminate\Support\Str::limit($review['text'], 220)
+                : 'Rated ' . $review['rating'] . ' stars on Google.' }}
+          </p>
+          @if($review['review_url'])
+            <a class="google-review-link" href="{{ $review['review_url'] }}" target="_blank" rel="noopener noreferrer">View on Google <i class="bi bi-box-arrow-up-right"></i></a>
+          @endif
         </div>
       @empty
-        <div class="google-review-card reveal">
-          <div class="google-review-head"><div class="avatar">R</div><div><strong>Rajpati Client</strong><span>Verified feedback</span></div></div>
-          <div class="google-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p>Professional guidance, clear communication and careful handling of legal concerns.</p>
-        </div>
+        @foreach($homeTestimonials->take(3) as $testimonial)
+          <div class="google-review-card">
+            <div class="google-review-head"><div class="avatar">{{ strtoupper(substr($testimonial->client_name ?? 'R', 0, 1)) }}</div><div><strong>{{ $testimonial->client_name ?? 'Rajpati Client' }}</strong><span>Verified feedback</span></div></div>
+            <div class="google-stars">{!! str_repeat('&#9733;', (int) $testimonial->rating) !!}</div>
+            <p>{{ \Illuminate\Support\Str::limit($testimonial->review, 220) }}</p>
+          </div>
+        @endforeach
       @endforelse
+        </div>
+      </div>
+
+      <button class="google-review-nav google-review-next" type="button" aria-label="Next Google review">
+        <i class="bi bi-arrow-right"></i>
+      </button>
+
+      <div class="google-review-dots" aria-label="Google review slider dots"></div>
     </div>
+
+    @if($googleReviews && $googleReviews['maps_url'])
+      <div class="google-review-actions reveal">
+        <a class="btn btn-outline" href="{{ $googleReviews['maps_url'] }}" target="_blank" rel="noopener noreferrer"><i class="bi bi-google"></i> View All Google Reviews</a>
+      </div>
+    @endif
   </div>
 </section>
  

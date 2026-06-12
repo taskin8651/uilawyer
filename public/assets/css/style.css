@@ -3501,13 +3501,78 @@ textarea {
   background: #ffffff;
 }
 
-.google-review-grid,
 .attorney-credentials-grid,
 .knowledge-resource-grid,
 .muslim-law-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
+}
+
+.google-review-slider {
+  position: relative;
+  padding: 0 56px 34px;
+}
+
+.google-review-track-wrap {
+  overflow: hidden;
+}
+
+.google-review-track {
+  display: flex;
+  gap: 18px;
+  transition: transform .45s ease;
+}
+
+.google-review-track .google-review-card {
+  flex: 0 0 calc((100% - 36px) / 3);
+}
+
+.google-review-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--white);
+  background: var(--court-black);
+  cursor: pointer;
+  transform: translateY(-70%);
+}
+
+.google-review-prev {
+  left: 0;
+}
+
+.google-review-next {
+  right: 0;
+}
+
+.google-review-dots {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.google-review-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(7, 19, 63, .2);
+  cursor: pointer;
+}
+
+.google-review-dot.active {
+  width: 24px;
+  border-radius: 99px;
+  background: var(--gold);
 }
 
 .google-review-card,
@@ -3537,6 +3602,7 @@ textarea {
   color: var(--white);
   background: var(--court-black);
   font-weight: 900;
+  object-fit: cover;
 }
 
 .google-review-head strong,
@@ -3562,6 +3628,77 @@ textarea {
   color: var(--gold);
   letter-spacing: .08em;
   margin-bottom: 10px;
+}
+
+.google-review-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.google-review-summary strong {
+  color: var(--court-black);
+  font-size: 1.25rem;
+}
+
+.google-review-summary .google-stars {
+  margin-bottom: 0;
+}
+
+.google-review-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  color: var(--court-black);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.google-review-link:hover {
+  color: var(--gold-2);
+}
+
+.google-review-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+@media (max-width: 1120px) {
+  .google-review-track .google-review-card {
+    flex-basis: calc((100% - 18px) / 2);
+  }
+}
+
+@media (max-width: 760px) {
+  .google-review-slider {
+    padding: 0 0 46px;
+  }
+
+  .google-review-track .google-review-card {
+    flex-basis: 100%;
+  }
+
+  .google-review-nav {
+    top: auto;
+    bottom: 0;
+    transform: none;
+  }
+
+  .google-review-prev {
+    left: calc(50% - 82px);
+  }
+
+  .google-review-next {
+    right: calc(50% - 82px);
+  }
+
+  .google-review-dots {
+    bottom: 16px;
+  }
 }
 
 .attorney-credential-card i,

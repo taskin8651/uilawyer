@@ -11,10 +11,11 @@ use App\Models\ImportantLink;
 use App\Models\LegalQa;
 use App\Models\PracticeArea;
 use App\Models\Testimonial;
+use App\Services\GooglePlacesReviews;
 
 class IndexController extends Controller
 {
-    public function index()
+    public function index(GooglePlacesReviews $googlePlacesReviews)
     {
         $aboutIntro = AboutIntro::latest()->first();
 
@@ -68,6 +69,8 @@ class IndexController extends Controller
             ->take(3)
             ->get();
 
+        $googleReviews = $googlePlacesReviews->get();
+
         return view('frontend.index', compact(
             'aboutIntro',
             'practiceAreaCategories',
@@ -76,7 +79,8 @@ class IndexController extends Controller
             'homeTestimonials',
             'homeImportantLinks',
             'homeAwarenessVideos',
-            'homeLegalQas'
+            'homeLegalQas',
+            'googleReviews'
         ));
     }
 }
