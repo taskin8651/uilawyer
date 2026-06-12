@@ -35,6 +35,13 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'profile_image' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:4096',
+                'dimensions:min_width=120,min_height=120',
+            ],
         ];
     }
 }

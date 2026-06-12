@@ -92,33 +92,6 @@
                     <div id="admin-search-results" class="admin-search-results"></div>
                 </div>
 
-                @can('important_link_access')
-                    <div x-data="{ open:false }" class="relative">
-                        <button type="button" @click="open = !open" class="header-btn" title="Important Links">
-                            <i class="fas fa-link"></i>
-                        </button>
-                        <div x-show="open" x-transition @click.outside="open=false" class="user-menu notification-menu">
-                            @forelse($adminImportantLinks as $link)
-                                <a href="{{ $link->url }}" target="_blank" rel="noopener">
-                                    <p class="notification-title"><i class="{{ $link->icon ?: 'fas fa-link' }}"></i> {{ $link->title }}</p>
-                                    <p class="notification-text">{{ $link->url }}</p>
-                                </a>
-                            @empty
-                                <div class="admin-search-empty">No links added yet</div>
-                            @endforelse
-                            <a href="{{ route('admin.important-links.index') }}">
-                                <p class="notification-title"><i class="fas fa-gear"></i> Manage links</p>
-                            </a>
-                        </div>
-                    </div>
-                @endcan
-
-                @can('awareness_video_access')
-                    <a href="{{ route('admin.awareness-videos.index') }}" class="header-btn" title="Awareness Sessions">
-                        <i class="fas fa-video"></i>
-                    </a>
-                @endcan
-
                 <button type="button" class="header-btn" onclick="toggleAdminThemeMode()" title="Toggle dark mode">
                     <i class="fas fa-circle-half-stroke"></i>
                 </button>
@@ -177,9 +150,11 @@
                             @click="open = !open"
                             class="user-dropdown-btn">
 
-                        <div class="user-dropdown-avatar">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                        </div>
+                        @if(auth()->user()->profile_image)
+                            <img src="{{ auth()->user()->profile_image }}" alt="{{ auth()->user()->name }}" class="user-dropdown-avatar profile-image-cover">
+                        @else
+                            <div class="user-dropdown-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</div>
+                        @endif
 
                         <div class="hidden sm:block text-start">
                             <p class="user-dropdown-name">{{ auth()->user()->name }}</p>
@@ -207,9 +182,9 @@
                         <div class="user-menu-body">
 
                             @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
-                                <a href="{{ route('profile.password.edit') }}" class="user-menu-link">
-                                    <i class="fas fa-key"></i>
-                                    Change Password
+                                <a href="{{ route('profile.index') }}" class="user-menu-link">
+                                    <i class="fas fa-user-circle"></i>
+                                    My Profile
                                 </a>
                             @endif
 
@@ -287,18 +262,7 @@
 <script src="{{ asset('assets/admin/js/admin-list.js') }}"></script>
 
 <script>
-initAdminGlobalSearch([
-    { title: 'Dashboard', url: "{{ route('admin.home') }}", icon: 'fas fa-chart-pie', keywords: 'home dashboard' },
-    @can('user_access') { title: 'Users', url: "{{ route('admin.users.index') }}", icon: 'fas fa-user-circle', keywords: 'staff admin users' }, @endcan
-    @can('task_access') { title: 'Tasks', url: "{{ route('admin.tasks.index') }}", icon: 'fas fa-list-check', keywords: 'task management assigned due' }, @endcan
-    @can('internship_access') { title: 'Internships', url: "{{ route('admin.internships.index') }}", icon: 'fas fa-user-graduate', keywords: 'internship applications students' }, @endcan
-    @can('legal_qa_access') { title: 'Legal Q&A', url: "{{ route('admin.legal-qas.index') }}", icon: 'fas fa-comments', keywords: 'ai chat question answer legal' }, @endcan
-    @can('important_link_access') { title: 'Important Links', url: "{{ route('admin.important-links.index') }}", icon: 'fas fa-link', keywords: 'phc ecourts consumer links' }, @endcan
-    @can('awareness_video_access') { title: 'Awareness Videos', url: "{{ route('admin.awareness-videos.index') }}", icon: 'fas fa-video', keywords: 'sessions videos awareness' }, @endcan
-    @can('meta_tag_access') { title: 'Meta Tags', url: "{{ route('admin.meta-tags.index') }}", icon: 'fas fa-tags', keywords: 'seo meta title description keywords' }, @endcan
-    @can('testimonial_access') { title: 'Testimonials', url: "{{ route('admin.testimonials.index') }}", icon: 'fas fa-star', keywords: 'feedback reviews approval' }, @endcan
-    @can('audit_log_access') { title: 'Audit Logs', url: "{{ route('admin.audit-logs.index') }}", icon: 'fas fa-history', keywords: 'logs activity audit' }, @endcan
-]);
+initAdminGlobalSearch();
 </script>
 
 @yield('scripts')

@@ -67,7 +67,7 @@
 
                     <div class="form-group">
                         <label for="internMobile">Mobile Number</label>
-                        <input type="tel" id="internMobile" name="mobile" value="{{ old('mobile') }}" placeholder="+91 XXXXX XXXXX">
+                        <input type="tel" id="internMobile" name="mobile" value="{{ old('mobile') }}" inputmode="numeric" maxlength="14" placeholder="+91 XXXXX XXXXX">
                     </div>
                 </div>
 

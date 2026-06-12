@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<form method="POST" action="{{ route('admin.users.store') }}">
+<form method="POST" action="{{ route('admin.users.store') }}" enctype="multipart/form-data">
     @csrf
 
     <div class="admin-form-grid">
@@ -133,6 +133,16 @@
                     </div>
 
                     <p id="strength-text" class="strength-text"></p>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="profile_image">Profile Image</label>
+                    <input type="file" name="profile_image" id="profile_image" accept="image/jpeg,image/png,image/webp" class="field-input {{ $errors->has('profile_image') ? 'error' : '' }}">
+                    @error('profile_image')
+                        <p class="field-error"><i class="fas fa-exclamation-circle"></i> {{ $message }}</p>
+                    @else
+                        <p class="field-hint">JPG, PNG or WEBP. Minimum 120×120px, maximum 4 MB.</p>
+                    @enderror
                 </div>
 
             </div>

@@ -467,6 +467,18 @@
     flex-shrink: 0;
 }
 
+.profile-image-preview {
+    display: block;
+    width: 112px;
+    height: 112px;
+    margin-top: 12px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: var(--surface-soft);
+}
+
 .identity-title {
     font-size: 13px;
     font-weight: 700;

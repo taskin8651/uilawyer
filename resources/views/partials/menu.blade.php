@@ -1,20 +1,13 @@
 <aside id="sidebar">
-    @php
-        $sidebarSetting = \App\Models\SiteSetting::first();
-        $sidebarLogo = $sidebarSetting?->logo ?: asset('assets/img/logo.png');
-    @endphp
-
     {{-- BRAND --}}
     <div class="sidebar-brand">
-        <div class="brand-area">
-            <div class="brand-icon">
-                <img src="{{ $sidebarLogo }}" alt="Rajpati & Associates" style="width:28px;height:28px;object-fit:contain;">
-            </div>
-
-            <span class="brand-text">
-                {{ trans('panel.site_title') }}
-            </span>
-        </div>
+        <a href="{{ route('admin.home') }}" class="sidebar-logo-link" aria-label="Rajpati & Associates dashboard">
+            <img
+                src="{{ asset('assets/img/adminlogo.png') }}"
+                alt="Rajpati & Associates"
+                class="sidebar-logo"
+            >
+        </a>
     </div>
 
     {{-- NAV --}}
@@ -420,6 +413,15 @@
 
         <p class="sidebar-section-title compact nav-label">Account</p>
 
+        @can('profile_password_edit')
+            <a href="{{ route('profile.index') }}"
+               data-tooltip="My Profile"
+               class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+                <i class="fas fa-user-circle nav-icon"></i>
+                <span class="nav-label">My Profile</span>
+            </a>
+        @endcan
+
         {{-- Settings --}}
         <a href="{{ route('admin.site-settings.index') }}"
            data-tooltip="Settings"
@@ -427,18 +429,17 @@
             <i class="fas fa-cog nav-icon"></i>
             <span class="nav-label">Settings</span>
         </a>
+<div class="nav-divider"></div>
 
-    </nav>
-
-    {{-- LOGOUT --}}
-    <div class="sidebar-footer">
-        <a href="#"
+        <p class="sidebar-section-title compact nav-label">Logout</p>
+          <a href="#"
            onclick="event.preventDefault(); document.getElementById('logoutform').submit();"
            data-tooltip="Logout"
            class="nav-link logout-link">
             <i class="fas fa-sign-out-alt nav-icon"></i>
             <span class="nav-label">{{ trans('global.logout') }}</span>
         </a>
-    </div>
+
+    </nav>
 
 </aside>

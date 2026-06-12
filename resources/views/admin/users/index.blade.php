@@ -82,9 +82,11 @@
                                     $color  = $colors[$user->id % count($colors)];
                                 @endphp
 
-                                <div class="avatar-circle" style="background: {{ $color }};">
-                                    {{ strtoupper(substr($user->name, 0, 1)) }}
-                                </div>
+                                @if($user->profile_image)
+                                    <img src="{{ $user->profile_image }}" alt="{{ $user->name }}" class="avatar-circle profile-image-cover">
+                                @else
+                                    <div class="avatar-circle" style="background: {{ $color }};">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
+                                @endif
 
                                 <div>
                                     <p class="table-main-text">{{ $user->name }}</p>

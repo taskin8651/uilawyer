@@ -79,11 +79,39 @@ function toggleAdminThemeMode() {
     localStorage.setItem('admin_color_mode', next);
 }
 
-function initAdminGlobalSearch(items) {
+function initAdminGlobalSearch(items = []) {
     const input = document.getElementById('admin-global-search');
     const results = document.getElementById('admin-search-results');
+    const sidebar = document.getElementById('sidebar');
 
     if (!input || !results) return;
+
+    const sidebarItems = sidebar
+        ? Array.from(sidebar.querySelectorAll('.sidebar-nav a[href]')).map(function (link) {
+            const titleNode = link.querySelector('.nav-label');
+            const title = (titleNode ? titleNode.textContent : link.textContent).trim().replace(/\s+/g, ' ');
+            const icon = link.querySelector('i');
+            const group = link.closest('[x-data]');
+            const groupTitleNode = group ? group.querySelector('.nav-group-btn .nav-label') : null;
+            const groupTitle = groupTitleNode ? groupTitleNode.textContent.trim() : '';
+
+            return {
+                title: title,
+                url: link.href,
+                icon: icon ? icon.className : 'fas fa-link',
+                keywords: [title, groupTitle, link.dataset.tooltip || ''].join(' ').toLowerCase()
+            };
+        }).filter(function (item) {
+            return item.title && item.url && item.url !== '#';
+        })
+        : [];
+
+    const seenUrls = new Set();
+    const searchItems = items.concat(sidebarItems).filter(function (item) {
+        if (!item.url || seenUrls.has(item.url)) return false;
+        seenUrls.add(item.url);
+        return true;
+    });
 
     input.addEventListener('input', function () {
         const value = this.value.trim().toLowerCase();
@@ -94,9 +122,11 @@ function initAdminGlobalSearch(items) {
             return;
         }
 
-        const matches = items
-            .filter(item => item.title.toLowerCase().includes(value) || item.keywords.toLowerCase().includes(value))
-            .slice(0, 8);
+        const matches = searchItems
+            .filter(function (item) {
+                return item.title.toLowerCase().includes(value)
+                    || (item.keywords || '').toLowerCase().includes(value);
+            });
 
         if (!matches.length) {
             results.innerHTML = '<div class="admin-search-empty">No matching admin page found</div>';

@@ -7,14 +7,7 @@
     $centralMeta = \App\Models\MetaTag::where('status', 1)->where('page_key', optional(request()->route())->getName())->first();
     $pageMetaTitle = $centralMeta->meta_title ?? ($metaTitle ?? null);
     $pageMetaDescription = $centralMeta->meta_description ?? ($metaDescription ?? null);
-    if(isset($attorney)) {
-      $pageMetaTitle = $pageMetaTitle ?: trim($attorney->name . ' - Advocate Profile | ' . $siteSetting->site_name);
-      $pageMetaDescription = $pageMetaDescription ?: ($attorney->profile_summary ?: $attorney->about_team ?: 'Attorney profile, practice focus and consultation details at ' . $siteSetting->site_name . '.');
-    }
-    if(isset($practiceArea)) {
-      $pageMetaTitle = $pageMetaTitle ?: ($practiceArea->meta_title ?: $practiceArea->title . ' Lawyer | ' . $siteSetting->site_name);
-      $pageMetaDescription = $pageMetaDescription ?: ($practiceArea->meta_description ?: $practiceArea->short_description);
-    }
+    
     $practiceAreaMeta = [
       'family-law' => ['icon' => 'bi bi-heartbreak', 'text' => 'Divorce, custody, maintenance and domestic violence matters.', 'anchor' => 'family-law'],
       'criminal-law' => ['icon' => 'bi bi-shield-lock', 'text' => 'Bail, FIR, trial cases, NDPS and economic offences.', 'anchor' => 'criminal-law'],
@@ -264,7 +257,7 @@
             </a>
 
             <a href="{{ route('frontend.awareness-videos.index') }}" class="{{ request()->routeIs('frontend.awareness-videos.index') ? 'active' : '' }}">
-                Awareness Videos
+                 Videos
             </a>
 
             <a href="{{ route('frontend.legal-qa.index') }}" class="{{ request()->routeIs('frontend.legal-qa.index') ? 'active' : '' }}">
@@ -384,7 +377,7 @@
           <h4>Resources</h4>
           <div class="footer-links">
             <a href="{{ route('frontend.important-links.index') }}">Important Legal Links</a>
-            <a href="{{ route('frontend.awareness-videos.index') }}">Awareness Videos</a>
+            <a href="{{ route('frontend.awareness-videos.index') }}"> Videos</a>
             <a href="{{ route('frontend.legal-qa.index') }}">Legal Q&A</a>
             @foreach($importantFooterLinks->take(4) as $importantFooterLink)
               <a href="{{ $importantFooterLink->url }}" target="_blank" rel="noopener">{{ $importantFooterLink->title }}</a>

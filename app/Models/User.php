@@ -13,10 +13,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use SoftDeletes, Notifiable, HasFactory;
+    use SoftDeletes, Notifiable, HasFactory, InteractsWithMedia;
 
     public $table = 'users';
 
@@ -84,6 +86,16 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('user_profile_image')->singleFile();
+    }
+
+    public function getProfileImageAttribute(): string
+    {
+        return $this->getFirstMediaUrl('user_profile_image');
     }
 
     public function roles()

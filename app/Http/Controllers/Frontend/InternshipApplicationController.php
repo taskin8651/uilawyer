@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\InternshipApplication;
+use App\Rules\ValidPhoneNumber;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class InternshipApplicationController extends Controller
 {
@@ -15,10 +17,37 @@ class InternshipApplicationController extends Controller
 
     public function store(Request $request)
     {
+        $normalizedMobile = $this->normalizeMobile($request->input('mobile'));
+
+        $request->merge([
+            'email' => $request->filled('email') ? strtolower(trim($request->input('email'))) : null,
+            'mobile' => $normalizedMobile,
+        ]);
+
         $data = $request->validate([
             'full_name' => 'required|string|max:255',
-            'mobile' => 'nullable|string|max:30',
-            'email' => 'nullable|email|max:255',
+            'mobile' => [
+                'bail',
+                'nullable',
+                new ValidPhoneNumber,
+                function ($attribute, $value, $fail) {
+                    $duplicateExists = InternshipApplication::withTrashed()
+                        ->whereNotNull('mobile')
+                        ->pluck('mobile')
+                        ->contains(fn ($mobile) => $this->normalizeMobile($mobile) === $value);
+
+                    if ($duplicateExists) {
+                        $fail('An internship application with this mobile number already exists.');
+                    }
+                },
+            ],
+            'email' => [
+                'bail',
+                'nullable',
+                'email',
+                'max:255',
+                Rule::unique('internship_applications', 'email'),
+            ],
             'city_state' => 'nullable|string|max:255',
             'college_university' => 'nullable|string|max:255',
             'course_year' => 'nullable|string|max:255',
@@ -32,6 +61,8 @@ class InternshipApplicationController extends Controller
             'aadhar_card' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'photograph' => 'nullable|image|max:5120',
             'payment_screenshot' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+        ], [
+            'email.unique' => 'An internship application with this email address already exists.',
         ]);
 
         $data['consent'] = true;
@@ -48,5 +79,20 @@ class InternshipApplicationController extends Controller
         return back()
             ->with('message_title', 'Internship Application')
             ->with('message', 'Internship application submitted successfully.');
+    }
+
+    private function normalizeMobile($mobile): ?string
+    {
+        if (! filled($mobile)) {
+            return null;
+        }
+
+        $digits = preg_replace('/\D+/', '', (string) $mobile);
+
+        if (strlen($digits) === 12 && str_starts_with($digits, '91')) {
+            return substr($digits, 2);
+        }
+
+        return $digits;
     }
 }

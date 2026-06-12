@@ -30,6 +30,12 @@ body {
     color: var(--text);
 }
 
+.profile-image-cover {
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 5px;
@@ -103,12 +109,50 @@ body {
 
 /* Sidebar Brand */
 .sidebar-brand {
-    padding: 0 16px;
-    height: 60px;
+    width: 100%;
+    height: 104px;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     border-bottom: 1px solid rgba(255,255,255,.06);
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: height .3s ease, padding .3s ease;
+}
+
+.sidebar-logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.sidebar-logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 224px;
+    max-height: 88px;
+    object-fit: contain;
+    object-position: center;
+    transition: width .3s ease, height .3s ease, max-width .3s ease;
+}
+
+#sidebar.collapsed .sidebar-brand {
+    height: 68px;
+    padding: 8px;
+}
+
+#sidebar.collapsed .sidebar-logo {
+    width: 52px;
+    height: 52px;
+    max-width: 52px;
+    max-height: 52px;
 }
 
 .brand-area {
@@ -788,6 +832,106 @@ body {
     color: #FDA4AF !important;
 }
 
+/* Keep page-specific admin components readable in dark mode. */
+[data-admin-theme="dark"] .detail-card,
+[data-admin-theme="dark"] .profile-card-role,
+[data-admin-theme="dark"] .assigned-user-card,
+[data-admin-theme="dark"] .role-info-box,
+[data-admin-theme="dark"] .stat-mini,
+[data-admin-theme="dark"] .empty-state,
+[data-admin-theme="dark"] .permission-summary,
+[data-admin-theme="dark"] .quick-link,
+[data-admin-theme="dark"] .code-pill,
+[data-admin-theme="dark"] .form-section,
+[data-admin-theme="dark"] .upload-box,
+[data-admin-theme="dark"] .select2-container--default .select2-selection--single,
+[data-admin-theme="dark"] .select2-container--default .select2-selection--multiple,
+[data-admin-theme="dark"] .select2-dropdown {
+    background: var(--surface) !important;
+    border-color: var(--border) !important;
+    color: var(--text) !important;
+}
+
+[data-admin-theme="dark"] .profile-hero,
+[data-admin-theme="dark"] .detail-section-head,
+[data-admin-theme="dark"] .detail-row,
+[data-admin-theme="dark"] .detail-row-icon,
+[data-admin-theme="dark"] .page-card-header,
+[data-admin-theme="dark"] .form-card-header {
+    border-color: var(--border) !important;
+}
+
+[data-admin-theme="dark"] .profile-hero {
+    background: linear-gradient(135deg, rgba(79, 70, 229, .18), var(--surface) 65%) !important;
+}
+
+[data-admin-theme="dark"] .admin-page-subtitle,
+[data-admin-theme="dark"] .page-card-note,
+[data-admin-theme="dark"] .form-card-subtitle,
+[data-admin-theme="dark"] .field-help,
+[data-admin-theme="dark"] .detail-label,
+[data-admin-theme="dark"] .detail-label-sm,
+[data-admin-theme="dark"] .profile-subtitle,
+[data-admin-theme="dark"] .stat-mini-label,
+[data-admin-theme="dark"] .table-sub-text,
+[data-admin-theme="dark"] .dataTables_wrapper .dataTables_info,
+[data-admin-theme="dark"] .dataTables_wrapper .dataTables_filter label,
+[data-admin-theme="dark"] .dataTables_wrapper .dataTables_length label {
+    color: var(--muted) !important;
+}
+
+[data-admin-theme="dark"] .stat-value,
+[data-admin-theme="dark"] .profile-title,
+[data-admin-theme="dark"] .profile-title-lg,
+[data-admin-theme="dark"] .stat-mini-value,
+[data-admin-theme="dark"] .stat-mini-value-sm,
+[data-admin-theme="dark"] .detail-section-title,
+[data-admin-theme="dark"] .detail-value,
+[data-admin-theme="dark"] .detail-value-dark,
+[data-admin-theme="dark"] .field-label,
+[data-admin-theme="dark"] .quick-link,
+[data-admin-theme="dark"] .permission-summary-title,
+[data-admin-theme="dark"] .select2-container--default .select2-selection--single .select2-selection__rendered,
+[data-admin-theme="dark"] .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    color: var(--text) !important;
+}
+
+[data-admin-theme="dark"] .detail-icon,
+[data-admin-theme="dark"] .assign-empty-icon {
+    background: var(--surface-soft) !important;
+    border-color: var(--border) !important;
+}
+
+[data-admin-theme="dark"] .ck.ck-editor__main > .ck-editor__editable,
+[data-admin-theme="dark"] .ck.ck-toolbar {
+    background: var(--surface-soft) !important;
+    border-color: var(--border) !important;
+    color: var(--text) !important;
+}
+
+[data-admin-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button:not(.current) {
+    color: #CBD5E1 !important;
+}
+
+[data-admin-theme="dark"] .admin-main .btn-outline,
+[data-admin-theme="dark"] .admin-main .btn-ghost,
+[data-admin-theme="dark"] .admin-main .mini-permission,
+[data-admin-theme="dark"] .admin-main [style*="color:#475569" i],
+[data-admin-theme="dark"] .admin-main [style*="color: #475569" i] {
+    color: #CBD5E1 !important;
+}
+
+[data-admin-theme="dark"] .admin-main .btn-outline,
+[data-admin-theme="dark"] .admin-main .btn-ghost,
+[data-admin-theme="dark"] .admin-main .mini-permission {
+    background: var(--surface-soft) !important;
+    border-color: var(--border) !important;
+}
+
+[data-admin-theme="dark"] .admin-search-results a {
+    color: var(--text) !important;
+}
+
 /* Alerts */
 .alert-success {
     background: #F0FDF4;
@@ -845,6 +989,18 @@ body {
 
     #sidebar.mobile-open {
         left: 0;
+    }
+
+    #sidebar .sidebar-brand {
+        height: 96px;
+        padding: 8px 14px;
+    }
+
+    #sidebar .sidebar-logo {
+        width: 100%;
+        height: 100%;
+        max-width: 220px;
+        max-height: 80px;
     }
 }
 

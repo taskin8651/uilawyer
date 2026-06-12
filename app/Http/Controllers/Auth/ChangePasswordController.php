@@ -15,23 +15,31 @@ class ChangePasswordController extends Controller
     {
         abort_if(Gate::denies('profile_password_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('auth.passwords.edit');
+        $user = auth()->user()->load(['roles', 'media']);
+
+        return view('auth.passwords.edit', compact('user'));
     }
 
     public function update(UpdatePasswordRequest $request)
     {
         auth()->user()->update($request->validated());
 
-        return redirect()->route('profile.password.edit')->with('message', __('global.change_password_success'));
+        return redirect()->route('profile.index')->with('message', __('global.change_password_success'));
     }
 
     public function updateProfile(UpdateProfileRequest $request)
     {
         $user = auth()->user();
+        $data = $request->validated();
+        unset($data['profile_image']);
 
-        $user->update($request->validated());
+        $user->update($data);
 
-        return redirect()->route('profile.password.edit')->with('message', __('global.update_profile_success'));
+        if ($request->hasFile('profile_image')) {
+            $user->addMediaFromRequest('profile_image')->toMediaCollection('user_profile_image');
+        }
+
+        return redirect()->route('profile.index')->with('message', __('global.update_profile_success'));
     }
 
     public function destroy()

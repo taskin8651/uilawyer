@@ -24,9 +24,11 @@
     </div>
 
     <div class="identity-card">
-        <div class="identity-avatar" style="background: {{ $colors[$user->id % count($colors)] }};">
-            {{ strtoupper(substr($user->name, 0, 1)) }}
-        </div>
+        @if($user->profile_image)
+            <img src="{{ $user->profile_image }}" alt="{{ $user->name }}" class="identity-avatar profile-image-cover">
+        @else
+            <div class="identity-avatar" style="background: {{ $colors[$user->id % count($colors)] }};">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
+        @endif
 
         <div>
             <p class="identity-title">{{ $user->name }}</p>
@@ -35,7 +37,7 @@
     </div>
 </div>
 
-<form method="POST" action="{{ route('admin.users.update', $user->id) }}">
+<form method="POST" action="{{ route('admin.users.update', $user->id) }}" enctype="multipart/form-data">
     @method('PUT')
     @csrf
 
@@ -131,6 +133,15 @@
                     @else
                         <p class="field-hint">{{ trans('cruds.user.fields.password_helper') }}</p>
                     @endif
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="profile_image">Profile Image</label>
+                    <input type="file" name="profile_image" id="profile_image" accept="image/jpeg,image/png,image/webp" class="field-input {{ $errors->has('profile_image') ? 'error' : '' }}">
+                    @if($user->profile_image)
+                        <img src="{{ $user->profile_image }}" alt="{{ $user->name }}" class="profile-image-preview">
+                    @endif
+                    @error('profile_image')<p class="field-error"><i class="fas fa-exclamation-circle"></i> {{ $message }}</p>@else<p class="field-hint">Uploading a new image replaces the current one.</p>@enderror
                 </div>
 
                 <div class="form-info-box">

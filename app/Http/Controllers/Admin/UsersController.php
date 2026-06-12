@@ -18,7 +18,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles'])->get();
+        $users = User::with(['roles', 'media'])->get();
 
         return view('admin.users.index', compact('users'));
     }
@@ -34,8 +34,15 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $user = User::create($request->all());
+        $data = $request->validated();
+        unset($data['roles'], $data['profile_image']);
+
+        $user = User::create($data);
         $user->roles()->sync($request->input('roles', []));
+
+        if ($request->hasFile('profile_image')) {
+            $user->addMediaFromRequest('profile_image')->toMediaCollection('user_profile_image');
+        }
 
         return redirect()->route('admin.users.index');
     }
@@ -46,15 +53,22 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $user->load('roles');
+        $user->load(['roles', 'media']);
 
         return view('admin.users.edit', compact('roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->all());
+        $data = $request->validated();
+        unset($data['roles'], $data['profile_image']);
+
+        $user->update($data);
         $user->roles()->sync($request->input('roles', []));
+
+        if ($request->hasFile('profile_image')) {
+            $user->addMediaFromRequest('profile_image')->toMediaCollection('user_profile_image');
+        }
 
         return redirect()->route('admin.users.index');
     }
@@ -63,7 +77,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles');
+        $user->load(['roles', 'media']);
 
         return view('admin.users.show', compact('user'));
     }

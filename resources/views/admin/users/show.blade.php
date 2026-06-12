@@ -52,9 +52,11 @@
     <div>
         <div class="detail-card mb-3">
             <div class="profile-hero">
-                <div class="profile-avatar-lg" style="background: {{ $color }};">
-                    {{ strtoupper(substr($user->name, 0, 1)) }}
-                </div>
+                @if($user->profile_image)
+                    <img src="{{ $user->profile_image }}" alt="{{ $user->name }}" class="profile-avatar-lg profile-image-cover">
+                @else
+                    <div class="profile-avatar-lg" style="background: {{ $color }};">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
+                @endif
 
                 <p class="profile-title">{{ $user->name }}</p>
                 <p class="profile-subtitle">{{ $user->email }}</p>

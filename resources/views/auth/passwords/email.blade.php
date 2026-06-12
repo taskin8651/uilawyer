@@ -1,42 +1,16 @@
-@extends('layouts.app')
+@extends('frontend.master')
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card mx-4">
-            <div class="card-body p-4">
-                <h1>{{ trans('panel.site_title') }}</h1>
-
-                <p class="text-muted">{{ trans('global.reset_password') }}</p>
-
-                @if(session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('password.email') }}">
-                    @csrf
-
-                    <div class="form-group">
-                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" required autocomplete="email" autofocus placeholder="{{ trans('global.login_email') }}" value="{{ old('email') }}">
-
-                        @if($errors->has('email'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('email') }}
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-flat btn-block">
-                                {{ trans('global.send_password') }}
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+@include('auth.passwords.guest-styles')
+<section class="password-auth-section">
+  <div class="password-auth-card">
+    <div class="password-auth-brand"><i class="bi bi-envelope-lock-fill"></i><h1>Forgot Password</h1><p>Enter your registered email address and we will send you a secure reset link.</p></div>
+    @if(session('status'))<div class="password-alert">{{ session('status') }}</div>@endif
+    <form method="POST" action="{{ route('password.email') }}">
+      @csrf
+      <div class="password-field"><label for="email">Email Address</label><input id="email" class="password-input" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>@error('email')<p class="password-error">{{ $message }}</p>@enderror</div>
+      <button class="password-btn" type="submit">Send Password Reset Link</button>
+      <div class="password-links"><a href="{{ route('login') }}"><i class="bi bi-arrow-left"></i> Back to login</a></div>
+    </form>
+  </div>
+</section>
 @endsection
